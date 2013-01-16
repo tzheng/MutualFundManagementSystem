@@ -5,7 +5,8 @@
 	   	<!--put your page content here 
 		  ============================================
 		 -->
-		
+
+<h4>Change password</h4> <br />
 <form class="form-horizontal">
   <div class="control-group">
     <label class="control-label" for="inputOldPassword">Old Password</label>
