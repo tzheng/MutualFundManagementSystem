@@ -20,14 +20,6 @@
 	   <!--content  -->
 	   <div class="container">
 	   
-	  		<div id="advertisement">
-				<h1> This is Advertisement! <br> Some other content <br> maybe with some pictures!</h1>
-				<p>Carnegie Financial Service Mutual Fund Management System....</p>
-				<a class="btn btn-large btn-success" href="#">More Information...</a>
-			</div>
-			
-			<hr>
-			
 	   		<div class="row-fluid">
 	   			<div class="span6" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">Customer Login</h4> <br />
@@ -57,6 +49,9 @@
 	   			
 	   			<div class="span6">
 	   				<h4 class="homepage-login">Employee Login</h4> <br />
+	   				<div class="alert alert-error">
+	   					Wrong Password! <br >  Wrong Email
+	   				</div>
 	   				<form class="form-horizontal">
 	   					<div class="control-group" >
 	   						<label class="control-label" for="inputEmail2">Email</label>
@@ -80,7 +75,17 @@
 						  </div>
 	   				</form>
 	   			</div>	   			
+	   		
+	   		
+	   		
+
 	   		</div> <!--  end of .row-fluid -->
+	   		<hr>
+	   			   			  		<div id="advertisement">
+				<h1> This is Advertisement! <br> Some other content <br> maybe with some pictures!</h1>
+				<p>Carnegie Financial Service Mutual Fund Management System....</p>
+				<a class="btn btn-large btn-success" href="#">More Information...</a>
+			</div>
 	   </div>
 		
 		<!--include footer -->
