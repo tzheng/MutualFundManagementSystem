@@ -7,6 +7,9 @@ body {
 	padding-top: 20px;
 }
 
+.homepage-login {
+	margin-left: 90px;
+}
 
 .container-narrow {
    margin: 0 auto;
@@ -16,9 +19,6 @@ body {
    margin: 30px 0;
 }
 
-.homeForm {
-	margin-left: -90px;
-}
 
 .sidebar-nav {
         padding: 9px 0;

@@ -30,8 +30,8 @@
 			
 	   		<div class="row-fluid">
 	   			<div class="span6" style="border-right: 1px solid #f5f5f5; ">
-	   				<h4>Customer Login</h4> <br />
-	   				<form class="form-horizontal homeForm">
+	   				<h4 class="homepage-login">Customer Login</h4> <br />
+	   				<form class="form-horizontal">
 	   					<div class="control-group" >
 	   						<label class="control-label" for="inputEmail1">Email</label>
 	   						<div class="controls">
@@ -56,8 +56,8 @@
 	   			</div>
 	   			
 	   			<div class="span6">
-	   				<h4>Employee Login</h4> <br />
-	   				<form class="form-horizontal homeForm">
+	   				<h4 class="homepage-login">Employee Login</h4> <br />
+	   				<form class="form-horizontal">
 	   					<div class="control-group" >
 	   						<label class="control-label" for="inputEmail2">Email</label>
 	   						<div class="controls">
