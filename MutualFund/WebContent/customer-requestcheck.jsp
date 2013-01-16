@@ -23,6 +23,7 @@
 									<br> Address line1
 									<br> Address Line2
 									<br> City, State, Zip
+									<br> <a href="edit">Edit</a>
 									</p>
 							    </div>
 						  </div>
