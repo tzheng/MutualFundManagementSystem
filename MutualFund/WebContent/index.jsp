@@ -20,14 +20,15 @@
 	   <!--content  -->
 	   <div class="container">
 	   
+	   <!-- 
 	   		<div class="row-fluid">
 	   			<div class="span6" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">Customer Login</h4> <br />
 	   				<form class="form-horizontal">
 	   					<div class="control-group" >
-	   						<label class="control-label" for="inputEmail1">Email</label>
+	   						<label class="control-label" for="inputUser1">Username</label>
 	   						<div class="controls">
-	   							<input type="text" id="inputEmail1" placeholder="Email">
+	   							<input type="text" id="inputUser1" placeholder="Username">
 	   						</div>
 	   					</div>
 	   					<div class="control-group" >
@@ -54,6 +55,38 @@
 	   				</div>
 	   				<form class="form-horizontal">
 	   					<div class="control-group" >
+	   						<label class="control-label" for="inputUser2">Username</label>
+	   						<div class="controls">
+	   							<input type="text" id="inputUser2" placeholder="Username">
+	   						</div>
+	   					</div>
+	   					<div class="control-group" >
+	   						<label class="control-label" for="inputPassword2">Passoword</label>
+	   						<div class="controls">
+	   							<input type="password" id="inputPassword2" placeholder="Password">
+	   						</div>
+	   					</div>
+	   					<div class="control-group">
+						    <div class="controls">
+						      <label class="checkbox">
+						        <input type="checkbox"> Remember me
+						      </label>
+						      <button type="submit" class="btn">Login</button>
+						    </div>
+						  </div>
+	   				</form>
+	   			</div>	   			
+	   		
+	   		-->
+	   		
+	   		<div class="row-fluid">
+	   			<div class="span4" style="border-right: 1px solid #f5f5f5; ">
+	   				<h4 class="homepage-login">User Login</h4> <br />
+	   				<div class="alert alert-error">
+	   					Wrong Password! 
+	   				</div>
+	   				<form class="form-horizontal" style="margin-left: -60px;">
+	   					<div class="control-group" >
 	   						<label class="control-label" for="inputEmail2">Email</label>
 	   						<div class="controls">
 	   							<input type="text" id="inputEmail2" placeholder="Email">
@@ -74,18 +107,22 @@
 						    </div>
 						  </div>
 	   				</form>
-	   			</div>	   			
-	   		
-	   		
-	   		
-
+	   			</div>
+	   			
+	   			
+	   			
+	   			<div class="span8" >
+	   				<div id="advertisement">
+						<h1> This is Advertisement! <br> Some other content <br> maybe with some pictures!</h1>
+						<p>Carnegie Financial Service Mutual Fund Management System....</p>
+						<a class="btn btn-large btn-success" href="#">More Information...</a>
+					</div>
+	   			</div>
+	   			
+	   			
 	   		</div> <!--  end of .row-fluid -->
 	   		<hr>
-	   			   			  		<div id="advertisement">
-				<h1> This is Advertisement! <br> Some other content <br> maybe with some pictures!</h1>
-				<p>Carnegie Financial Service Mutual Fund Management System....</p>
-				<a class="btn btn-large btn-success" href="#">More Information...</a>
-			</div>
+	   		
 	   </div>
 		
 		<!--include footer -->
