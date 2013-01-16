@@ -1,4 +1,4 @@
-	   <!--include header -->
+ <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
 
 
@@ -6,12 +6,12 @@
 		  ============================================
 		 -->
 
-<h4>Change Password</h4> <hr />
+<h4>Reset Customer Password</h4> <hr />
 <form class="form-horizontal">
   <div class="control-group">
-    <label class="control-label" for="inputOldPassword">Old Password</label>
+    <label class="control-label" for="inputUsername">Username</label>
     <div class="controls">
-      <input type="text" id="inputOldPassword" placeholder="Old Password">
+      <input type="text" id="inputUsername" placeholder="Username">
     </div>
   </div>
   <div class="control-group">
@@ -28,7 +28,7 @@
   </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn">Change Password</button>
+      <button type="submit" class="btn">Reset Password</button>
     </div>
   </div>
 </form>

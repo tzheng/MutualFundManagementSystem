@@ -23,3 +23,11 @@
 	   				<jsp:include page="nav-employee.jsp" />
 	   		 		
 			   		 <div class="span9">
+			   		 
+			   		 		<!--display path  -->	   		 		
+		<div>
+				<ul class="breadcrumb">
+						<li><a href="#">Home</a> <span class="divider">/</span></li>
+						<li class="active">Path</li>
+				</ul>
+		</div>	 

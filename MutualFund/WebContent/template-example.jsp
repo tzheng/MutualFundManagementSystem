@@ -14,4 +14,4 @@
 				     </div>
 				     
 		<!--include footer -->
-		<jsp:include page="footer-customer-panel.jsp" />
+		<jsp:include page="footer-panel.jsp" />

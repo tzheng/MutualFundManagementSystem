@@ -1,11 +1,12 @@
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
-	   	
-	   	
+
+
 	   	<!--put your page content here 
 		  ============================================
 		 -->
-		
+
+<h4>Change Password</h4> <hr />
 <form class="form-horizontal">
   <div class="control-group">
     <label class="control-label" for="inputOldPassword">Old Password</label>
@@ -31,16 +32,15 @@
     </div>
   </div>
 </form>
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		<!--end of page content 
 		  ============================================
 		 -->
-		
+
 		<!--include footer -->
-		<jsp:include page="footer-customer-panel.jsp" />
-		
+		<jsp:include page="footer-panel.jsp" />
