@@ -50,7 +50,7 @@
 	   			<div class="span6">
 	   				<h4 class="homepage-login">Employee Login</h4> <br />
 	   				<div class="alert alert-error">
-	   					Wrong Password! <br >  Wrong Email
+	   					Wrong Password! 
 	   				</div>
 	   				<form class="form-horizontal">
 	   					<div class="control-group" >
