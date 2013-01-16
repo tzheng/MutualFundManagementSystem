@@ -20,6 +20,6 @@
 	   <!--content  -->
 	   <div class="container-fluid">
 	   		<div class="row-fluid">
-	   				<jsp:include page="header-customer.jsp" />
+	   				<jsp:include page="nav-customer.jsp" />
 	   		 		
 			   		 <div class="span9">
