@@ -20,7 +20,7 @@
 	   <!--content  -->
 	   <div class="container">
 	   
-	   <!-- 
+
 	   		<div class="row-fluid">
 	   			<div class="span6" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">Customer Login</h4> <br />
@@ -42,7 +42,9 @@
 						      <label class="checkbox">
 						        <input type="checkbox"> Remember me
 						      </label>
-						      <button type="submit" class="btn">Login</button>
+						       
+						      <button type="submit" class="btn"><a href="customer-mainpanel.jsp"> Login </a> </button>
+						      
 						    </div>
 						  </div>
 	   				</form>
@@ -71,14 +73,16 @@
 						      <label class="checkbox">
 						        <input type="checkbox"> Remember me
 						      </label>
-						      <button type="submit" class="btn">Login</button>
+						      
+						      <button type="submit" class="btn"><a href="employee-mainpanel.jsp">Login</a></button>
+						      
 						    </div>
 						  </div>
 	   				</form>
 	   			</div>	   			
 	   		
-	   		-->
-	   		
+	   	
+	   			   <!-- 
 	   		<div class="row-fluid">
 	   			<div class="span4" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">User Login</h4> <br />
@@ -121,6 +125,8 @@
 	   			
 	   			
 	   		</div> <!--  end of .row-fluid -->
+	   		
+	   			
 	   		<hr>
 	   		
 	   </div>

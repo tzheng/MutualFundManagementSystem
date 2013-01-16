@@ -27,7 +27,7 @@
 			   		 		<!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="#">Home</a> <span class="divider">/</span></li>
+						<li><a href="employee-mainpanel.jsp">Home</a> <span class="divider">/</span></li>
 						<li class="active">Path</li>
 				</ul>
 		</div>	 
