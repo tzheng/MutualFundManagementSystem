@@ -18,7 +18,7 @@
 								<tr>
 									<th>#</th>
 									<th>Fund</th>
-									<th>Purchase Time</th>
+									<th>Purchase Date</th>
 									<th>Purchase Price</th>
 									<th>Current Price</th>
 									<th>Shares</th>
