@@ -5,106 +5,107 @@
 	   	<!--put your page content here 
 		  ============================================
 		 -->
-		
-				          <div>
-				             <div class = "row-fluid">
-				             	<div class = "span9">
+				  
+				             	
 				             	<!-- title -->
-				             	<h3>Account Information</h3> <br>
-				             		<div class = "row-fluid">
+				             	<h4>Account Information</h4> <hr/>
+				             	<form class="form-horizontal">
 				             			<!-- customer name -->
-				             			<div class="span1" >
-	   										<label class="customer-name">Name</label>
+				             			<div class="control-group">
+	   										<label class="control-label" for="inputCustomerName">Name</label>
+	   										<div class="controls">
+	   											<div class="row-fluid">
+									      			<div class="span4">
+									      					<input type="text" id="inputCustomerName" placeholder="Name" > 
+									      			</div>
+									      			<div class="span6">
+											      		 <button class="btn">Edit</button>
+									      			</div>
+							      				</div>   										
+	   										</div>
 	   									</div>
-	   									<div class="span3 offset1">
-	   										<input type="text" id="inputName" placeholder="Name">
-	   									</div>
-	   									<div class="span2 offset2">
-	   											<button type="submit" class="btn">Edit</button>	   										
-	   									</div>		
-				             		</div>
 	   								
-	   								<div class = "row-fluid">
-				             			<!-- customer address -->
-				             			<div class="span1" >
-	   										<label class="customer-address1">AddressLine1</label>
-	   									</div>
-	   									<div class="span3 offset2">
-	   										<input type="text" id="inputAddress1" placeholder="Address Line 1">
-	   									</div>
-	   									<div class="span2 offset2">
-	   											<button type="submit" class="btn">Edit</button>	   										
+				             			<!-- customer address1 -->
+				             			<div class="control-group">
+	   										<label class="control-label" for="inputAddress1">Address Line1</label>
+
+	   										<div class="controls">
+	   											<div class="row-fluid">
+									      			<div class="span4">
+									      					<input type="text" id="inputAddress1" placeholder="Name" > 
+									      			</div>
+									      			<div class="span6">
+											      		 <button class="btn">Edit</button>
+									      			</div>
+							      				</div>   										
+	   										</div>
 	   									</div>		
-				             		</div>
 				             		
-				             		<div class = "row-fluid">
-				             			<!-- customer address -->
-				             			<div class="span1" >
-	   										<label class="customer-address2">AddressLine2</label>
-	   									</div>
-	   									<div class="span3 offset2">
-	   										<input type="text" id="inputAddress2" placeholder="Address Line 2">
-	   									</div>
-	   									<div class="span2 offset2">
-	   											<button type="submit" class="btn">Edit</button>	   										
-	   									</div>		
-				             		</div>
 				             		
-				             		<div class = "row-fluid">
+				             			<!-- customer address2 -->
+				             			<div class="control-group">
+	   										<label class="control-label" for="inputAddress2">Address Line2</label>
+
+	   										<div class="controls">
+	   											<div class="row-fluid">
+									      			<div class="span4">
+									      					<input type="text" id="inputAddress2" placeholder="Name" > 
+									      			</div>
+									      			<div class="span6">
+											      		 <button class="btn">Edit</button>
+									      			</div>
+							      				</div>   										
+	   										</div>
+	   									</div>				
+				             		
 				             			<!-- last trading date -->
-				             			<div class="span1" >
-	   										<label class="customer-lastTradeDate">LastTradeDate</label>
+				             			<div class="control-group" >
+	   										<label class="control-label" for="inputLastTradeDate">Last Trade Date</label>
+	   										<div class="controls">
+	   										<input type="text" id="inputLastTradeDate" placeholder="MM/DD/YYYY" disabled>
+	   										</div>
 	   									</div>
-	   									<div class="span3 offset2">
-	   										<input type="text" id="inputLastTradeDate" placeholder="Last Trade Date">
-	   									</div>
-				             		</div>
 				             		
-				             		<div class = "row-fluid">
 				             			<!-- balance -->
-				             			<div class="span1" >
-	   										<label class="customer-balance">Balance</label>
+				             			<div class="control-group" >
+	   										<label class="control-label" for="inputBalance">Balance</label>
+	   										<div class="controls">
+	   										<input type="text" id="inputBalance" placeholder="$" disabled>
+	   										</div>
 	   									</div>
-	   									<div class="span3 offset2">
-	   										<input type="text" id="inputBalance" placeholder="Balance">
-	   									</div>
-				             		</div>
 	   								
-	   								<div class = "row-fluid">
 				             			<!-- fund -->
-				             			<div class="span1" >
-	   										<label class="customer-fund">FundName</label>
-	   									</div>
-	   									<div class="span1 offset2">
-	   										<input type="hidden" value=" " name="fund">
+				             			<div class="control-group" >
+	   										<label class="control-label" for="fund-name">Fund Name</label>
+	   										<div class="controls">
+	   										<input type="hidden" value=""  name="fund">
 	   										<select id="fund-name" name="fund_name">
 	   											<option value="">select</option>
 	   										</select>
+	   										</div>
 	   									</div>
-				             		</div>
 				             		
-				             		<div class = "row-fluid">
 				             			<!-- number of shares -->
-				             			<div class="span1" >
-	   										<label class="customer-shares">ShareNumber</label>
+				             			<div class="control-group" >
+	   										<label class="control-label" for="inputShares">Share Number</label>
+	   										<div class="controls">
+	   										<input type="text" id="inputShares" placeholder="ShareNumber" disabled>
+	   										</div>
 	   									</div>
-	   									<div class="span3 offset2">
-	   										<input type="text" id="inputShares" placeholder="ShareNumber">
-	   									</div>
-				             		</div>
 				             		<br>
-				             		<div class = "row-fluid">
-	   									<div class="span2 offset3">
+				             		<div class = "control-group">
+	   									<div class="controls">
 	   											<button type="submit" class="btn">Save</button>	   										
 	   									</div>
-	   									<div class="span2">
+	   									<div class="controls">
 	   											<button type="submit" class="btn">Cancel</button>	   										
 	   									</div>				
 				             		</div>		
 				             	<br>
-				             	</div>
-				             </div>
-				          </div>
+				             	</form>
+				             	
+				            
+				          
 				          
 				          
 		<!--end of page content 
