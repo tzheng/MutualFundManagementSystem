@@ -23,6 +23,14 @@ body {
 	margin-top: 5px;
 }
 
+.select-mini {
+	width: 100px;
+}
+
+.span-group {
+	width: 240px;
+}
+
 .sidebar-nav {
         padding: 9px 0;
  }
