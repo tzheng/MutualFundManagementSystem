@@ -21,7 +21,7 @@ public class FundPriceHistoryDAO {
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
 					+ " (fund_id INT NOT NULL, price_date DATE NOT NULL, price FLOAT NOT NULL,"
-					+ "FOREIGN KEY (fund_id) REFERENCES fund(fund_id), PRIMARY KEY(fund_id, price_date))");
+					+ "PRIMARY KEY (fund_id, price_date), FOREIGN KEY (fund_id) REFERENCES fund (fund_id))");
             
             stmt.close();
         	
