@@ -17,7 +17,7 @@ import databean.FundPriceHistoryBean;
 public class FundPriceHistoryDAO extends BaseDAO {
 	
 	public FundPriceHistoryDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
-		super(jdbcDriver, jdbcURL, tableName);
+		super(jdbcDriver, jdbcURL, tableName); 
 		
 	}
 	
