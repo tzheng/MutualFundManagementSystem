@@ -7,7 +7,7 @@
 		          <li><a href="#">Contact</a></li>
 		       </ul>
 		       
-		       <h3 class="muted">Carnegie Financial Service</h3>
+		       <h3>Carnegie Financial Service</h3>
 	       </div>
 	        <hr>
 	 </div>
