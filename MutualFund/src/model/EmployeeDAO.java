@@ -12,18 +12,15 @@ import org.genericdao.ConnectionPool;
 
 import databean.EmployeeBean;
 
-public class EmployeeDAO extends BaseDAO{
+public class EmployeeDAO extends BaseDAO {
 	
-	private List<Connection> connectionPool = new ArrayList<Connection>();
-
-	private String jdbcDriver;
-	private String jdbcURL;
-	private String tableName;
-	
-	public EmployeeDAO(ConnectionPool pool, String tableName) throws MyDAOException {
-		super(pool, tableName);
+	public EmployeeDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
+		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
+	public void createTable() {
+		
+	}
 	
 	//Method to create Employee
 	public void create(EmployeeBean employee) throws MyDAOException {

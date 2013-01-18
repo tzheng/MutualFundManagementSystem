@@ -3,29 +3,33 @@ package model;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.genericdao.ConnectionPool;
+import model.MyDAOException;
 
-public class BaseDAO {
+public abstract class BaseDAO {
 	private List<Connection> connectionPool = new ArrayList<Connection>();
 
-	private ConnectionPool pool;
-	private String tableName;
+	private String jdbcDriver;
+	private String jdbcURL;
+	public String tableName;
 	
-	public BaseDAO(ConnectionPool pool, String tableName) throws MyDAOException {
-		this.pool = pool;
+	public BaseDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
+		this.jdbcDriver = jdbcDriver;
+		this.jdbcURL    = jdbcURL;
 		this.tableName  = tableName;
 		
-		if (!tableExist()) createTable();
+		if (!tableExists()) createTable();
 	}
 	
 	// Method to check if table exist
-	private boolean tableExist() throws MyDAOException {
+	private boolean tableExists() throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -40,29 +44,13 @@ public class BaseDAO {
         	return answer;
 
         } catch (SQLException e) {
-        	try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
         	throw new MyDAOException(e);
         }
     }
 	
 	// Method to Create New Table if Table Doesn't exist
-	private void createTable() throws MyDAOException {
-		Connection con = null;
-        try {
-        	con = getConnection();
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, firstName VARCHAR(255), lastName VARCHAR(255), "
-					+ "PRIMARY KEY(username))");
-            stmt.close();
-        	
-        	releaseConnection(con);
-
-        } catch (SQLException e) {
-            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-        	throw new MyDAOException(e);
-        }
-    }
+	protected abstract void createTable() throws MyDAOException;
 	
 	// Concurrency control
 	protected synchronized Connection getConnection() throws MyDAOException {
@@ -71,15 +59,13 @@ public class BaseDAO {
 		}
 		
         try {
-        	//Load Driver
-            Class.forName(pool.getDriverName());
+            Class.forName(jdbcDriver);
         } catch (ClassNotFoundException e) {
             throw new MyDAOException(e);
         }
 
         try {
-        	//Connect to Database
-            return DriverManager.getConnection(pool.getURL());
+            return DriverManager.getConnection(jdbcURL);
         } catch (SQLException e) {
             throw new MyDAOException(e);
         }
