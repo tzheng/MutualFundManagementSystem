@@ -1,18 +1,32 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FundPriceHistoryDAO {
-	private List<Connection> connectionPool = new ArrayList<Connection>();
+import org.genericdao.ConnectionPool;
+
+import databean.FundPriceHistoryBean;
+
+
+
+
+public class FundPriceHistoryDAO extends BaseDAO {
 	
+	private List<Connection> connectionPool = new ArrayList<Connection>();
+
 	private String jdbcDriver;
 	private String jdbcURL;
 	private String tableName;
+	
+	public FundPriceHistoryDAO(ConnectionPool pool, String tableName) throws MyDAOException {
+		super(pool, tableName);
+		
+	}
 	
 	private void createTable() throws MyDAOException {
 		Connection con = null;
@@ -32,29 +46,33 @@ public class FundPriceHistoryDAO {
         	throw new MyDAOException(e);
         }
 	}
-	
-	// Concurrency control
-		private synchronized Connection getConnection() throws MyDAOException {
-			if (connectionPool.size() > 0) {
-				return connectionPool.remove(connectionPool.size()-1);
-			}
+	 
+	public void create(FundPriceHistoryBean priceHistory) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName 
+														+ " (fund_id, price_date, price) VALUES (?,?,?)");
 			
-	        try {
-	        	//Load Driver
-	            Class.forName(jdbcDriver);
-	        } catch (ClassNotFoundException e) {
-	            throw new MyDAOException(e);
-	        }
+			pstmt.setInt(1, priceHistory.getFund_id());
+			// convert java.utl.date to java.sql.date so that can insert date to ...
+			Date sqlDate = new Date(priceHistory.getPrice_date().getTime());
+			pstmt.setDate(2, sqlDate);
+			pstmt.setDouble(3, priceHistory.getPrice());
+			
+			int count = pstmt.executeUpdate();
+			if (count != 1) throw new SQLException("insert updated " + count + "rows");
+			
+			pstmt.close();
+			releaseConnection(con);
+			
+		} catch (SQLException e) {
+			throw new MyDAOException(e);
+		} 
+	}
 
-	        try {
-	        	//Connect to Database
-	            return DriverManager.getConnection(jdbcURL);
-	        } catch (SQLException e) {
-	            throw new MyDAOException(e);
-	        }
-		}
-		
-		private synchronized void releaseConnection(Connection con) {
-			connectionPool.add(con);
-		}
 }
+
+
+
+
