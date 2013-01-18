@@ -5,7 +5,7 @@
 	   	<!--put your page content here 
 		  ============================================
 		 -->
-		 <div class="row-fluid">
+		 
 		  <h4>Transaction History Filter</h4> <hr>
 		 <div>  <!--  This is filter for Transaction History -->
 		 		 <form class="form-horizontal">
@@ -13,8 +13,8 @@
 							    <label class="control-label" for="dateRange">Date Range</label>
 							    <div class="controls">
 							    		<div class="row-fluid">
-							          		<div class="span5">From: <input type="text" id="dateRange" placeholder="MM/DD/YYYY"></div>
-							          		 <div class="span5">To: <input type="text" id="dateRange" placeholder="MM/DD/YYYY"> </div>
+							          		<div class="span5">From: <input type="text"  class="dp span6" value="02-16-2012" ></div>
+							          		 <div class="span5">To: <input type="text"  class="dp span6" value="02-16-2012" > </div>
 							    		</div>
 							    </div>
 						  </div>
@@ -23,41 +23,60 @@
 							    <label class="control-label" for="dateRange">Amount Range</label>
 							    <div class="controls">
 							    		<div class="row-fluid">
-							          		<div class="span5">From: <input type="text" id="dateRange" placeholder="amount"></div>
-							          		 <div class="span5">To: <input type="text" id="dateRange" placeholder="amount"> </div>
+							          		<div class="span5">From:<div class="input-prepend">
+									  	<span class="add-on">$</span>
+									  	<input class="span6" id="appendedPrependedInput" type="text" placeholder="0.00">
+									</div></div>
+							          		 <div class="span4">To: <div class="input-prepend">
+									  	<span class="add-on">$</span>
+									  	<input class="span6" id="appendedPrependedInput" type="text" placeholder="0.00">
+									</div> </div>
 							    		</div>
 							    </div>
 						  </div>
 						  
 						  
-						  <div class="control-group" >
-						  		<div class="span-group">
-											    <label>Cash Operation</label>
-											      	<select class="select-mini">
-													  <option>Check</option>
-													  <option>Deposit</option>
-													</select>
-						  		</div>
-						  		
-						  		<div class="span-group">
-											    <label>Status</label>
-											      	<select class="select-mini">
-													  <option>Processed</option>
-													  <option>Pending</option>
-													</select>
-						  		</div>
-						  		
-						  		<div class="span-group">
-										    <label>Fund Operation</label>
-										      	<select class="select-mini">
-												  <option>Buy</option>
-												  <option>Sell</option>
-												</select>
-						  		</div>
-						  </div>
-						  
-			
-					 	 <div class="control-group" style="margin-top: -20px;">
+					<div class="control-group">
+					          <!-- Select Basic -->
+					          <label class="control-label">Transaction Type</label>
+					          <div class="controls">
+					            <select class="input-xlarge">
+					      <option>Cash</option>
+					      <option>Fund</option></select>
+					          </div>
+					        </div>	  
+					! comment: base on the result of transaction type	, pop different options. e.g: choose Cash, then display Cash Operation below, hide Fund Operation, just some javascript code.  
+					 <div class="control-group">
+					          <!-- Select Basic -->
+					          <label class="control-label">Cash Operation</label>
+					          <div class="controls">
+					            <select class="input-xlarge">
+					      <option>Check</option>
+					      <option>Deposit</option></select>
+					          </div>
+					        </div>
+					
+					    <div class="control-group">
+					          <!-- Select Basic -->
+					          <label class="control-label">Fund Operation</label>
+					          <div class="controls">
+					            <select class="input-xlarge">
+					      <option>Buy</option>
+					      <option>Sell</option></select>
+					          </div>
+					        </div>
+					
+					    <div class="control-group">
+					          <!-- Select Basic -->
+					          <label class="control-label">Status</label>
+					          <div class="controls">
+					            <select class="input-xlarge">
+					      <option>Processed</option>
+					      <option>Pending</option></select>
+					          </div>
+					        </div>
+
+					 	 <div class="control-group" style="margin-top: -10px;">
 							    <div class="controls">
 							      <button type="submit" class="btn">Search</button>
 							    </div>
@@ -83,10 +102,10 @@
   				</table>
 		 </div>
 		 
-		 </div>
 		<!--end of page content 
 		  ============================================
 		 -->
 		
 		<!--include footer -->
 		<jsp:include page="footer-panel.jsp" />
+		

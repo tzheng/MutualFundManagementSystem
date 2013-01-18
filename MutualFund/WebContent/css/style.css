@@ -29,6 +29,7 @@ body {
 
 .span-group {
 	width: 240px;
+	float: left;
 }
 
 .sidebar-nav {

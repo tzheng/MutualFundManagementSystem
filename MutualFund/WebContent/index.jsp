@@ -20,7 +20,7 @@
 	   <!--content  -->
 	   <div class="container">
 	   
-<!-- 
+
 	   		<div class="row-fluid">
 	   			<div class="span6" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">Customer Login</h4> <br />
@@ -81,8 +81,8 @@
 	   				</form>
 	   			</div>	   			
 	   		
-	   	-->
-	   			   
+	
+	   			<!--    
 	   		<div class="row-fluid">
 	   			<div class="span4" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">User Login</h4> <br />
