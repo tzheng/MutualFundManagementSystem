@@ -1,40 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-    <display-name>Mutual Fund</display-name>
-    <description>
-      Financial Product by Team 1 Snippers
-    </description>
-
+    <display-name>Favorite Website List</display-name>
+    <description>Configuration file for the Favorites website</description>
+    
     <servlet>
-        <servlet-name>  controller-servlet       </servlet-name>
-        <servlet-class>
-        	controller.Controller
-        </servlet-class>
+        <servlet-name>cfs-controller</servlet-name>
+        <servlet-class>   controller.Controller   </servlet-class>
         <init-param>
           <param-name>    jdbcDriverName          </param-name> 
 	      <param-value>   com.mysql.jdbc.Driver   </param-value>
         </init-param>
         <init-param>
           <param-name>    jdbcURL                 </param-name> 
-	      <param-value>   jdbc:mysql:///mutualfund      </param-value>
+	      <param-value>jdbc:mysql:///cfsdb</param-value>
+        </init-param>
+        <init-param>
+          <param-name>    csvDir                  </param-name> 
+	      <param-value>                           </param-value>
         </init-param>
     </servlet>
-    
+
     <servlet-mapping>
-        <servlet-name>  controller-servlet        </servlet-name>
-        <url-pattern>   *.do                     </url-pattern>
+        <servlet-name>cfs-controller</servlet-name>
+        <url-pattern>    *.do                     </url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>  controller-servlet        </servlet-name>
-        <url-pattern>   /welcome                    </url-pattern>
+        <servlet-name>cfs-controller</servlet-name>
+        <url-pattern>    /start                   </url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>   index.jsp   </welcome-file>
+        <welcome-file>   index.jsp                    </welcome-file>
     </welcome-file-list>
-
 </web-app>
