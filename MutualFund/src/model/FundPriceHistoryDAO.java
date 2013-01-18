@@ -23,12 +23,12 @@ public class FundPriceHistoryDAO extends BaseDAO {
 	private String jdbcURL;
 	private String tableName;
 	
-	public FundPriceHistoryDAO(ConnectionPool pool, String tableName) throws MyDAOException {
-		super(pool, tableName);
+	public FundPriceHistoryDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
+		super(jdbcDriver, jdbcURL, tableName);
 		
 	}
 	
-	private void createTable() throws MyDAOException {
+	public void createTable() throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
