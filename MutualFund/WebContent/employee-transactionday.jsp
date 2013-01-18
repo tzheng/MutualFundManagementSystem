@@ -7,13 +7,13 @@
 		 -->
 <div class="row-fluid">
 	<!-- customer name -->
-	<div class="span1">
-		<label>Transaction Day</label>
+	<div class="span2">
+		<label>Transition Day</label>
 	</div>
-	<div class="span3 offset1">
-		<input type="text" placeholder="2013-XX-XX">
+	<div class="span2">
+		<input type="text"  class="dp span10" value="02-16-2012" >
 	</div>
-	<div class="span2 offset2">
+	<div class="span2 ">
 		<button type="submit" class="btn">Update</button>
 	</div>
 </div>
