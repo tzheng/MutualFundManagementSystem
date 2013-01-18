@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.genericdao.ConnectionPool;
 
 import databean.FundPriceHistoryBean;
 
@@ -16,12 +15,6 @@ import databean.FundPriceHistoryBean;
 
 
 public class FundPriceHistoryDAO extends BaseDAO {
-	
-	private List<Connection> connectionPool = new ArrayList<Connection>();
-
-	private String jdbcDriver;
-	private String jdbcURL;
-	private String tableName;
 	
 	public FundPriceHistoryDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
