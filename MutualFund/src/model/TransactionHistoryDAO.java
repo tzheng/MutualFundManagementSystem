@@ -17,8 +17,8 @@ public class TransactionHistoryDAO extends BaseDAO {
 	public void createTable() {
 		
 	}
-	
-	public TransactionHistoryBean[] getCustomerTransaction(int customerId) throws MyDAOException {
+	//get transactions of specified user
+	public TransactionHistoryBean[] getTransactions(int customerId) throws MyDAOException {
 		Connection con;
 		try {
 			con = getConnection();
@@ -59,12 +59,13 @@ public class TransactionHistoryDAO extends BaseDAO {
 		}
 	}
 	
-	public TransactionHistoryBean[] getALLTransaction() throws MyDAOException {
+	// get all transactions
+	public TransactionHistoryBean[] getTransactions() throws MyDAOException {
 		Connection con;
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT transaction.executedate," 
+			PreparedStatement pstmt = con.prepareStatement("SELECT transaction.customerid, transaction.executedate," 
 														+ " transaction.transactionType, fund.name, transaction.shares,"
 														+ " transaction.shareprice, transaction.amount, transaction.transactionstatus"
 														+ " FROM transaction"
@@ -84,6 +85,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 				history.setSharePrice(rs.getFloat("shareprice"));
 				history.setDollarAmount(rs.getFloat("amount"));
 				history.setTransactionStatus(rs.getString("transactionstatus"));
+				history.setCustomerId(rs.getInt("customerid"));
 				
 				list.add(history);
 			}

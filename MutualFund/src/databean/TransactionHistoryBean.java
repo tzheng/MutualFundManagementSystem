@@ -10,6 +10,14 @@ public class TransactionHistoryBean {
 	private float sharePrice;
 	private float dollarAmount;  // in dataprice, it is amount
 	private String transactionStatus;
+	private int customerId;
+	
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 	public Date getTransactionDate() {
 		return transactionDate;
 	}

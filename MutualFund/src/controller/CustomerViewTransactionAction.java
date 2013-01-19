@@ -39,8 +39,8 @@ public class CustomerViewTransactionAction extends Action {
 				return "error.jsp";
 			}
 			**/
-			//TransactionHistoryBean[] historyList = transactionHistoryDAO.getCustomerTransaction(form.getCustomerIdasInt()); 
-			TransactionHistoryBean[] historyList = transactionHistoryDAO.getCustomerTransaction(1);
+			//TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(form.getCustomerIdasInt()); 
+			TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(1);
 			request.setAttribute("transactionHistory", historyList);
 			return "customer-viewtransaction.jsp";
 		} catch (MyDAOException e) {

@@ -36,6 +36,6 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>   customerhistory.do              </welcome-file>
+        <welcome-file>   employeehistory.do             </welcome-file>
     </welcome-file-list>
 </web-app>

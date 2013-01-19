@@ -37,19 +37,35 @@
 							    		</div>
 							    </div>
 						  </div>
-						  
+					
+					<script type="text/javascript">
+							function changeFilter(obj){
+								txt = obj.options[obj.selectedIndex].text;
+								
+								document.getElementById('cashOperation').style.display = 'none'; 
+								document.getElementById('fundOperation').style.display = 'none'; 
+								
+								if ( txt.match('Cash')) {
+									document.getElementById('cashOperation').style.display='block';
+								}
+								if ( txt.match('Fund')) {
+									document.getElementById('fundOperation').style.display='block';
+								}
+							}
+					</script>	  
 						  
 					<div class="control-group">
 					          <!-- Select Basic -->
 					          <label class="control-label">Transaction Type</label>
 					          <div class="controls">
-					            <select class="input-xlarge">
-					      <option>Cash</option>
-					      <option>Fund</option></select>
+					            <select class="input-xlarge" id="transactionType" onchange="changeFilter(this)">
+								      <option>Cash</option>
+								      <option>Fund</option>
+								</select>
 					          </div>
 					        </div>	  
-					! comment: base on the result of transaction type	, pop different options. e.g: choose Cash, then display Cash Operation below, hide Fund Operation, just some javascript code.  
-					 <div class="control-group">
+					        
+					 <div class="control-group" id="cashOperation">
 					          <!-- Select Basic -->
 					          <label class="control-label">Cash Operation</label>
 					          <div class="controls">
@@ -59,7 +75,7 @@
 					          </div>
 					        </div>
 					
-					    <div class="control-group">
+					    <div class="control-group" id="fundOperation" style="display: none;">
 					          <!-- Select Basic -->
 					          <label class="control-label">Fund Operation</label>
 					          <div class="controls">
