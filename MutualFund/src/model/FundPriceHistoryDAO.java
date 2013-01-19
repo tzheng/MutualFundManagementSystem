@@ -25,8 +25,8 @@ public class FundPriceHistoryDAO extends BaseDAO {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (fundid INT NOT NULL, pricedate DATE NOT NULL, price FLOAT NOT NULL, "
-					+ "PRIMARY KEY (fundid, pricedate), FOREIGN KEY (fundid) REFERENCES fund (fundid))");
+					+ " (fundId INT NOT NULL, pricedate DATE NOT NULL, price FLOAT NOT NULL, "
+					+ "PRIMARY KEY (fundId, pricedate), FOREIGN KEY (fundId) REFERENCES fund (fundId))");
             
             stmt.close();
         	releaseConnection(con);

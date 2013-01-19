@@ -89,16 +89,21 @@
 		 <hr>
 		  <h4>Transaction History</h4>  <hr>
 		 <div>  <!--  Here list the Transactions -->
-		 		<table class="table table-condensed">
-	   										<tr class="info">
-                                            <td>Transaction Date</td>
-    										<td>Operation</td>
-    										<td>Fund Name</td>
-    										<td>Share Number</td>
-    										<td>Share Price</td>
-    										<td>Dollar Amount</td>
-    										<td>Transaction Status</td>
-  											</tr>
+		 		<table class="table table-striped">
+		 				<thead>
+	   								<tr class="info">
+                                            <th>Transaction Date</th>
+    										<th>Operation</th>
+    										<th>Fund Name</th>
+    										<th>Share Number</th>
+    										<th>Share Price</th>
+    										<th>Dollar Amount</th>
+    										<th>Transaction Status</th>
+  									</tr>
+  						</thead>
+  						<tbody>
+  						
+  						</tbody>
   				</table>
 		 </div>
 		 
