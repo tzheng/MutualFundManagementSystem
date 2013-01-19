@@ -13,6 +13,9 @@
 	    <link href="css/style.css" rel="stylesheet" />
 	</head>
 	
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
+	
 	<body>
 	   
 	   <!--include header -->

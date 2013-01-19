@@ -1,3 +1,6 @@
+	    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	   
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 	   	
@@ -92,7 +95,7 @@
 		 		<table class="table table-striped">
 		 				<thead>
 	   								<tr class="info">
-                                            <th>Transaction Date</th>
+                                          <th>Transaction Date</th>
     										<th>Operation</th>
     										<th>Fund Name</th>
     										<th>Share Number</th>
@@ -102,7 +105,29 @@
   									</tr>
   						</thead>
   						<tbody>
-  						
+  							   <c:forEach var="history" items="${transactionHistory}">
+  							   		<c:set var="status" value="${history.transactionStatus}"></c:set>
+  							   		<c:set var="pending" value="Pending"> </c:set>
+  							   		
+  							   		<c:choose>
+	  							   		<c:when test="${status eq pending}">
+	  							   			<tr class="info">
+	  							   		</c:when>
+	  							   		<c:otherwise>
+	  							   			<tr>
+	  							   		</c:otherwise>
+  							   		</c:choose>
+  							   		
+  							   			<td>${history.transactionDate} </td>
+  							   			<td>${history.operation} </td>
+  							   			<td>${history.fundName} </td>
+  							   			<td>${history.shareNumber} </td>
+  							   			<td>${history.sharePrice} </td>
+  							   			<td>${history.dollarAmount} </td>
+  							   			<td>${history.transactionStatus} </td>
+  							   		</tr>
+  							   		
+  							   </c:forEach>
   						</tbody>
   				</table>
 		 </div>
