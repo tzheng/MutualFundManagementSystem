@@ -38,7 +38,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 			List<TransactionHistoryBean> list = new ArrayList<TransactionHistoryBean>();
 			while (rs.next()) {
 				TransactionHistoryBean history = new TransactionHistoryBean();
-				history.setTransactionDate(rs.getDate("excutedate"));
+				history.setTransactionDate(rs.getDate("executedate"));
 				history.setOperation(rs.getString("transactionType"));
 				history.setFundName(rs.getString("name"));
 				history.setShareNumber(rs.getInt("shares"));
@@ -77,7 +77,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 			List<TransactionHistoryBean> list = new ArrayList<TransactionHistoryBean>();
 			while (rs.next()) {
 				TransactionHistoryBean history = new TransactionHistoryBean();
-				history.setTransactionDate(rs.getDate("excutedate"));
+				history.setTransactionDate(rs.getDate("executedate"));
 				history.setOperation(rs.getString("transactionType"));
 				history.setFundName(rs.getString("name"));
 				history.setShareNumber(rs.getInt("shares"));
