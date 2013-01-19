@@ -17,7 +17,6 @@ public class Controller extends HttpServlet {
         Model model = new Model(getServletConfig());
 
         //Action.add(new AddAction(model));
-      
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,6 +25,7 @@ public class Controller extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nextPage = performTheAction(request);
+        
         sendToNextPage(nextPage,request,response);
     }
     
@@ -39,6 +39,7 @@ public class Controller extends HttpServlet {
         HttpSession session     = request.getSession(true);
         String      servletPath = request.getServletPath();
         String      action = getActionName(servletPath);
+        
         
       	// Let the logged in user run his chosen action
 		return Action.perform(action,request);

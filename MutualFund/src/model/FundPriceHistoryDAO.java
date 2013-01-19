@@ -12,12 +12,7 @@ import java.util.List;
 
 import databean.FundPriceHistoryBean;
 
-
-
-
 public class FundPriceHistoryDAO extends BaseDAO {
-	
-	private String tableName;
 	
 	public FundPriceHistoryDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName); 
@@ -30,11 +25,10 @@ public class FundPriceHistoryDAO extends BaseDAO {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (fund_id INT NOT NULL, price_date DATE NOT NULL, price FLOAT NOT NULL,"
-					+ "PRIMARY KEY (fund_id, price_date), FOREIGN KEY (fund_id) REFERENCES fund (fund_id))");
+					+ " (fundid INT NOT NULL, pricedate DATE NOT NULL, price FLOAT NOT NULL, "
+					+ "PRIMARY KEY (fundid, pricedate), FOREIGN KEY (fundid) REFERENCES fund (fundid))");
             
             stmt.close();
-        	
         	releaseConnection(con);
 
         } catch (SQLException e) {
