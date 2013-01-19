@@ -14,6 +14,7 @@ public class Model {
 	
 	private EmployeeDAO employeeDAO;
 	private FundDAO fundDAO;
+	private FundPriceHistoryDAO fundPriceHistoryDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -22,6 +23,8 @@ public class Model {
 			
 			employeeDAO = new EmployeeDAO(jdbcDriver, jdbcURL, "employee");
 			fundDAO = new FundDAO(jdbcDriver, jdbcURL, "fund");
+			fundPriceHistoryDAO = new FundPriceHistoryDAO(jdbcDriver, jdbcURL, "pricehistory");
+			
 		} catch (MyDAOException e) {
 			throw new ServletException(e);
 		}
@@ -29,4 +32,5 @@ public class Model {
 	
 	public EmployeeDAO getEmployeeDAO() { return employeeDAO;}
 	public FundDAO getFundDAO() { return fundDAO;}
+	public FundPriceHistoryDAO getFundPriceHistoryDAO() { return fundPriceHistoryDAO; }
 }

@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -16,12 +17,14 @@ import databean.FundPriceHistoryBean;
 
 public class FundPriceHistoryDAO extends BaseDAO {
 	
+	private String tableName;
+	
 	public FundPriceHistoryDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName); 
-		
+		this.tableName = tableName;
 	}
 	
-	public void createTable() throws MyDAOException {
+	protected void createTable() throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -62,6 +65,35 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new MyDAOException(e);
 		} 
+	}
+	
+	public FundPriceHistoryBean[] getFundPriceHistory(int fund_id) throws MyDAOException {
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName +" WHERE fund_id=?");
+			pstmt.setInt(1, fund_id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			List<FundPriceHistoryBean> list = new ArrayList<FundPriceHistoryBean>();
+			while (rs.next()) {
+				FundPriceHistoryBean price = new FundPriceHistoryBean();
+				price.setFund_id(rs.getInt("fund_id"));
+				price.setPrice(rs.getDouble("price"));
+				price.setPrice_date(rs.getDate("price_date"));
+				list.add(price);
+			}
+			
+			pstmt.close();
+			releaseConnection(con);
+			
+			return list.toArray(new FundPriceHistoryBean[list.size()]);
+		} catch (SQLException e) {
+			throw new MyDAOException(e);
+		}
 	}
 
 }
