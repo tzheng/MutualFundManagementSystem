@@ -35,7 +35,7 @@ public class CustomerIdForm extends FormBean {
 		try {
 			Integer.parseInt(customerId);
 		} catch (NumberFormatException e) {
-			errors.add("Customer Id is not an integer");
+			errors.add("Customer Id is Invalid (Must be an Integer).");
 		}
 		
 		return errors;

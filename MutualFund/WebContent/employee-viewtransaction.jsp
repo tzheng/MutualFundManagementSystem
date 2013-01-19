@@ -9,11 +9,12 @@
 		 -->
 		 <h4>Transaction History Filter</h4> <hr>
 		 <div>  <!--  This is filter for Transaction History -->
-		 		 <form class="form-horizontal">
+		 		<jsp:include page="error-list.jsp" />
+		 		 <form class="form-horizontal" method="post" action="employeehistory.do">
 				 		 <div class="control-group">
 							    <label class="control-label" for="scustomer">Customer ID</label>
 							    <div class="controls">
-							          	<input type="text" id="scustomer" placeholder="Customer ID">
+							          	<input type="text" id="scustomer" name="customerId" placeholder="Customer ID">
 							    </div>
 						  </div>
 						  
