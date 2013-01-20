@@ -16,7 +16,7 @@ public class TransactionDAO {
 	private String jdbcURL;
 	private String tableName;
 	
-	public UserDAO(String jdbcDriver, String jdbcURL, String tableName)
+	public TransactionDAO(String jdbcDriver, String jdbcURL, String tableName)
 			throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
 
