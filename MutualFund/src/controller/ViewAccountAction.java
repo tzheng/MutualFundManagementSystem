@@ -34,9 +34,12 @@ public class ViewAccountAction extends Action {
         
 		try {
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
-			CustomerBean customer = customerDAO.read(customerId);
+			//when test, there is no session, use CustomerBean customer = customerDAO.read(1);
+			CustomerBean customer = customerDAO.read(1);
+
 			
 			request.setAttribute("customer", customer);
+
 
 	        return "customer-viewaccount.jsp";
         } catch (MyDAOException e) {

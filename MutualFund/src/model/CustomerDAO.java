@@ -62,6 +62,44 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
+	public CustomerBean read(String userName) throws MyDAOException {
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE userName=?");
+        	pstmt.setString(2, userName);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	CustomerBean customer;
+        	if (!rs.next()) {
+        		customer = null;
+        	} else {
+        		customer = new CustomerBean();
+        		customer.setCustomerId(rs.getInt("customerId"));
+        		customer.setUserName(rs.getString("userName"));
+        		customer.setPassword(rs.getString("password"));
+        		customer.setFirstName(rs.getString("firstName"));
+        		customer.setLastName(rs.getString("lastName"));
+        		customer.setAddrLine1(rs.getString("addrLine1"));
+        		customer.setAddrLine2(rs.getString("addrLine2"));
+        		customer.setCity(rs.getString("city"));
+        		customer.setState(rs.getString("state"));
+        		customer.setZip(rs.getInt("zip"));
+        		//customer.setCash(rs.getDouble("cash"));
+        	}
+        	
+        	rs.close();
+        	pstmt.close();
+        	releaseConnection(con);
+            return customer;
+            
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
+	}
+	
 	
 	// Method to Create New Table if Table Doesn't exist
 	protected void createTable() throws MyDAOException {
