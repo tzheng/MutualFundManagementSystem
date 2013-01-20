@@ -17,9 +17,7 @@ import formbean.CreateAccountForm;
 
 
 public class CreateAccountAction extends Action {
-
 	private FormBeanFactory<CreateAccountForm> createAccountFormFactory = FormBeanFactory.getInstance(CreateAccountForm.class);
-    
 	private CustomerDAO customerDAO;
 	
 	public CreateAccountAction(Model model) {
@@ -72,7 +70,6 @@ public class CreateAccountAction extends Action {
 	        session.setAttribute("customer",customer);
 	
 			return "customer-mainpanel.jsp";
-
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
