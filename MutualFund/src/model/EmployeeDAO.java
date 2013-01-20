@@ -6,9 +6,6 @@
 package model;
 
 import java.sql.*;
-import java.util.*;
-
-import org.genericdao.ConnectionPool;
 
 import databean.EmployeeBean;
 
@@ -16,6 +13,39 @@ public class EmployeeDAO extends BaseDAO {
 	
 	public EmployeeDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
+	}
+	
+	// read employee give userName
+	public EmployeeBean read(String userName) throws MyDAOException{
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE userName=?");
+        	pstmt.setString(2, userName);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	EmployeeBean employee;
+        	if (!rs.next()) {
+        		employee = null;
+        	} else {
+        		employee = new EmployeeBean();
+        		employee.setUserName(rs.getString("userName"));
+        		employee.setPassword(rs.getString("password"));
+        		employee.setFirstName(rs.getString("firstName"));
+        		employee.setLastName(rs.getString("lastName"));
+        		
+        	}
+        	
+        	rs.close();
+        	pstmt.close();
+        	releaseConnection(con);
+            return employee;
+            
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
 	}
 	
 	public void createTable() throws MyDAOException{
