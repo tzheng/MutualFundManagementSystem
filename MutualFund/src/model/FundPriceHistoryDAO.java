@@ -42,7 +42,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName 
-														+ " (fund_id, price_date, price) VALUES (?,?,?)");
+														+ " (fundId, pricedate, price) VALUES (?,?,?)");
 			
 			pstmt.setInt(1, priceHistory.getFund_id());
 			// convert java.utl.date to java.sql.date so that can insert date to ...
@@ -75,9 +75,9 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			List<FundPriceHistoryBean> list = new ArrayList<FundPriceHistoryBean>();
 			while (rs.next()) {
 				FundPriceHistoryBean price = new FundPriceHistoryBean();
-				price.setFund_id(rs.getInt("fund_id"));
+				price.setFund_id(rs.getInt("fundid"));
 				price.setPrice(rs.getDouble("price"));
-				price.setPrice_date(rs.getDate("price_date"));
+				price.setPrice_date(rs.getDate("pricedate"));
 				list.add(price);
 			}
 			
