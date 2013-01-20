@@ -18,13 +18,13 @@ public class CustomerDAO extends BaseDAO {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public CustomerBean read(String customerId) throws MyDAOException {
+	public CustomerBean read(int customerId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
 
         	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE customerId=?");
-        	pstmt.setString(1,customerId);
+        	pstmt.setInt(1,customerId);
         	ResultSet rs = pstmt.executeQuery();
         	
         	CustomerBean customer;

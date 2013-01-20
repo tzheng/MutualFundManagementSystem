@@ -12,6 +12,7 @@ import model.MyDAOException;
 
 public class Model {
 	
+	private CustomerDAO customerDAO;
 	private EmployeeDAO employeeDAO;
 	private FundDAO fundDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
@@ -22,6 +23,7 @@ public class Model {
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
 			String jdbcURL    = config.getInitParameter("jdbcURL");
 			
+			customerDAO = new CustomerDAO(jdbcDriver, jdbcURL, "customer");
 			employeeDAO = new EmployeeDAO(jdbcDriver, jdbcURL, "employee");
 			fundDAO = new FundDAO(jdbcDriver, jdbcURL, "fund");
 			fundPriceHistoryDAO = new FundPriceHistoryDAO(jdbcDriver, jdbcURL, "pricehistory");
@@ -32,6 +34,7 @@ public class Model {
 		}
 	}
 	
+	public CustomerDAO getCustomerDAO() { return customerDAO;}
 	public EmployeeDAO getEmployeeDAO() { return employeeDAO;}
 	public FundDAO getFundDAO() { return fundDAO;}
 	public FundPriceHistoryDAO getFundPriceHistoryDAO() { return fundPriceHistoryDAO; }
