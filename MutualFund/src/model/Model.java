@@ -17,6 +17,7 @@ public class Model {
 	private FundDAO fundDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private TransactionHistoryDAO transactionHistoryDAO; 
+	private PositionDAO positionDAO;
 	
 
 	public Model(ServletConfig config) throws ServletException {
@@ -31,6 +32,7 @@ public class Model {
 			fundDAO = new FundDAO(jdbcDriver, jdbcURL, "fund");
 			fundPriceHistoryDAO = new FundPriceHistoryDAO(jdbcDriver, jdbcURL, "pricehistory");
 			customerDAO = new CustomerDAO(jdbcDriver, jdbcURL, "customer");
+			positionDAO = new PositionDAO(jdbcDriver, jdbcURL, "position");
 
 			transactionHistoryDAO = new TransactionHistoryDAO(jdbcDriver, jdbcURL, ""); //don't need to create any table. 
 
@@ -40,6 +42,9 @@ public class Model {
 		}
 	}
 	
+	public PositionDAO getPosistionDAO(){
+		return positionDAO;
+	}
 	public CustomerDAO getCustomerDAO() { return customerDAO;}
 	public EmployeeDAO getEmployeeDAO() { return employeeDAO;}
 	public FundDAO getFundDAO() { return fundDAO;}
