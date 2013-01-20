@@ -13,11 +13,11 @@ public class CustomerBean {
 	private int zip;
 	private double cash;
 	
-	public int getUserId() {
+	public int getCustomerId() {
 		return customerId;
 	}
-	public void setUserId(int userId) {
-		this.customerId = userId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 	
 	public String getUserName() {
