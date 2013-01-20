@@ -13,6 +13,45 @@
 				
 				<hr>
 				
+				<div id="panel-nav" class="row-fluid">
+						<ul id="panel-nav-ul">
+								<a href="employee-createfund.jsp">
+									<li class="span3">
+									icon here
+										<div class="menu-title">
+											Create Fund
+										</div>
+									</li>
+								</a>
+								
+								<a href="create-account.jsp">
+									<li class="span3">
+										icon here
+										<div class="menu-title">
+											Create Customer Account
+										</div>
+									</li>
+								</a>
+								
+								<a href="employee-viewtransaction.jsp">
+									<li class="span3">
+									icon here
+										<div class="menu-title">
+											View Transaction History
+										</div>
+									</li>
+								</a>
+								
+								<a href="employee-transactionday.jsp">
+									<li class="span3">
+									icon here
+										<div class="menu-title">
+											Transition Day
+										</div>
+									</li>
+								</a>
+						</ul>
+				</div>
 		</div>
 		
 		

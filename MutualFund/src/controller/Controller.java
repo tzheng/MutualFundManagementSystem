@@ -17,7 +17,13 @@ public class Controller extends HttpServlet {
         Model model = new Model(getServletConfig());
 
         //Action.add(new AddAction(model));
-      
+        Action.add(new CustomerViewTransactionAction(model));
+        Action.add(new EmployeeViewTransactionAction(model));
+        Action.add(new CustomerLoginAction(model));
+        Action.add(new EmployeeLoginAction(model));
+
+        Action.add(new ViewAccountAction(model));
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,6 +32,7 @@ public class Controller extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nextPage = performTheAction(request);
+        
         sendToNextPage(nextPage,request,response);
     }
     
@@ -40,8 +47,12 @@ public class Controller extends HttpServlet {
         String      servletPath = request.getServletPath();
         String      action = getActionName(servletPath);
         
+        if (action.equals("start")) {
+        	return "index.jsp";
+        }
+        
       	// Let the logged in user run his chosen action
-		return Action.perform(action,request);
+		return Action.perform(action, request);
     }
     
     /*

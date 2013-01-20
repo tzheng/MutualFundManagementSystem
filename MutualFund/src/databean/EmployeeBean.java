@@ -8,6 +8,10 @@ package databean;
 public class EmployeeBean {
 
 	private String userName;
+	private String password;
+	private String firstName;
+	private String lastName;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -32,8 +36,6 @@ public class EmployeeBean {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	private String password;
-	private String firstName;
-	private String lastName;
+	
 	
 }

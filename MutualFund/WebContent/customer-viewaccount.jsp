@@ -16,7 +16,7 @@
 	   										<div class="controls">
 	   											<div class="row-fluid">
 									      			<div class="span4">
-									      					<input type="text" id="inputCustomerName" placeholder="Name" > 
+									      					<input type="text" id="inputCustomerName" placeholder="${customer.firstName} ${customer.lastName}" > 
 									      			</div>
 									      			<div class="span6">
 											      		 <button class="btn">Edit</button>
@@ -32,7 +32,7 @@
 	   										<div class="controls">
 	   											<div class="row-fluid">
 									      			<div class="span4">
-									      					<input type="text" id="inputAddress1" placeholder="Name" > 
+									      					<input type="text" id="inputAddress1" placeholder="${customer.addrLine1}" > 
 									      			</div>
 									      			<div class="span6">
 											      		 <button class="btn">Edit</button>
@@ -49,7 +49,7 @@
 	   										<div class="controls">
 	   											<div class="row-fluid">
 									      			<div class="span4">
-									      					<input type="text" id="inputAddress2" placeholder="Name" > 
+									      					<input type="text" id="inputAddress2" placeholder="${customer.addrLine2}" > 
 									      			</div>
 									      			<div class="span6">
 											      		 <button class="btn">Edit</button>
@@ -70,7 +70,7 @@
 				             			<div class="control-group" >
 	   										<label class="control-label" for="inputBalance">Balance</label>
 	   										<div class="controls">
-	   										<input type="text" id="inputBalance" placeholder="$" disabled>
+	   										<input type="text" id="inputBalance" placeholder="${customer.cash}" disabled>
 	   										</div>
 	   									</div>
 	   								

@@ -3,42 +3,32 @@ package model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.genericdao.ConnectionPool;
 
 import databean.FundPriceHistoryBean;
 
-
-
-
 public class FundPriceHistoryDAO extends BaseDAO {
 	
-	private List<Connection> connectionPool = new ArrayList<Connection>();
-
-	private String jdbcDriver;
-	private String jdbcURL;
-	private String tableName;
-	
-	public FundPriceHistoryDAO(ConnectionPool pool, String tableName) throws MyDAOException {
-		super(pool, tableName);
-		
+	public FundPriceHistoryDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
+		super(jdbcDriver, jdbcURL, tableName); 
+		this.tableName = tableName;
 	}
 	
-	private void createTable() throws MyDAOException {
+	protected void createTable() throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (fund_id INT NOT NULL, price_date DATE NOT NULL, price FLOAT NOT NULL,"
-					+ "PRIMARY KEY (fund_id, price_date), FOREIGN KEY (fund_id) REFERENCES fund (fund_id))");
+					+ " (fundId INT NOT NULL, pricedate DATE NOT NULL, price FLOAT NOT NULL, "
+					+ "PRIMARY KEY (fundId, pricedate), FOREIGN KEY (fundId) REFERENCES fund (fundId))");
             
             stmt.close();
-        	
         	releaseConnection(con);
 
         } catch (SQLException e) {
@@ -52,7 +42,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName 
-														+ " (fund_id, price_date, price) VALUES (?,?,?)");
+														+ " (fundId, pricedate, price) VALUES (?,?,?)");
 			
 			pstmt.setInt(1, priceHistory.getFund_id());
 			// convert java.utl.date to java.sql.date so that can insert date to ...
@@ -69,6 +59,35 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new MyDAOException(e);
 		} 
+	}
+	
+	public FundPriceHistoryBean[] getFundPriceHistory(int fund_id) throws MyDAOException {
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName +" WHERE fund_id=?");
+			pstmt.setInt(1, fund_id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			List<FundPriceHistoryBean> list = new ArrayList<FundPriceHistoryBean>();
+			while (rs.next()) {
+				FundPriceHistoryBean price = new FundPriceHistoryBean();
+				price.setFund_id(rs.getInt("fundid"));
+				price.setPrice(rs.getDouble("price"));
+				price.setPrice_date(rs.getDate("pricedate"));
+				list.add(price);
+			}
+			
+			pstmt.close();
+			releaseConnection(con);
+			
+			return list.toArray(new FundPriceHistoryBean[list.size()]);
+		} catch (SQLException e) {
+			throw new MyDAOException(e);
+		}
 	}
 
 }

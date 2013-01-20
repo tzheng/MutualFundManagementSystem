@@ -1,3 +1,6 @@
+	    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	   
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 	   	
@@ -34,19 +37,35 @@
 							    		</div>
 							    </div>
 						  </div>
-						  
+					
+					<script type="text/javascript">
+							function changeFilter(obj){
+								txt = obj.options[obj.selectedIndex].text;
+								
+								document.getElementById('cashOperation').style.display = 'none'; 
+								document.getElementById('fundOperation').style.display = 'none'; 
+								
+								if ( txt.match('Cash')) {
+									document.getElementById('cashOperation').style.display='block';
+								}
+								if ( txt.match('Fund')) {
+									document.getElementById('fundOperation').style.display='block';
+								}
+							}
+					</script>	  
 						  
 					<div class="control-group">
 					          <!-- Select Basic -->
 					          <label class="control-label">Transaction Type</label>
 					          <div class="controls">
-					            <select class="input-xlarge">
-					      <option>Cash</option>
-					      <option>Fund</option></select>
+					            <select class="input-xlarge" id="transactionType" onchange="changeFilter(this)">
+								      <option>Cash</option>
+								      <option>Fund</option>
+								</select>
 					          </div>
 					        </div>	  
-					! comment: base on the result of transaction type	, pop different options. e.g: choose Cash, then display Cash Operation below, hide Fund Operation, just some javascript code.  
-					 <div class="control-group">
+					        
+					 <div class="control-group" id="cashOperation">
 					          <!-- Select Basic -->
 					          <label class="control-label">Cash Operation</label>
 					          <div class="controls">
@@ -56,7 +75,7 @@
 					          </div>
 					        </div>
 					
-					    <div class="control-group">
+					    <div class="control-group" id="fundOperation" style="display: none;">
 					          <!-- Select Basic -->
 					          <label class="control-label">Fund Operation</label>
 					          <div class="controls">
@@ -89,16 +108,43 @@
 		 <hr>
 		  <h4>Transaction History</h4>  <hr>
 		 <div>  <!--  Here list the Transactions -->
-		 		<table class="table table-condensed">
-	   										<tr class="info">
-                                            <td>Transaction Date</td>
-    										<td>Operation</td>
-    										<td>Fund Name</td>
-    										<td>Share Number</td>
-    										<td>Share Price</td>
-    										<td>Dollar Amount</td>
-    										<td>Transaction Status</td>
-  											</tr>
+		 		<table class="table table-striped">
+		 				<thead>
+	   								<tr class="info">
+                                          <th>Transaction Date</th>
+    										<th>Operation</th>
+    										<th>Fund Name</th>
+    										<th>Share Number</th>
+    										<th>Share Price</th>
+    										<th>Dollar Amount</th>
+    										<th>Transaction Status</th>
+  									</tr>
+  						</thead>
+  						<tbody>
+  							   <c:forEach var="history" items="${transactionHistory}">
+  							   		<c:set var="status" value="${history.transactionStatus}"></c:set>
+  							   		<c:set var="pending" value="Pending"> </c:set>
+  							   		
+  							   		<c:choose>
+	  							   		<c:when test="${status eq pending}">
+	  							   			<tr class="info">
+	  							   		</c:when>
+	  							   		<c:otherwise>
+	  							   			<tr>
+	  							   		</c:otherwise>
+  							   		</c:choose>
+  							   		
+  							   			<td>${history.transactionDate} </td>
+  							   			<td>${history.operation} </td>
+  							   			<td>${history.fundName} </td>
+  							   			<td>${history.shareNumber} </td>
+  							   			<td>${history.sharePrice} </td>
+  							   			<td>${history.dollarAmount} </td>
+  							   			<td>${history.transactionStatus} </td>
+  							   		</tr>
+  							   		
+  							   </c:forEach>
+  						</tbody>
   				</table>
 		 </div>
 		 
