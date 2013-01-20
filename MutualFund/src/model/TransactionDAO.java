@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -43,5 +44,25 @@ public class TransactionDAO extends BaseDAO{
 			}
 			throw new MyDAOException(e);
 		}
+	}
+	
+	protected void insertCash(double cash) throws MyDAOException {
+		//check, deposit
+		Connection con;
+		try {
+			con = getConnection();
+			// you might need to change this query, i didn't finish it.
+			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName  
+														+ " (executeDate, transactionId, customerId, transactionType, transactionStatus, amount) "
+														+ " VALUES (?,?,?,?,?,?)");
+			// add the vaule to prepare statement.
+		} catch (SQLException e) {
+			
+		}
+			
+	}
+	
+	protected void insertFund() {
+		//buy fund and sell fund
 	}
 }
