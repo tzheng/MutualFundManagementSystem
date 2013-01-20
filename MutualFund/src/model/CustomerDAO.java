@@ -76,7 +76,7 @@ public class CustomerDAO extends BaseDAO {
             		"state VARCHAR(255) NULL ," +
             		"zip INT(11) NULL ," +
             		"cash DOUBLE(255,2) NOT NULL ," +
-            		"PRIMARY KEY (customer_id) );");
+            		"PRIMARY KEY (customerId) );");
             stmt.close();
         	
         	releaseConnection(con);

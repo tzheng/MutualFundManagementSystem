@@ -25,9 +25,11 @@ public class ViewAccountAction extends Action {
 
 	public String getName() { return "manage.do"; }
 
+	
 	public String perform(HttpServletRequest request) {
         // Set up the errors list
-        List<String> errors = new ArrayList<String>();
+       
+		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
 		try {
