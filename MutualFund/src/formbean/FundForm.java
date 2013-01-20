@@ -3,24 +3,24 @@ package formbean;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
-public class FundForm {
+
+import org.mybeans.form.FormBean;
+
+public class FundForm extends FormBean {
 
 	private String fundName;
 	private String symbol;
-	
-	
-	public FundForm(HttpServletRequest request) {
-		fundName = request.getParameter("inputFundid");
-		symbol = request.getParameter("inputTickerid");
-		
-		
-	}
+
 	
 	public String getName()    { return fundName; }
 	public String getSymbol() { return symbol;}
-	
+	public void setName(String name) {
+		fundName = trimAndConvert(name,"<>\"");
+	}
+	public void setSymbol(String symbol) {
+		symbol = trimAndConvert(symbol,"<>\"");
+	}
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
@@ -36,8 +36,8 @@ public class FundForm {
 			return errors;
 		}
 
-        if (fundName.matches(".*[<>\"].*")) errors.add("Comment may not contain angle brackets or quotes");
-        if (symbol.matches(".*[<>\"].*")) errors.add("URL may not contain angle brackets or quotes");
+        if (fundName.matches(".*[<>\"].*")) errors.add("Fund Name may not contain angle brackets or quotes");
+        if (symbol.matches(".*[<>\"].*")) errors.add("Symbol may not contain angle brackets or quotes");
 		return errors;
 	}
 

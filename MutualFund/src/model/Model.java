@@ -8,8 +8,6 @@ package model;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
-import org.genericdao.ConnectionPool;
-
 import model.MyDAOException;
 
 public class Model {
@@ -20,6 +18,7 @@ public class Model {
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private TransactionHistoryDAO transactionHistoryDAO; 
 	
+
 	public Model(ServletConfig config) throws ServletException {
 		try {
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
@@ -31,7 +30,10 @@ public class Model {
 			employeeDAO = new EmployeeDAO(jdbcDriver, jdbcURL, "employee");
 			fundDAO = new FundDAO(jdbcDriver, jdbcURL, "fund");
 			fundPriceHistoryDAO = new FundPriceHistoryDAO(jdbcDriver, jdbcURL, "pricehistory");
+			customerDAO = new CustomerDAO(jdbcDriver, jdbcURL, "customer");
+
 			transactionHistoryDAO = new TransactionHistoryDAO(jdbcDriver, jdbcURL, ""); //don't need to create any table. 
+
 			
 		} catch (MyDAOException e) {
 			throw new ServletException(e);
