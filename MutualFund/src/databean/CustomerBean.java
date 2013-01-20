@@ -11,13 +11,12 @@ public class CustomerBean {
 	private String city;
 	private String state;
 	private int zip;
-	private double cash;
 	
-	public int getUserId() {
+	public int getCustomerId() {
 		return customerId;
 	}
-	public void setUserId(int userId) {
-		this.customerId = userId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 	
 	public String getUserName() {
@@ -86,12 +85,5 @@ public class CustomerBean {
 		this.zip = zip;
 	}
 	
-	public double getCash() {
-		return cash;
-	}
-	
-	public void setCash(double cash) {
-		this.cash = cash;
-	}
 	
 }
