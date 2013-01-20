@@ -3,11 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import model.FundDAO;
 import model.Model;
+import model.MyDAOException;
 
-import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 import databean.FundBean;
@@ -15,15 +16,14 @@ import databean.FundBean;
 import formbean.FundForm;
 
 
-public class CreatefundAction extends Action {
+public class CreateFundAction extends Action {
 
 	private FormBeanFactory<FundForm> formBeanFactory = FormBeanFactory
 			.getInstance(FundForm.class);
 
 	private FundDAO fundDAO;
-	public CreatefundAction(Model model) {
+	public CreateFundAction(Model model) {
 		fundDAO = model.getFundDAO();
-
 	}
 
 	public String getName() {
@@ -33,6 +33,7 @@ public class CreatefundAction extends Action {
 	public String perform(HttpServletRequest request) {
 		// Set up the errors list
 		List<String> errors = new ArrayList<String>();
+		HttpSession session = request.getSession();
 		request.setAttribute("errors", errors);
 
 		try {
@@ -42,11 +43,11 @@ public class CreatefundAction extends Action {
 
 			FundBean fund = new FundBean();
 			fund.setSymbol(form.getSymbol());
-			fund.setName(form.getName());
-			fundDAO.
-			//request.setAttribute("favoriteList",fundDAO.getUserFavorites(user.getId()));
-			return "createfund.jsp";
-		} catch (RollbackException e) {
+			fund.setName(form.getFundName());
+			fundDAO.create(fund);
+			session.setAttribute("fund", fund);
+			return "employee-createfund.jsp";
+		} catch ( MyDAOException e) {
 			errors.add(e.getMessage());
 			return "error-list.jsp";
 		} catch (FormBeanException e) {

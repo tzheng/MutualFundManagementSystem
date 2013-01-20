@@ -13,13 +13,13 @@ public class FundForm extends FormBean {
 	private String symbol;
 
 	
-	public String getName()    { return fundName; }
+	public String getFundName()    { return fundName; }
 	public String getSymbol() { return symbol;}
-	public void setName(String name) {
-		fundName = trimAndConvert(name,"<>\"");
+	public void setFundName(String name) {
+		this.fundName = trimAndConvert(name,"<>\"");
 	}
 	public void setSymbol(String symbol) {
-		symbol = trimAndConvert(symbol,"<>\"");
+		this.symbol = trimAndConvert(symbol,"<>\"");
 	}
 
 	public List<String> getValidationErrors() {
