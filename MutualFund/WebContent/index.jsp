@@ -24,6 +24,8 @@
 	   		<div class="row-fluid">
 	   			<div class="span6" style="border-right: 1px solid #f5f5f5; ">
 	   				<h4 class="homepage-login">Customer Login</h4> <br />
+	   				<div class="alert alert-error">
+	   				</div>
 	   				<form class="form-horizontal">
 	   					<div class="control-group" >
 	   						<label class="control-label" for="inputUser1">Username</label>
@@ -53,7 +55,6 @@
 	   			<div class="span6">
 	   				<h4 class="homepage-login">Employee Login</h4> <br />
 	   				<div class="alert alert-error">
-	   					Wrong Password! 
 	   				</div>
 	   				<form class="form-horizontal">
 	   					<div class="control-group" >

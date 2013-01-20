@@ -8,6 +8,8 @@ package model;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
+import org.genericdao.ConnectionPool;
+
 import model.MyDAOException;
 
 public class Model {
@@ -22,6 +24,8 @@ public class Model {
 		try {
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
 			String jdbcURL    = config.getInitParameter("jdbcURL");
+			
+			//ConnectionPool pool = new ConnectionPool(jdbcDriver,jdbcURL);
 			
 			customerDAO = new CustomerDAO(jdbcDriver, jdbcURL, "customer");
 			employeeDAO = new EmployeeDAO(jdbcDriver, jdbcURL, "employee");

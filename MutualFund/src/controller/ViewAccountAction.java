@@ -33,7 +33,7 @@ public class ViewAccountAction extends Action {
 		try {
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-	        request.setAttribute("favoriteList",favoriteList);
+	        
 
 	        return "manage.jsp";
         } catch (MyDAOException e) {

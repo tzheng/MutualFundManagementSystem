@@ -18,8 +18,26 @@ public class EmployeeDAO extends BaseDAO {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public void createTable() {
-		
+	public void createTable() throws MyDAOException{
+		Connection con = null;
+        try {
+        	con = getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(
+            		"CREATE TABLE " + tableName + 
+            		"(userName VARCHAR(255) NOT NULL," +
+            		"firstName VARCHAR(255) NULL ,"+
+            		"lastName VARCHAR(255) NULL ,"+
+            		"password VARCHAR(255) NOT NULL ," +
+            		"PRIMARY KEY (userName) );");
+            stmt.close();
+        	
+        	releaseConnection(con);
+
+        } catch (SQLException e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
 	}
 	
 	//Method to create Employee
