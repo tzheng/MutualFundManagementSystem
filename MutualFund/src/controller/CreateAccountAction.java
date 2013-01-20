@@ -71,7 +71,7 @@ public class CreateAccountAction extends Action {
 	        HttpSession session = request.getSession(false);
 	        session.setAttribute("customer",customer);
 	
-			return "manage.do";
+			return "customer-mainpanel.jsp";
 
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
