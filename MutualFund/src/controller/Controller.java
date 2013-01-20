@@ -42,9 +42,12 @@ public class Controller extends HttpServlet {
         String      servletPath = request.getServletPath();
         String      action = getActionName(servletPath);
         
+        if (action.equals("start")) {
+        	return "index.jsp";
+        }
         
       	// Let the logged in user run his chosen action
-		return Action.perform(action,request);
+		return Action.perform(action, request);
     }
     
     /*

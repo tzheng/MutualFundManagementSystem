@@ -23,19 +23,24 @@ public class ViewAccountAction extends Action {
 		customerDAO = model.getCustomerDAO();
 	}
 
-	public String getName() { return "manage.do"; }
+	public String getName() { return "view-account.do"; }
 
+	
 	public String perform(HttpServletRequest request) {
         // Set up the errors list
-        List<String> errors = new ArrayList<String>();
+       
+		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
 		try {
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-	        
 
-	        return "manage.jsp";
+			
+			request.setAttribute("customer", customer);
+
+
+	        return "customer-viewaccount.jsp";
         } catch (MyDAOException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
