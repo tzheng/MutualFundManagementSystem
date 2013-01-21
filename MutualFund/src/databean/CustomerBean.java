@@ -1,7 +1,5 @@
 package databean;
 
-import java.util.Date;
-
 public class CustomerBean {
 	private int customerId;
 	private String userName;
