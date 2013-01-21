@@ -12,6 +12,7 @@
 		 -->
 
 <h4>Create Account</h4> <hr />
+<jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="create-account.do">
   <div class="control-group">
     <label class="control-label" for="inputUsername">User Name</label>

@@ -45,6 +45,10 @@ public class CreateAccountForm extends FormBean {
 		return addrLine1;
 	}
 	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getAddrLine2() {
 		return addrLine2;
 	}
@@ -106,16 +110,15 @@ public class CreateAccountForm extends FormBean {
 	public List<String> getValidationErrors() {
         List<String> errors = new ArrayList<String>();
 
-        if (userName == null || userName.length() == 0) errors.add("Email address is required");
+        if (userName == null || userName.length() == 0) errors.add("username address is required");
         if (firstName == null || firstName.length() == 0) errors.add("First name is required");
         if (lastName == null || lastName.length() == 0) errors.add("Last name is required");
         if (password == null || password.length() == 0) errors.add("Password is required");
         if (confirmPassword == null || confirmPassword.length() == 0) errors.add("Confirm password is required");
         if (addrLine1 == null || addrLine1.length() == 0) errors.add("Address Line 1 is required");
-        if (addrLine2 == null || addrLine2.length() == 0) errors.add("Address Line 2 is required");
         if (city == null || city.length() == 0) errors.add("City is required");
         if (state == null || state.length() == 0) errors.add("State is required");
-        if (zip == null || zip.length() == 0) errors.add("Zip is required");
+        if (zip == null || zip.length() == 0) errors.add("Zipcode is required");
         
         if (errors.size() > 0) return errors;
         
