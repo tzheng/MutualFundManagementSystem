@@ -29,7 +29,7 @@
 
 		
 		<div class="row-fluid">
-			<div class="span5" style="border-right: 1px solid #f5f5f5; margin-left: -50px;">
+			<div class="span5" style="border-right: 1px solid #f5f5f5;" >
 				<h4 class="homepage-login">User Login</h4>
 				<jsp:include page="error-list.jsp" />
 				<br />
