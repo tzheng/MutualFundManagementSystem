@@ -23,6 +23,7 @@
 									<th>Current Price</th>
 									<th>Shares</th>
 									<th></th>
+									<th></th>
 								</tr>
 						</thead>
 						<tbody>
@@ -33,16 +34,11 @@
 									<td>$100.00</td>
 									<td>$120.00</td>
 									<td>100</td>
-									<td><div class="btn-group">
-												  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-												    Action
-												    <span class="caret"></span>
-												  </a>
-												  <ul class="dropdown-menu">
-												    	<li><a href="#">Buy More</a></li>
-												    	<li><a href="#">Sell</a></li>
-												  </ul>
-											</div>
+									<td>
+										<a href="#" class="btn">Buy More</a>
+									</td>
+									<td>
+										<a href="#" class="btn">SELL</a>
 									</td>
 								</tr>
 								
@@ -53,16 +49,11 @@
 									<td>$100.00</td>
 									<td>$100.00</td>
 									<td>100</td>
-									<td><div class="btn-group">
-												  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-												    Action
-												    <span class="caret"></span>
-												  </a>
-												  <ul class="dropdown-menu">
-												    	<li><a href="#">Buy More</a></li>
-												    	<li><a href="#">Sell</a></li>
-												  </ul>
-											</div>
+									<td>
+										<a href="#" class="btn">Buy More</a>
+									</td>
+									<td>
+										<a href="#" class="btn">SELL</a>
 									</td>
 								</tr>
 								
@@ -73,16 +64,11 @@
 									<td>$100.00</td>
 									<td>$80.00</td>
 									<td>100</td>
-									<td><div class="btn-group">
-												  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-												    Action
-												    <span class="caret"></span>
-												  </a>
-												  <ul class="dropdown-menu">
-												    	<li><a href="#">Buy More</a></li>
-												    	<li><a href="#">Sell</a></li>
-												  </ul>
-											</div>
+									<td>
+										<a href="#" class="btn">Buy More</a>
+									</td>
+									<td>
+										<a href="#" class="btn">SELL</a>
 									</td>
 								</tr>
 						</tbody>

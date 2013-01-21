@@ -68,7 +68,7 @@ public class CustomerDAO extends BaseDAO {
         	con = getConnection();
 
         	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE userName=?");
-        	pstmt.setString(2, userName);
+        	pstmt.setString(1, userName);
         	ResultSet rs = pstmt.executeQuery();
         	
         	CustomerBean customer;

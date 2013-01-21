@@ -6,18 +6,18 @@
 		 -->
 		
 				          <div>
-					              <form class="form-horizontal">
+					              <form class="form-horizontal" method="post" action="createfund.do">
 						            		<legend>Create Fund</legend>
 				   						<div class="control-group">
-											<label class="control-label" for="inputFundname">Fund Name</label>
+											<label class="control-label"  for="inputFundname">Fund Name</label>
 											<div class="controls">
-												<input type="text" id="inputFundid" placeholder="Fund Name">
+												<input type="text"  name="fundName" id="inputFundid" placeholder="Fund Name">
 											</div>
 										</div>
 									      <div class="control-group">
-											<label class="control-label" for="inputTicker">Ticker Symbol</label>
+											<label class="control-label"  for="inputTicker">Ticker Symbol</label>
 											<div class="controls">
-												<input type="text" id="inputTickerid" placeholder="one to five characters">
+												<input type="text" name="symbol" id="inputTickerid" placeholder="one to five characters">
 											</div>
 										</div>  
 										<div class="control-group">
