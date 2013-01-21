@@ -12,6 +12,13 @@
 <link href="css/style.css" rel="stylesheet" />
 </head>
 
+	   				<script type="text/javascript">
+	   					function OnSubmitForm(form) { 
+	   						form.action = (form.usertype[1].checked == true)?'employee-login.do':'customer-login.do'; 
+	   						form.submit(); 
+	   						} 
+					</script>
+
 <body>
 
 	<!--include header -->
@@ -20,12 +27,13 @@
 	<!--content  -->
 	<div class="container">
 
-		<jsp:include page="error-list.jsp" />
+		
 		<div class="row-fluid">
-			<div class="span6" style="border-right: 1px solid #f5f5f5;">
-				<h4 class="homepage-login">Customer Login</h4>
+			<div class="span5" style="border-right: 1px solid #f5f5f5; margin-left: -50px;">
+				<h4 class="homepage-login">User Login</h4>
+				<jsp:include page="error-list.jsp" />
 				<br />
-				<form class="form-horizontal" method="POST" action="customer-login.do">
+				<form class="form-horizontal" method="POST" action="customer-login.do" onSubmit="return false;" >
 					<div class="control-group">
 						<label class="control-label" for="inputUser1">Username</label>
 						<div class="controls">
@@ -38,13 +46,29 @@
 							<input type="password" id="inputPassword1" placeholder="Password" name="password">
 						</div>
 					</div>
+					
+					<div class="control-group">
+					          <label class="control-label">User Type</label>
+					          <div class="controls">
+								     
+								      <label class="radio inline">
+								        <input type="radio" name="usertype" checked>
+								        Customer
+								      </label>
+								      <label class="radio inline">
+								        <input type="radio" name="usertype">
+								        Employee
+								      </label>
+					  		</div>
+				     </div>
+					
 					<div class="control-group">
 						<div class="controls">
 							<label class="checkbox"> <input type="checkbox">
 								Remember me
 							</label>
 
-							<button type="submit" class="btn">
+							<button type="submit" onClick="OnSubmitForm(this.form);"  class="btn">
 								 Login
 							</button>
 
@@ -52,7 +76,7 @@
 					</div>
 				</form>
 			</div>
-
+ <!--  
 			<div class="span6">
 				<h4 class="homepage-login">Employee Login</h4>
 				<br />
@@ -84,41 +108,10 @@
 				</form>
 			</div>
 
-
-			<!--    
-	   		<div class="row-fluid">
-	   			<div class="span4" style="border-right: 1px solid #f5f5f5; ">
-	   				<h4 class="homepage-login">User Login</h4> <br />
-	   				<div class="alert alert-error">
-	   					Wrong Password! 
-	   				</div>
-	   				<form class="form-horizontal" style="margin-left: -60px;">
-	   					<div class="control-group" >
-	   						<label class="control-label" for="inputEmail2">Email</label>
-	   						<div class="controls">
-	   							<input type="text" id="inputEmail2" placeholder="Email">
-	   						</div>
-	   					</div>
-	   					<div class="control-group" >
-	   						<label class="control-label" for="inputPassword2">Passoword</label>
-	   						<div class="controls">
-	   							<input type="password" id="inputPassword2" placeholder="Password">
-	   						</div>
-	   					</div>
-	   					<div class="control-group">
-						    <div class="controls">
-						      <label class="checkbox">
-						        <input type="checkbox"> Remember me
-						      </label>
-						      <button type="submit" class="btn">Login</button>
-						    </div>
-						  </div>
-	   				</form>
-	   			</div>
+			-->
+			 
 	   			
-	   			
-	   			
-	   			<div class="span8" >
+	   			<div class="span7" >
 	   				<div id="advertisement">
 						<h1> This is Advertisement! <br> Some other content <br> maybe with some pictures!</h1>
 						<p>Carnegie Financial Service Mutual Fund Management System....</p>
@@ -130,7 +123,6 @@
 	   		</div> <!--  end of .row-fluid -->
 
 
-			<hr>
 
 		</div>
 
