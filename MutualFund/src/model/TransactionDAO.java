@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,25 +9,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import databean.UserBean;
-
 import model.MyDAOException;
 
 
 public class TransactionDAO extends BaseDAO{
-
-	private List<Connection> connectionPool = new ArrayList<Connection>();
-
-	private String jdbcDriver;
-	private String jdbcURL;
-	private String tableName;
-	
 	public TransactionDAO(String jdbcDriver, String jdbcURL, String tableName)
 			throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public Date getCustomerLastTradeDate(int customerId) {
+	public Date getCustomerLastTradeDate(int customerId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
