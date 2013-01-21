@@ -47,7 +47,7 @@ public class ViewAccountAction extends Action {
 			PositionBean[] positionList = positionDAO.getUserPositions(1);
 			request.setAttribute("positionList", positionList);
 			
-			transactionDAO
+			
 
 	        return "customer-viewaccount.jsp";
         } catch (MyDAOException e) {

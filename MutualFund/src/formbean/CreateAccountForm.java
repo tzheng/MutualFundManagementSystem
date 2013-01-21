@@ -68,35 +68,35 @@ public class CreateAccountForm extends FormBean {
 	
 	
 	public void setUserName(String s) {
-		userName = trimAndConvert(s,"<>\"");
+		this.userName = trimAndConvert(s,"<>\"");
 	}
 
 	public void setPassword(String s) {
-		password = s.trim();
+		this.password = s.trim();
 	}
 	
 	public void setConfirmPassword(String s) {
-		confirmPassword = s.trim();
+		this.confirmPassword = s.trim();
 	}
 
 	public void setFirstName(String s) {
-		firstName = trimAndConvert(s,"<>\"");
+		this.firstName = trimAndConvert(s,"<>\"");
 	}
 
 	public void setAddrLine1(String s) {
-		addrLine1 = trimAndConvert(s,"<>\"");
+		this.addrLine1 = trimAndConvert(s,"<>\"");
 	}
 	
 	public void setAddrLine2(String s) {
-		addrLine2 = trimAndConvert(s,"<>\"");
+		this.addrLine2 = trimAndConvert(s,"<>\"");
 	}
 	
 	public void setCity(String s) {
-		city = trimAndConvert(s,"<>\"");
+		this.city = trimAndConvert(s,"<>\"");
 	}
 	
 	public void setState(String s) {
-		state = trimAndConvert(s,"<>\"");
+		this.state = trimAndConvert(s,"<>\"");
 	}
 	
 	public void setZip(String zip) {
