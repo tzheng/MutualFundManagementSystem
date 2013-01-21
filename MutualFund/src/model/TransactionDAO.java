@@ -34,7 +34,7 @@ public class TransactionDAO extends BaseDAO{
         	con = getConnection();
 
         	PreparedStatement pstmt = con.prepareStatement(
-        			"SELECT TOP(1) FROM " + tableName + 
+        			"SELECT * FROM " + tableName + 
         			" WHERE customerId = ?" +
         			" ORDER BY executeDate DESC" +
         			" LIMIT 1");
