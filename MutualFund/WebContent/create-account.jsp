@@ -11,7 +11,7 @@
 		  ============================================
 		 -->
 
-<h4>Create Account</h4> <hr />
+<h4>Create Customer Account</h4> <hr />
 <jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="create-account.do">
   <div class="control-group">
