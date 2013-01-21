@@ -24,6 +24,7 @@ public class Controller extends HttpServlet {
         Action.add(new CreateAccountAction(model));
         Action.add(new ViewAccountAction(model));
         Action.add(new CreateFundAction(model));
+        Action.add(new LogoutAction(model));
 
     }
 
