@@ -42,16 +42,14 @@ public class ViewAccountAction extends Action {
 			int customerId = 1;
 //			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
+			String lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
+			customer.setLastTradeDate(lastTradeDate);
+			
 			request.setAttribute("customer", customer);
 			
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
 			
-
-			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
-			request.setAttribute("lastTradeDate", lastTradeDate);
-
-
 	        return "customer-viewaccount.jsp";
         } catch (MyDAOException e) {
         	errors.add(e.getMessage());

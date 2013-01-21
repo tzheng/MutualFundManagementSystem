@@ -15,9 +15,6 @@ import databean.CustomerBean;
 
 import model.MyDAOException;
 
-import databean.CustomerBean;
-
-
 public class CustomerDAO extends BaseDAO {
 	
 	

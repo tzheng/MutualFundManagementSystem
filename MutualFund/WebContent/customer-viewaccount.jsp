@@ -62,7 +62,7 @@
 				             			<div class="control-group" >
 	   										<label class="control-label" for="inputLastTradeDate">Last Trade Date</label>
 	   										<div class="controls">
-	   										<input type="text" id="inputLastTradeDate" placeholder="${lastTradeDate.month}/${lastTradeDate.dat}/${lastTradeDate.year}" disabled>
+	   										<input type="text" id="inputLastTradeDate" placeholder="${customer.lastTradeDate}" disabled>
 	   										</div>
 	   									</div>
 				             		
@@ -70,7 +70,7 @@
 				             			<div class="control-group" >
 	   										<label class="control-label" for="inputBalance">Balance</label>
 	   										<div class="controls">
-	   										<input type="text" id="inputBalance" placeholder="${customer.cash}" disabled>
+	   										<input type="text" id="inputBalance" placeholder="100" disabled>
 	   										</div>
 	   									</div>
 	   								

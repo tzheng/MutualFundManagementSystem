@@ -24,9 +24,6 @@ public class TransactionBean {
 	public void setShares(int shares)		{ this.shares = shares;	}
 	public void setExecuteDate(Date executeDate)		{ this.executeDate = executeDate;		}
 	public void setAmount(int amount)	{ this.amount = amount;	}
-	
-	
-	
 }
 
 

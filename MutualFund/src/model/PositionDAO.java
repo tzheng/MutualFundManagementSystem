@@ -62,7 +62,7 @@ public class PositionDAO extends BaseDAO {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (customerId INT NOT NULL, fundId INT NOT NULL, share INT NOT NULL, "
+					+ " (customerId INT NOT NULL, fundId INT NOT NULL, shares INT NOT NULL, "
 					+ "PRIMARY KEY (customerId, fundId), FOREIGN KEY (customerId) REFERENCES customer (customerId), FOREIGN KEY (fundId) REFERENCES fund (fundId))");
             
             stmt.close();

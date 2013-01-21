@@ -18,7 +18,7 @@ public class TransactionDAO extends BaseDAO{
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public Date getCustomerLastTradeDate(int customerId) throws MyDAOException {
+	public String getCustomerLastTradeDate(int customerId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -31,17 +31,17 @@ public class TransactionDAO extends BaseDAO{
         	pstmt.setInt(1, customerId);
         	ResultSet rs = pstmt.executeQuery();
         	
-        	Date date;
+        	String lastTradeDate;
         	if (!rs.next()) {
-        		date = null;
+        		lastTradeDate = null;
         	} else {
-        		date = rs.getDate("executeDate");
+        		lastTradeDate = rs.getString("executeDate");
         	}
         	
         	rs.close();
         	pstmt.close();
         	releaseConnection(con);
-            return date;
+            return lastTradeDate;
             
         } catch (Exception e) {
             try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
