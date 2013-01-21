@@ -74,10 +74,10 @@ public class CreateAccountAction extends Action {
 			return "customer-mainpanel.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
-        	return "error-list.jsp";
+        	return "error.jsp";
         } catch (Exception e) {
         	errors.add(e.getMessage());
-        	return "error-list.jsp";
+        	return "error.jsp";
         }
         
 	}
