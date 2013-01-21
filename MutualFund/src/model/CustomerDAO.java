@@ -105,6 +105,8 @@ public class CustomerDAO extends BaseDAO {
 		Connection con = null;
 		try {
 			con = getConnection();
+        	con.setAutoCommit(false);
+        	
 			PreparedStatement pstmt = con.prepareStatement(
 					"INSERT INTO " + tableName +
 					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip)" +
@@ -120,12 +122,24 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
 			
-			pstmt.close();
-			releaseConnection(con);
+			int count = pstmt.executeUpdate();
+        	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
 			
-		} catch (SQLException e) {
-			throw new MyDAOException(e);
-		}
+        	pstmt.close();
+        	
+        	con.commit();
+            con.setAutoCommit(true);
+        	releaseConnection(con);
+			
+		} catch (Exception e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
 	}
 	
 //	public CustomerBean[] getUsers() throws Exception {
