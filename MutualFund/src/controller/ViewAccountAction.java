@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,17 +39,17 @@ public class ViewAccountAction extends Action {
         request.setAttribute("errors",errors);
         
 		try {
-			//int customerId = (Integer) request.getSession(false).getAttribute("customerId");
-			//when test, there is no session, use CustomerBean customer = customerDAO.read(1);
-			CustomerBean customer = customerDAO.read(1);
+			int customerId = 1;
+//			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
+			CustomerBean customer = customerDAO.read(customerId);
+			String lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
+			customer.setLastTradeDate(lastTradeDate);
+			
 			request.setAttribute("customer", customer);
 			
-			//PositionBean[] positionList = positionDAO.getUserPositions(customerId);
-			PositionBean[] positionList = positionDAO.getUserPositions(1);
+			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
 			
-			transactionDAO
-
 	        return "customer-viewaccount.jsp";
         } catch (MyDAOException e) {
         	errors.add(e.getMessage());

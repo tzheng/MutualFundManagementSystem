@@ -15,9 +15,6 @@ import databean.CustomerBean;
 
 import model.MyDAOException;
 
-import databean.CustomerBean;
-
-
 public class CustomerDAO extends BaseDAO {
 	
 	
@@ -49,6 +46,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setCash(rs.getDouble("cash"));
         	}
         	
         	rs.close();
@@ -86,7 +84,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		//customer.setCash(rs.getDouble("cash"));
+        		customer.setCash(rs.getDouble("cash"));
         	}
         	
         	rs.close();
@@ -100,45 +98,17 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-	
-	// Method to Create New Table if Table Doesn't exist
-	protected void createTable() throws MyDAOException {
-		Connection con = null;
-        try {
-        	con = getConnection();
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(
-            		"CREATE TABLE " + tableName + 
-            		" (customerId INT NOT NULL AUTO_INCREMENT ," +
-            		"userName VARCHAR(255) NOT NULL," +
-            		"firstName VARCHAR(255) NULL ,"+
-            		"lastName VARCHAR(255) NULL ,"+
-            		"password VARCHAR(255) NOT NULL ," +
-            		"addrLine1 VARCHAR(255) NULL ," +
-            		"addrLine2 VARCHAR(255) NULL ," +
-            		"city VARCHAR(255) NULL ," +
-            		"state VARCHAR(255) NULL ," +
-            		"zip INT(11) NULL ," +
-            		"cash DOUBLE(255,2) NOT NULL ," +
-            		"PRIMARY KEY (customerId) );");
-            stmt.close();
-        	
-        	releaseConnection(con);
-
-        } catch (SQLException e) {
-            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-        	throw new MyDAOException(e);
-        }
-    }
-	
 	public void create(CustomerBean customer) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();
-			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName
-												+ " (user_name, first_name, last_name, password, addr_line1, addr_line2, city, state, zip, cash) VALUES (?,?,?,?,?,?,?,?,?,?)");
-			
-			
+        	con.setAutoCommit(false);
+        	
+			PreparedStatement pstmt = con.prepareStatement(
+					"INSERT INTO " + tableName +
+					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip)" +
+					" VALUES (?,?,?,?,?,?,?,?,?)");
+
 			pstmt.setString(1, customer.getUserName());
 			pstmt.setString(2, customer.getFirstName());
 			pstmt.setString(3, customer.getLastName());
@@ -149,70 +119,74 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
 			
-			
 			int count = pstmt.executeUpdate();
-			if (count != 1) throw new SQLException("Insert updated "+count+" rows");
+        	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
 			
-			pstmt.close();
-			releaseConnection(con);
-			
-		} catch (SQLException e) {
-			throw new MyDAOException(e);
-		}
-	}
-	
-	public CustomerBean[] getUsers() throws Exception {
-		Connection con = null;
-        try {
-        	con = getConnection();
-
-        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
-        	ResultSet rs = pstmt.executeQuery();
-        	
-        	int count = 0;
-        	while(rs.next()) {
-        		++count;
-        	}
-        	
-        	CustomerBean [] user = null;
-        	if(count != 0) {
-        		user = new CustomerBean[count];
-        	}
-        	if(rs.first()) {
-        		for(int i=0;i<count;i++) {
-            		user[i] = new CustomerBean();
-            		user[i].setCustomerId(rs.getInt("customerId"));
-            		user[i].setUserName(rs.getString("user_name"));
-            		user[i].setFirstName(rs.getString("first_name"));
-            		user[i].setLastName(rs.getString("last_name"));
-            		user[i].setPassword(rs.getString("password"));
-            		user[i].setAddrLine1(rs.getString("addr_line1"));
-            		user[i].setAddrLine2(rs.getString("addr_line2"));
-            		user[i].setCity(rs.getString("city"));
-            		user[i].setState(rs.getString("state"));
-            		user[i].setZip(rs.getInt("zip"));
-            		rs.next();
-            	}
-        	}
-        	
-        	rs.close();
         	pstmt.close();
+        	
+        	con.commit();
+            con.setAutoCommit(true);
         	releaseConnection(con);
-            return user;
-            
-        } catch (Exception e) {
-            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-        	throw new Exception(e);
+			
+		} catch (Exception e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
         }
 	}
 	
-	public CustomerBean lookup(String emailAddress) throws Exception{
+//	public CustomerBean[] getUsers() throws Exception {
+//		Connection con = null;
+//        try {
+//        	con = getConnection();
+//
+//        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
+//        	ResultSet rs = pstmt.executeQuery();
+//        	
+//        	
+//        	CustomerBean [] customer = null;
+////        	if(count != 0) {
+////        		user = new CustomerBean[count];
+////        	}
+//        	if(rs.first()) {
+//        		for(int i=0;i<count;i++) {
+//        			customer[i] = new CustomerBean();
+//        			customer[i].setCustomerId(rs.getInt("customerId"));
+//        			customer[i].setUserName(rs.getString("userName"));
+//        			customer[i].setFirstName(rs.getString("firstName"));
+//        			customer[i].setLastName(rs.getString("lastName"));
+//        			customer[i].setPassword(rs.getString("password"));
+//        			customer[i].setAddrLine1(rs.getString("addrLine1"));
+//        			customer[i].setAddrLine2(rs.getString("addrLine2"));
+//        			customer[i].setCity(rs.getString("city"));
+//        			customer[i].setState(rs.getString("state"));
+//        			customer[i].setZip(rs.getInt("zip"));
+//            		rs.next();
+//            	}
+//        	}
+//        	
+//        	rs.close();
+//        	pstmt.close();
+//        	releaseConnection(con);
+//            return customer;
+//            
+//        } catch (Exception e) {
+//            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+//        	throw new Exception(e);
+//        }
+//	}
+	
+	public CustomerBean lookup(String userName) throws Exception{
 		Connection con = null;
         try {
         	con = getConnection();
 
-        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE email_address=?");
-        	pstmt.setString(1,emailAddress);
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE userName=?");
+        	pstmt.setString(1,userName);
         	ResultSet rs = pstmt.executeQuery();
         	
         	CustomerBean customer;
@@ -221,15 +195,16 @@ public class CustomerDAO extends BaseDAO {
         	} else {
         		customer = new CustomerBean();
         		customer.setCustomerId(rs.getInt("customerId"));
-        		customer.setUserName(rs.getString("user_name"));
-        		customer.setFirstName(rs.getString("first_name"));
-        		customer.setLastName(rs.getString("last_name"));
+        		customer.setUserName(rs.getString("userName"));
+        		customer.setFirstName(rs.getString("firstName"));
+        		customer.setLastName(rs.getString("lastName"));
         		customer.setPassword(rs.getString("password"));
-        		customer.setAddrLine1(rs.getString("addr_line1"));
-        		customer.setAddrLine2(rs.getString("addr_line2"));
+        		customer.setAddrLine1(rs.getString("addrLine1"));
+        		customer.setAddrLine2(rs.getString("addrLine2"));
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setCash(rs.getDouble("cash"));
         	}
         	
         	rs.close();
@@ -243,5 +218,33 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-}
+	// Method to Create New Table if Table Doesn't exist
+		protected void createTable() throws MyDAOException {
+			Connection con = null;
+	        try {
+	        	con = getConnection();
+	            Statement stmt = con.createStatement();
+	            stmt.executeUpdate(
+	            		"CREATE TABLE " + tableName + 
+	            		" (customerId INT NOT NULL AUTO_INCREMENT ," +
+	            		"userName VARCHAR(255) NOT NULL," +
+	            		"firstName VARCHAR(255) NULL ,"+
+	            		"lastName VARCHAR(255) NULL ,"+
+	            		"password VARCHAR(255) NOT NULL ," +
+	            		"addrLine1 VARCHAR(255) NULL ," +
+	            		"addrLine2 VARCHAR(255) NULL ," +
+	            		"city VARCHAR(255) NULL ," +
+	            		"state VARCHAR(255) NULL ," +
+	            		"zip INT(11) NULL ," +
+	            		"cash DOUBLE(255,2) DEFAULT 0," +
+	            		"PRIMARY KEY (customerId) );");
+	            stmt.close();
+	        	
+	        	releaseConnection(con);
 
+	        } catch (SQLException e) {
+	            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+	        	throw new MyDAOException(e);
+	        }
+	    }
+}

@@ -31,6 +31,7 @@ public class CreateAccountAction extends Action {
 
 	@Override
 	public String perform(HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
@@ -48,7 +49,8 @@ public class CreateAccountAction extends Action {
 	        }
 	
 	        
-	        CustomerBean customer = customerDAO.lookup(form.getUserName());
+	        CustomerBean customer = customerDAO.read(form.getUserName());
+	        
 	       	if (customer != null) {
 	       		errors.add("Existing User Name");
                 return "create-account.jsp";
@@ -66,16 +68,16 @@ public class CreateAccountAction extends Action {
 	       	customer.setZip(form.getZipAsInt());
 	       	customerDAO.create(customer);
         
-	        HttpSession session = request.getSession(false);
+//	        HttpSession session = request.getSession(false);
 	        session.setAttribute("customer",customer);
 	
 			return "customer-mainpanel.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "error-list.jsp";
         } catch (Exception e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "error-list.jsp";
         }
         
 	}
