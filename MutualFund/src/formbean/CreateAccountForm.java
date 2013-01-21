@@ -3,6 +3,8 @@ package formbean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybeans.form.FormBean;
 
 public class CreateAccountForm extends FormBean {
@@ -17,6 +19,7 @@ public class CreateAccountForm extends FormBean {
 	private String city;
 	private String state;
 	private String zip;
+	
 
 	public String getUserName() {
 		return userName;
