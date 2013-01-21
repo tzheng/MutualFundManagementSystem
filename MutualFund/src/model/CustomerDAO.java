@@ -106,8 +106,8 @@ public class CustomerDAO extends BaseDAO {
         	
 			PreparedStatement pstmt = con.prepareStatement(
 					"INSERT INTO " + tableName +
-					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip)" +
-					" VALUES (?,?,?,?,?,?,?,?,?)");
+					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip, cash)" +
+					" VALUES (?,?,?,?,?,?,?,?,?,?)");
 
 			pstmt.setString(1, customer.getUserName());
 			pstmt.setString(2, customer.getFirstName());
@@ -118,6 +118,7 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(7, customer.getCity());
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
+			pstmt.setDouble(10, customer.getCash());
 			
 			int count = pstmt.executeUpdate();
         	if (count != 1) throw new SQLException("Insert updated "+count+" rows");

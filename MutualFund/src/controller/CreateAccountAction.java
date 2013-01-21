@@ -66,12 +66,18 @@ public class CreateAccountAction extends Action {
 	       	customer.setCity(form.getCity());
 	       	customer.setState(form.getState());
 	       	customer.setZip(form.getZipAsInt());
+	       	customer.setCash(0.0);
 	       	customerDAO.create(customer);
         
 //	        HttpSession session = request.getSession(false);
 	        session.setAttribute("customer",customer);
-	
-			return "customer-mainpanel.jsp";
+	        
+	        
+	        //set success message, and return to confirmation page!
+	        request.setAttribute("message","Successfully create account " + "<b>" + form.getUserName() + "</b>");
+
+	        return "employee-confirmation.jsp";
+			
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error-list.jsp";

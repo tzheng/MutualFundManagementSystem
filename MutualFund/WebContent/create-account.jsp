@@ -17,7 +17,7 @@
   <div class="control-group">
     <label class="control-label" for="inputUsername">User Name</label>
     <div class="controls">
-      <input type="text" name="userName" id="inputUsername" placeholder="Username" <%-- value="${ form.userName }" --%>>
+      <input type="text" name="userName" id="inputUsername" placeholder="Username"  value="${ form.userName }" >
     </div>
   </div>
   <div class="control-group">
@@ -35,43 +35,43 @@
   <div class="control-group">
     <label class="control-label" for="inputFirstName">First Name</label>
     <div class="controls">
-      <input type="text" name="firstName" id="inputFirstName" placeholder="First Name" <%-- value="${ form.firstName }" --%>>
+      <input type="text" name="firstName" id="inputFirstName" placeholder="First Name"  value="${ form.firstName }" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputLastName">Last Name</label>
     <div class="controls">
-      <input type="text" name="lastName" id="inputLastName" placeholder="Last Name" <%-- value="${ form.lastName }" --%>>
+      <input type="text" name="lastName" id="inputLastName" placeholder="Last Name"  value="${ form.lastName }" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputAddrLine1">Address Line 1</label>
     <div class="controls">
-      <input type="text" name="addrLine1" id="inputAddrLine1" placeholder="Address Line 1" <%-- value="${ form.addrLine1 }" --%>>
+      <input type="text" name="addrLine1" id="inputAddrLine1" placeholder="Address Line 1"  value="${ form.addrLine1 }" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputAddrLine2">Address Line 2</label>
     <div class="controls">
-      <input type="text" name="addrLine2" id="inputAddrLine2" placeholder="Address Line 2" <%-- value="${ form.addrLine2 }" --%>>
+      <input type="text" name="addrLine2" id="inputAddrLine2" placeholder="Address Line 2"  value="${ form.addrLine2 }" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputCity">City</label>
     <div class="controls">
-      <input type="text" name="city" id="inputCity" placeholder="City" <%-- value="${ form.city }" --%>>
+      <input type="text" name="city" id="inputCity" placeholder="City"  value="${ form.city }" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputState">State</label>
     <div class="controls">
-      <input type="text" name="state" id="inputState" placeholder="State" <%-- value="${ form.state }" --%>>
+      <input type="text" name="state" id="inputState" placeholder="State"  value="${ form.state }" >
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputZip">Zip</label>
     <div class="controls">
-      <input type="text" name="zip" id="inputZip" placeholder="Zip" <%-- value="${ form.zip }" --%>>
+      <input type="text" name="zip" id="inputZip" placeholder="Zip"  value="${ form.zip }" >
     </div>
   </div>
   <div class="control-group">
