@@ -80,10 +80,10 @@ public class CreateAccountAction extends Action {
 			
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
-        	return "error-list.jsp";
+        	return "error.jsp";
         } catch (Exception e) {
         	errors.add(e.getMessage());
-        	return "error-list.jsp";
+        	return "error.jsp";
         }
         
 	}
