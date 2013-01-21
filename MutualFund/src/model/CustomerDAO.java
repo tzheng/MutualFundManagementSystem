@@ -181,13 +181,13 @@ public class CustomerDAO extends BaseDAO {
 //        }
 //	}
 	
-	public CustomerBean lookup(String userName) throws Exception{
+	public CustomerBean lookup(int customerId) throws Exception{
 		Connection con = null;
         try {
         	con = getConnection();
 
-        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE userName=?");
-        	pstmt.setString(1,userName);
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE customerId=?");
+        	pstmt.setInt(1, customerId);
         	ResultSet rs = pstmt.executeQuery();
         	
         	CustomerBean customer;
