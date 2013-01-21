@@ -70,7 +70,8 @@ public class CreateAccountAction extends Action {
 	       	customerDAO.create(customer);
         
 //	        HttpSession session = request.getSession(false);
-	        session.setAttribute("customer",customer);
+	      // set session is unnecessary!!!
+	      // 	session.setAttribute("customer",customer);
 	        
 	        
 	        //set success message, and return to confirmation page!

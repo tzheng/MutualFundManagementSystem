@@ -64,9 +64,11 @@ public class CreateEmployeeAccountAction extends Action{
 	        
 	       	employeeDAO.create(employee);
         
-	        HttpSession session = request.getSession(false);
-	        session.setAttribute("employee",employee);
-	
+	       // HttpSession session = request.getSession(false);
+	       // session.setAttribute("employee",employee);
+	        
+	        request.setAttribute("message","Successfully create account " + "<b>" + form.getUserName() + "</b>");
+	       	
 			return "employee-confirmation.jsp";
 
         } catch (FormBeanException e) {
