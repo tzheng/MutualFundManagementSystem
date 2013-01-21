@@ -11,6 +11,7 @@ public class CustomerBean {
 	private String city;
 	private String state;
 	private int zip;
+	private double cash;
 	
 	public int getCustomerId() {
 		return customerId;
@@ -84,6 +85,10 @@ public class CustomerBean {
 	public void setZip(int zip) {
 		this.zip = zip;
 	}
-	
-	
+	public double getCash() {
+		return cash;
+	}
+	public void setCash(double cash) {
+		this.cash = cash;
+	}
 }

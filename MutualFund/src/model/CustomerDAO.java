@@ -49,6 +49,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setCash(rs.getDouble("cash"));
         	}
         	
         	rs.close();
@@ -86,7 +87,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		//customer.setCash(rs.getDouble("cash"));
+        		customer.setCash(rs.getDouble("cash"));
         	}
         	
         	rs.close();
@@ -100,45 +101,15 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-	
-	// Method to Create New Table if Table Doesn't exist
-	protected void createTable() throws MyDAOException {
-		Connection con = null;
-        try {
-        	con = getConnection();
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(
-            		"CREATE TABLE " + tableName + 
-            		" (customerId INT NOT NULL AUTO_INCREMENT ," +
-            		"userName VARCHAR(255) NOT NULL," +
-            		"firstName VARCHAR(255) NULL ,"+
-            		"lastName VARCHAR(255) NULL ,"+
-            		"password VARCHAR(255) NOT NULL ," +
-            		"addrLine1 VARCHAR(255) NULL ," +
-            		"addrLine2 VARCHAR(255) NULL ," +
-            		"city VARCHAR(255) NULL ," +
-            		"state VARCHAR(255) NULL ," +
-            		"zip INT(11) NULL ," +
-//            		"cash DOUBLE(255,2) NOT NULL ," +
-            		"PRIMARY KEY (customerId) );");
-            stmt.close();
-        	
-        	releaseConnection(con);
-
-        } catch (SQLException e) {
-            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-        	throw new MyDAOException(e);
-        }
-    }
-	
 	public void create(CustomerBean customer) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();
-			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName
-												+ " (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip) VALUES (?,?,?,?,?,?,?,?,?)");
-			
-			
+			PreparedStatement pstmt = con.prepareStatement(
+					"INSERT INTO " + tableName +
+					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip)" +
+					" VALUES (?,?,?,?,?,?,?,?,?)");
+
 			pstmt.setString(1, customer.getUserName());
 			pstmt.setString(2, customer.getFirstName());
 			pstmt.setString(3, customer.getLastName());
@@ -148,7 +119,6 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(7, customer.getCity());
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
-			
 			
 			pstmt.close();
 			releaseConnection(con);
@@ -223,6 +193,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setCash(rs.getDouble("cash"));
         	}
         	
         	rs.close();
@@ -236,5 +207,33 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-}
+	// Method to Create New Table if Table Doesn't exist
+		protected void createTable() throws MyDAOException {
+			Connection con = null;
+	        try {
+	        	con = getConnection();
+	            Statement stmt = con.createStatement();
+	            stmt.executeUpdate(
+	            		"CREATE TABLE " + tableName + 
+	            		" (customerId INT NOT NULL AUTO_INCREMENT ," +
+	            		"userName VARCHAR(255) NOT NULL," +
+	            		"firstName VARCHAR(255) NULL ,"+
+	            		"lastName VARCHAR(255) NULL ,"+
+	            		"password VARCHAR(255) NOT NULL ," +
+	            		"addrLine1 VARCHAR(255) NULL ," +
+	            		"addrLine2 VARCHAR(255) NULL ," +
+	            		"city VARCHAR(255) NULL ," +
+	            		"state VARCHAR(255) NULL ," +
+	            		"zip INT(11) NULL ," +
+	            		"cash DOUBLE(255,2) DEFAULT 0," +
+	            		"PRIMARY KEY (customerId) );");
+	            stmt.close();
+	        	
+	        	releaseConnection(con);
 
+	        } catch (SQLException e) {
+	            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+	        	throw new MyDAOException(e);
+	        }
+	    }
+}

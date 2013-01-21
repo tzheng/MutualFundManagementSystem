@@ -35,7 +35,7 @@ public class TransactionDAO extends BaseDAO{
         	if (!rs.next()) {
         		date = null;
         	} else {
-        		date = rs.getDate("exeCuteDate");
+        		date = rs.getDate("executeDate");
         	}
         	
         	rs.close();
