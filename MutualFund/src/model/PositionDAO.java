@@ -15,7 +15,7 @@ public class PositionDAO extends BaseDAO {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public PositionBean[] getUserPositions(int customerId) throws MyDAOException {
+	public PositionBean[] getCustomerPortfolio(int customerId) throws MyDAOException {
 		Connection con = null;
     	try {
         	con = getConnection();

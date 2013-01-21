@@ -44,7 +44,7 @@ public class ViewAccountAction extends Action {
 			request.setAttribute("customer", customer);
 			
 			//PositionBean[] positionList = positionDAO.getUserPositions(customerId);
-			PositionBean[] positionList = positionDAO.getUserPositions(1);
+			PositionBean[] positionList = positionDAO.getCustomerPortfolio(1);
 			request.setAttribute("positionList", positionList);
 			
 			transactionDAO
