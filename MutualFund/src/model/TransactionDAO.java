@@ -77,7 +77,7 @@ public class TransactionDAO extends BaseDAO{
 					+ tableName
 					+ " (transactionId INT NOT NULL AUTO_INCREMENT,customerId INT NOT NULL,fundId INT NOT NULL, "
 					+ " executeDate DATE NOT NULL, shares INT, sharePrice FLOAT,transactionType VARCHAR(20),transactionStatus VARCHAR(10) NOT NULL,amount FLOAT,"
-					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Position(customerId),Customer(customerId), FOREIGN KEY(fundId) REFERENCES Position(fundId))");
+					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Position (customerId), FOREIGN KEY (customerId) REFERENCES Customer (customerId), FOREIGN KEY (fundId) REFERENCES Position (fundId))");
 			stmt.close();
 			releaseConnection(con);
 		} catch (SQLException e) {
