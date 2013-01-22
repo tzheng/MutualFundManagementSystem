@@ -8,6 +8,7 @@
 				          <div>
 					              <form class="form-horizontal" method="post" action="createfund.do">
 						            		<legend>Create Fund</legend>
+						            		<jsp:include page="error-list.jsp" />
 				   						<div class="control-group">
 											<label class="control-label"  for="inputFundname">Fund Name</label>
 											<div class="controls">
