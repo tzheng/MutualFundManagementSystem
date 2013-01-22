@@ -25,7 +25,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (fundId INT NOT NULL, pricedate DATE NOT NULL, price FLOAT NOT NULL, "
+					+ " (fundId INT NOT NULL, priceDate DATE NOT NULL, price BIGINT(32) NOT NULL, "
 					+ "PRIMARY KEY (fundId, pricedate), FOREIGN KEY (fundId) REFERENCES fund (fundId))");
             
             stmt.close();
@@ -48,7 +48,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			// convert java.utl.date to java.sql.date so that can insert date to ...
 			Date sqlDate = new Date(priceHistory.getPrice_date().getTime());
 			pstmt.setDate(2, sqlDate);
-			pstmt.setDouble(3, priceHistory.getPrice());
+			pstmt.setDouble(3, priceHistory.getPrice()); //CHANGE
 			
 			int count = pstmt.executeUpdate();
 			if (count != 1) throw new SQLException("insert updated " + count + "rows");
@@ -76,7 +76,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			while (rs.next()) {
 				FundPriceHistoryBean price = new FundPriceHistoryBean();
 				price.setFund_id(rs.getInt("fundid"));
-				price.setPrice(rs.getDouble("price"));
+				price.setPrice(rs.getDouble("price")); //change
 				price.setPrice_date(rs.getDate("pricedate"));
 				list.add(price);
 			}

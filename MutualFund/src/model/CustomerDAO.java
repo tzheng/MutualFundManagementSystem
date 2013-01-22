@@ -46,7 +46,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		customer.setCash(rs.getDouble("cash"));
+        		customer.setCash(rs.getDouble("cash")); //CHANGE
         	}
         	
         	rs.close();
@@ -84,7 +84,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		customer.setCash(rs.getDouble("cash"));
+        		customer.setCash(rs.getDouble("cash")); //CHANGE
         	}
         	
         	rs.close();
@@ -118,7 +118,7 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(7, customer.getCity());
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
-			pstmt.setDouble(10, customer.getCash());
+			pstmt.setDouble(10, customer.getCash()); // CHANGE
 			
 			int count = pstmt.executeUpdate();
         	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
@@ -205,7 +205,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		customer.setCash(rs.getDouble("cash"));
+        		customer.setCash(rs.getDouble("cash")); // NEED TO BE CHANGED
         	}
         	
         	rs.close();
@@ -237,7 +237,7 @@ public class CustomerDAO extends BaseDAO {
 	            		"city VARCHAR(255) NULL ," +
 	            		"state VARCHAR(255) NULL ," +
 	            		"zip INT(11) NULL ," +
-	            		"cash DOUBLE(255,2) DEFAULT 0," +
+	            		"cash BIGINT(32) DEFAULT 0," +
 	            		"PRIMARY KEY (customerId) );");
 	            stmt.close();
 	        	

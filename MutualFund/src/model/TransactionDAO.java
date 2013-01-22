@@ -56,7 +56,7 @@ public class TransactionDAO extends BaseDAO{
 			con = getConnection();
 			// you might need to change this query, i didn't finish it.
 			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName  
-														+ " (executeDate, transactionId, customerId, transactionType, transactionStatus, amount) "
+														+ " (customerId, transactionType, transactionStatus, amount) "
 														+ " VALUES (?,?,?,?,?,?)");
 			// add the vaule to prepare statement.
 		} catch (SQLException e) {
@@ -75,8 +75,8 @@ public class TransactionDAO extends BaseDAO{
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("CREATE TABLE "
 					+ tableName
-					+ " (transactionId INT NOT NULL AUTO_INCREMENT,customerId INT NOT NULL,fundId INT NOT NULL, "
-					+ " executeDate DATE NOT NULL, shares INT, sharePrice FLOAT,transactionType VARCHAR(20),transactionStatus VARCHAR(10) NOT NULL,amount FLOAT,"
+					+ " (transactionId INT NOT NULL AUTO_INCREMENT, customerId INT NOT NULL, fundId INT NOT NULL, "
+					+ " executeDate DATE NOT NULL, shares BIGINT(32), sharePrice BIGINT(32),transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(32),"
 					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Position (customerId), FOREIGN KEY (customerId) REFERENCES Customer (customerId), FOREIGN KEY (fundId) REFERENCES Position (fundId))");
 			stmt.close();
 			releaseConnection(con);
