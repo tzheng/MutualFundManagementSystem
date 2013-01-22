@@ -22,6 +22,25 @@ public class CustomerDAO extends BaseDAO {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
+	public synchronized void changePassword(int customerId, String newPassword){
+		Connection con = null;
+        try {
+        	con = getConnection();
+        	
+        	PreparedStatement pstmt = con.prepareStatement("UPDATE " + tableName + " SET password=? WHERE customerId=?");
+        	pstmt.setString(1, newPassword);
+        	pstmt.setInt(2, customerId);
+        	int rs = pstmt.executeUpdate();
+        	con.commit();
+        	
+        	pstmt.close();
+        	releaseConnection(con);    
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	//throw new MyDAOException(e);
+        }
+	}
+	
 	public CustomerBean read(int customerId) throws MyDAOException {
 		Connection con = null;
         try {

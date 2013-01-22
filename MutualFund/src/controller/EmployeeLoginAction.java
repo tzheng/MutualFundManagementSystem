@@ -37,12 +37,12 @@ public class EmployeeLoginAction extends Action {
 		HttpSession session = request.getSession();
 
 		// If employee is already logged in, redirect to employee-mainpanel.jsp
-		if (session.getAttribute("employee") != null) {
+		if (session.getAttribute("employeeUserName") != null) {
 			return "employee-mainpanel.jsp";
 		}
 
 		// If customer is already logged in, redirect to customer-mainpanel.jsp
-		if (session.getAttribute("customer") != null) {
+		if (session.getAttribute("customerId") != null) {
 			return "customer-mainpanel.jsp";
 		}
 
@@ -79,7 +79,7 @@ public class EmployeeLoginAction extends Action {
 	        }
 
 			// Attach (this copy of) the user bean to the session
-			session.setAttribute("employee", employee);
+			session.setAttribute("employeeUserName", employee.getUserName());
 
 			// If redirectTo is null, redirect to the "todolist" action
 			return "employee-mainpanel.jsp";
