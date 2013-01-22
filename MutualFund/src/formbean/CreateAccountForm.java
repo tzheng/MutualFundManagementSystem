@@ -122,7 +122,7 @@ public class CreateAccountForm extends FormBean {
         
         if (errors.size() > 0) return errors;
         
-        if(!password.equals(confirmPassword)) errors.add("Mismatching password");
+        if(!password.equals(confirmPassword)) errors.add("Mismatching passwords");
 		
         return errors;
     }

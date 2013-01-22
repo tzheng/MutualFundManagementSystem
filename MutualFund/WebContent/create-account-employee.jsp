@@ -34,6 +34,12 @@
     </div>
   </div>
   <div class="control-group">
+    <label class="control-label" for="inputConfirmPassword">Confirm Password</label>
+    <div class="controls">
+      <input type="password" name="confirmPassword" id="inputConfirmPassword" placeholder="Confirm Password"  >
+    </div>
+  </div>
+  <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn">Create Account</button>
     </div>
