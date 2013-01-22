@@ -17,6 +17,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 	public void createTable() {
 		
 	}
+	
 	//get transactions of specified user
 	public TransactionHistoryBean[] getTransactions(int customerId) throws MyDAOException {
 		Connection con;
@@ -39,7 +40,26 @@ public class TransactionHistoryDAO extends BaseDAO {
 			while (rs.next()) {
 				TransactionHistoryBean history = new TransactionHistoryBean();
 				history.setTransactionDate(rs.getDate("executedate"));
-				history.setOperation(rs.getString("transactionType"));
+				//convert int type to real operation: 
+				// 1 = BUY FUND, 2 = SELL FUND,  3 = REQUEST CHECK  4 = DEPOSIT CHECK 
+				int type = rs.getInt("transactionType");
+				String typeStr = "";
+				switch (type) {
+				case 1:
+					typeStr = "BUY FUND";
+					break;
+				case 2:
+					typeStr = "SELL FUND";
+					break;
+				case 3:
+					typeStr = "REQUEST CHECK";
+					break;
+				case 4:
+					typeStr = "DEPOSIT CHECK";
+					break;
+				}
+				history.setOperation(typeStr);
+				
 				history.setFundName(rs.getString("name"));
 				history.setShareNumber(rs.getInt("shares"));
 				history.setSharePrice(rs.getFloat("shareprice"));

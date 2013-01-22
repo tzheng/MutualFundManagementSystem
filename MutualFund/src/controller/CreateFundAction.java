@@ -48,7 +48,7 @@ public class CreateFundAction extends Action {
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
 	            return "employee-createfund.jsp";
-	        }
+	        } 
 	        //test whether fundname and symbol are existed.
 	        
 	        FundBean fund = fundDAO.read(form.getFundName());
