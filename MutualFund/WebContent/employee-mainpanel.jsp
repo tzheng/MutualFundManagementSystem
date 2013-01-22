@@ -24,7 +24,7 @@
 									</li>
 								</a>
 								
-								<a href="create-account.jsp">
+								<a href="create-account.do">
 									<li class="span3">
 										icon here
 										<div class="menu-title">
@@ -33,7 +33,7 @@
 									</li>
 								</a>
 								
-								<a href="employee-viewtransaction.jsp">
+								<a href="employeehistory.do">
 									<li class="span3">
 									icon here
 										<div class="menu-title">

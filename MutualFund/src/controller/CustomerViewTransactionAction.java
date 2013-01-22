@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import databean.CustomerBean;
 import databean.TransactionHistoryBean;
 
 import formbean.CustomerIdForm;
@@ -39,8 +41,9 @@ public class CustomerViewTransactionAction extends Action {
 				return "error.jsp";
 			}
 			**/
+			CustomerBean customer = (CustomerBean) request.getSession(false).getAttribute("customer");
 			//TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(form.getCustomerIdasInt()); 
-			TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(1);
+			TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(customer.getCustomerId());
 			request.setAttribute("transactionHistory", historyList);
 			return "customer-viewtransaction.jsp";
 		} catch (MyDAOException e) {
