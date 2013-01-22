@@ -5,8 +5,10 @@
 
 package model;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -70,4 +72,62 @@ public class FundDAO extends BaseDAO {
         	throw new MyDAOException(e);
         }
     }
+	
+	public FundBean read(String fundName) throws MyDAOException{
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE name=?");
+        	pstmt.setString(1, fundName);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	FundBean fund;
+        	if (!rs.next()) {
+        		fund = null;
+        	} else {
+        		fund = new FundBean();
+        		fund.setName(rs.getString("name"));
+        		fund.setSymbol(rs.getString("symbol"));
+        	}
+        	
+        	rs.close();
+        	pstmt.close();
+        	releaseConnection(con);
+            return fund;
+            
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
+	}
+	public FundBean readSymbol(String symbol) throws MyDAOException{
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE symbol=?");
+        	pstmt.setString(1, symbol);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	FundBean fund;
+        	if (!rs.next()) {
+        		fund = null;
+        	} else {
+        		fund = new FundBean();
+        		fund.setName(rs.getString("name"));
+        		fund.setSymbol(rs.getString("symbol"));
+        	}
+        	
+        	rs.close();
+        	pstmt.close();
+        	releaseConnection(con);
+            return fund;
+            
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
+	}
+
 }

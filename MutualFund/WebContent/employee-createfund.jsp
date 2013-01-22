@@ -12,13 +12,13 @@
 				   						<div class="control-group">
 											<label class="control-label"  for="inputFundname">Fund Name</label>
 											<div class="controls">
-												<input type="text"  name="fundName" id="inputFundid" placeholder="Fund Name">
+												<input type="text"  name="fundName" id="inputFundid" placeholder="Fund Name" value="${form.fundName }">
 											</div>
 										</div>
 									      <div class="control-group">
 											<label class="control-label"  for="inputTicker">Ticker Symbol</label>
 											<div class="controls">
-												<input type="text" name="symbol" id="inputTickerid" placeholder="one to five characters">
+												<input type="text" name="symbol" id="inputTickerid" placeholder="one to five characters" value="${form.symbol }">
 											</div>
 										</div>  
 										<div class="control-group">
