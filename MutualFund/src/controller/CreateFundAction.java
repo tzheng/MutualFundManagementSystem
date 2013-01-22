@@ -40,20 +40,32 @@ public class CreateFundAction extends Action {
 		
 			FundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
+			
+			if (!form.isPresent()) {
+	            return "employee-createfund.jsp";
+	        }
+	
+	        errors.addAll(form.getValidationErrors());
+	        if (errors.size() != 0) {
+	            return "employee-createfund.jsp";
+	        }
 
 			FundBean fund = new FundBean();
 			fund.setSymbol(form.getSymbol());
 			fund.setName(form.getFundName());
 			fundDAO.create(fund);
-			session.setAttribute("fund", fund);
-			return "employee-createfund.jsp";
+			
+			request.setAttribute("message","Successfully create fund: " + "<b>" + form.getFundName() 
+					+ "</b>, Symbol: <b>" + form.getSymbol() + "</b>");
+			return "employee-confirmation.jsp";
+			
 		} catch ( MyDAOException e) {
 			errors.add(e.getMessage());
-			return "error-list.jsp";
+			return "error.jsp";
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "error-list.jsp";
+			return "error.jsp";
 		}
 	}
 }
