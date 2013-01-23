@@ -124,10 +124,13 @@
   							   <c:forEach var="history" items="${transactionHistory}">
   							   		<c:set var="status" value="${history.transactionStatus}"></c:set>
   							   		<c:set var="pending" value="Pending"> </c:set>
-  							   		
+  							   		<c:set var="rejected" value = "Rejected"></c:set>
   							   		<c:choose>
 	  							   		<c:when test="${status eq pending}">
 	  							   			<tr class="info">
+	  							   		</c:when>
+	  							   		<c:when test="${status eq rejected}">
+	  							   			<tr class="error">
 	  							   		</c:when>
 	  							   		<c:otherwise>
 	  							   			<tr>
@@ -139,7 +142,18 @@
   							   			<td>${history.fundName} </td>
   							   			<td>${history.shareNumber} </td>
   							   			<td>${history.sharePrice} </td>
-  							   			<td>${history.dollarAmount} </td>
+  							   			
+  							   			<c:set var="amount" value="${history.dollarAmount}"></c:set>
+  							   			<c:set var="zero" value = "0.00"></c:set> 
+  							   			<c:choose>
+  							   				<c:when test="${amount eq zero }" >
+  							   					<td style ="text-align: center"> - </td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td>${history.dollarAmount} </td>
+  							   				</c:otherwise> 
+  							   			</c:choose>
+  							   			
   							   			<td>${history.transactionStatus} </td>
   							   		</tr>
   							   		
