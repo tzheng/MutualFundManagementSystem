@@ -62,7 +62,7 @@ public abstract class BaseDAO {
         }
 
         try {
-            return DriverManager.getConnection(jdbcURL);
+            return DriverManager.getConnection(jdbcURL + "?useUnicode=true&characterEncoding=utf-8");
         } catch (SQLException e) {
             throw new MyDAOException(e);
         }

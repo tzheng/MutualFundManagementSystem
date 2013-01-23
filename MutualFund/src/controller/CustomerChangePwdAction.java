@@ -65,7 +65,7 @@ public class CustomerChangePwdAction extends Action {
 			CustomerBean customer = customerDAO.read((Integer) session.getAttribute("customerId"));
 			
 			// check old password
-			if(!form.getOldPassword().equals(customer.getPassword())){
+			if(!customer.checkPassword(form.getOldPassword())){
 				errors.add("Please your correct old password!");
 				return "changepwd-customer.jsp";
 			}
