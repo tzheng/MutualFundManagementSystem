@@ -47,15 +47,20 @@
   							   <c:forEach var="history" items="${transactionHistory}">
   							   		<c:set var="status" value="${history.transactionStatus}"></c:set>
   							   		<c:set var="pending" value="Pending"> </c:set>
-  							   		
+  							   		<c:set var="rejected" value = "Rejected"></c:set>
   							   		<c:choose>
 	  							   		<c:when test="${status eq pending}">
 	  							   			<tr class="info">
+	  							   		</c:when>
+	  							   		<c:when test="${status eq rejected}">
+	  							   			<tr class="error">
 	  							   		</c:when>
 	  							   		<c:otherwise>
 	  							   			<tr>
 	  							   		</c:otherwise>
   							   		</c:choose>
+  							   		
+  							   		
   							   			<td>${history.customerId } </td>
   							   			<td>${history.transactionDate} </td>
   							   			<td>${history.operation} </td>
