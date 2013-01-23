@@ -9,7 +9,7 @@
 	   		 					<li><a href="changepwd-employee.jsp">Change Password</a></li>
 	   		 					<li class="nav-header">Customer Account Management</li>
 	   		 					<li><a href="create-account.do">Create Customer Account</a></li>
-	   		 					<li><a href="reset-customer-pwd.jsp">Reset Customer Password</a></li>
+	   		 					<li><a href="employee-reset-customer-pwd.do">Reset Customer Password</a></li>
 	   		 					<li><a href="employee-viewcustomer.jsp">View Customer Account</a></li>
 	   		 					<li><a href="employeehistory.do">Customer Transaction History</a></li>
 	   		 					<li><a href="employee-depositcheck.jsp">Depoist Check</a></li>
