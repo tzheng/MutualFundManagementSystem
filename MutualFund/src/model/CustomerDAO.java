@@ -30,9 +30,10 @@ public class CustomerDAO extends BaseDAO {
         	CustomerBean customer = new CustomerBean();
         	customer.setPassword(newPassword);
         	
-        	PreparedStatement pstmt = con.prepareStatement("UPDATE " + tableName + " SET password=? WHERE customerId=?");
+        	PreparedStatement pstmt = con.prepareStatement("UPDATE " + tableName + " SET password=? , salt=? WHERE customerId=?");
         	pstmt.setString(1, customer.getPassword());
-        	pstmt.setInt(2, customerId);
+        	pstmt.setInt(2, customer.getSalt());
+        	pstmt.setInt(3, customerId);
         	int rs = pstmt.executeUpdate();
         	con.commit();
         	
