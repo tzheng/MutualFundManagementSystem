@@ -27,8 +27,11 @@ public class CustomerDAO extends BaseDAO {
         try {
         	con = getConnection();
         	
+        	CustomerBean customer = new CustomerBean();
+        	customer.setPassword(newPassword);
+        	
         	PreparedStatement pstmt = con.prepareStatement("UPDATE " + tableName + " SET password=? WHERE customerId=?");
-        	pstmt.setString(1, newPassword);
+        	pstmt.setString(1, customer.getPassword());
         	pstmt.setInt(2, customerId);
         	int rs = pstmt.executeUpdate();
         	con.commit();
@@ -57,7 +60,7 @@ public class CustomerDAO extends BaseDAO {
         		customer = new CustomerBean();
         		customer.setCustomerId(rs.getInt("customerId"));
         		customer.setUserName(rs.getString("userName"));
-        		customer.setPassword(rs.getString("password"));
+        		customer.setDirectPassword(rs.getString("password"));
         		customer.setFirstName(rs.getString("firstName"));
         		customer.setLastName(rs.getString("lastName"));
         		customer.setAddrLine1(rs.getString("addrLine1"));
@@ -65,6 +68,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setSalt(rs.getInt("salt"));
         		customer.setCash(rs.getDouble("cash")); //CHANGE
         	}
         	
@@ -95,7 +99,7 @@ public class CustomerDAO extends BaseDAO {
         		customer = new CustomerBean();
         		customer.setCustomerId(rs.getInt("customerId"));
         		customer.setUserName(rs.getString("userName"));
-        		customer.setPassword(rs.getString("password"));
+        		customer.setDirectPassword(rs.getString("password"));
         		customer.setFirstName(rs.getString("firstName"));
         		customer.setLastName(rs.getString("lastName"));
         		customer.setAddrLine1(rs.getString("addrLine1"));
@@ -103,6 +107,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setSalt(rs.getInt("salt"));
         		customer.setCash(rs.getDouble("cash")); //CHANGE
         	}
         	
@@ -125,8 +130,8 @@ public class CustomerDAO extends BaseDAO {
         	
 			PreparedStatement pstmt = con.prepareStatement(
 					"INSERT INTO " + tableName +
-					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip, cash)" +
-					" VALUES (?,?,?,?,?,?,?,?,?,?)");
+					" (userName, firstName, lastName, password, addrLine1, addrLine2, city, state, zip, salt, cash)" +
+					" VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
 			pstmt.setString(1, customer.getUserName());
 			pstmt.setString(2, customer.getFirstName());
@@ -137,7 +142,8 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(7, customer.getCity());
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
-			pstmt.setDouble(10, customer.getCash()); // CHANGE
+			pstmt.setInt(10, customer.getSalt());
+			pstmt.setDouble(11, customer.getCash()); // CHANGE
 			
 			int count = pstmt.executeUpdate();
         	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
@@ -218,12 +224,13 @@ public class CustomerDAO extends BaseDAO {
         		customer.setUserName(rs.getString("userName"));
         		customer.setFirstName(rs.getString("firstName"));
         		customer.setLastName(rs.getString("lastName"));
-        		customer.setPassword(rs.getString("password"));
+        		customer.setDirectPassword(rs.getString("password"));
         		customer.setAddrLine1(rs.getString("addrLine1"));
         		customer.setAddrLine2(rs.getString("addrLine2"));
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
+        		customer.setSalt(rs.getInt("salt"));
         		customer.setCash(rs.getDouble("cash")); // NEED TO BE CHANGED
         	}
         	
@@ -255,7 +262,8 @@ public class CustomerDAO extends BaseDAO {
 	            		"addrLine2 VARCHAR(255) NULL ," +
 	            		"city VARCHAR(255) NULL ," +
 	            		"state VARCHAR(255) NULL ," +
-	            		"zip INT(11) NULL ," +
+	            		"zip INT(11) NULL ," + 
+	            		"salt INT(11) DEFAULT 0 ," +
 	            		"cash BIGINT(32) DEFAULT 0," +
 	            		"PRIMARY KEY (customerId) );");
 	            stmt.close();

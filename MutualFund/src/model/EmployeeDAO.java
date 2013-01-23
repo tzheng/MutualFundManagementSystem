@@ -59,6 +59,7 @@ public class EmployeeDAO extends BaseDAO {
             		"firstName VARCHAR(255) NULL ,"+
             		"lastName VARCHAR(255) NULL ,"+
             		"password VARCHAR(255) NOT NULL ," +
+            		"salt INT(11) DEFAULT 0 ," +
             		"PRIMARY KEY (userName) );");
             stmt.close();
         	
@@ -76,13 +77,15 @@ public class EmployeeDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName
-												+ " (username, password, firstName, lastName) VALUES (?,?,?,?)");
+												+ " (username, password, firstName, lastName, salt) VALUES (?,?,?,?,?)");
 			
 			
 			pstmt.setString(1, employee.getUserName());
 			pstmt.setString(2, employee.getPassword());
 			pstmt.setString(3, employee.getFirstName());
 			pstmt.setString(4, employee.getLastName());
+			pstmt.setInt(5, employee.getSalt());
+			
 			
 			int count = pstmt.executeUpdate();
 			if (count != 1) throw new SQLException("Insert updated "+count+" rows");
@@ -114,6 +117,7 @@ public class EmployeeDAO extends BaseDAO {
 				employee.setPassword(rs.getString("password"));
 				employee.setFirstName(rs.getString("firstName"));
 				employee.setLastName(rs.getString("lastName"));
+				employee.setSalt(rs.getInt("salt"));
 			}
 			
 			rs.close();
