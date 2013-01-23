@@ -15,6 +15,29 @@ public class EmployeeDAO extends BaseDAO {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
+	public synchronized void changePassword(String username, String newPassword){
+		Connection con = null;
+        try {
+        	con = getConnection();
+        	
+        	EmployeeBean employee = new EmployeeBean();
+        	employee.setPassword(newPassword);
+        	
+        	PreparedStatement pstmt = con.prepareStatement("UPDATE " + tableName + " SET password=? , salt=? WHERE userName=?");
+        	pstmt.setString(1, employee.getPassword());
+        	pstmt.setInt(2, employee.getSalt());
+        	pstmt.setString(3, username);
+        	int rs = pstmt.executeUpdate();
+        	con.commit();
+        	
+        	pstmt.close();
+        	releaseConnection(con);    
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	//throw new MyDAOException(e);
+        }
+	}
+	
 	// read employee give userName
 	public EmployeeBean read(String userName) throws MyDAOException{
 		Connection con = null;
@@ -31,10 +54,10 @@ public class EmployeeDAO extends BaseDAO {
         	} else {
         		employee = new EmployeeBean();
         		employee.setUserName(rs.getString("userName"));
-        		employee.setPassword(rs.getString("password"));
+        		employee.setDirectPassword(rs.getString("password"));
         		employee.setFirstName(rs.getString("firstName"));
         		employee.setLastName(rs.getString("lastName"));
-        		
+        		employee.setSalt(rs.getInt("salt"));
         	}
         	
         	rs.close();
@@ -114,7 +137,7 @@ public class EmployeeDAO extends BaseDAO {
 			} else {
 				employee = new EmployeeBean();
 				employee.setUserName(rs.getString("userName"));
-				employee.setPassword(rs.getString("password"));
+				employee.setDirectPassword(rs.getString("password"));
 				employee.setFirstName(rs.getString("firstName"));
 				employee.setLastName(rs.getString("lastName"));
 				employee.setSalt(rs.getInt("salt"));
