@@ -11,14 +11,13 @@ import java.util.List;
 
 import model.MyDAOException;
 
-
 public class TransactionDAO extends BaseDAO{
 	public TransactionDAO(String jdbcDriver, String jdbcURL, String tableName)
 			throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public String getCustomerLastTradeDate(int customerId) throws MyDAOException {
+	public Date getCustomerLastTradeDate(int customerId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -31,11 +30,11 @@ public class TransactionDAO extends BaseDAO{
         	pstmt.setInt(1, customerId);
         	ResultSet rs = pstmt.executeQuery();
         	
-        	String lastTradeDate;
+        	Date lastTradeDate;
         	if (!rs.next()) {
         		lastTradeDate = null;
         	} else {
-        		lastTradeDate = rs.getString("executeDate");
+        		lastTradeDate = rs.getDate("executeDate");
         	}
         	
         	rs.close();
