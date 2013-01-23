@@ -2,6 +2,7 @@ package databean;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.Random;
 
 public class CustomerBean {
@@ -15,8 +16,25 @@ public class CustomerBean {
 	private String city;
 	private String state;
 	private int zip;
-	private String cash;
+	private double cash;
 	private String lastTradeDate;
+
+	public double getCash() {
+		return cash;
+	}
+
+	public void setCash(double cash) {
+		this.cash = cash;
+	}
+
+	public String getLastTradeDate() {
+		return lastTradeDate;
+	}
+
+	public void setLastTradeDate(String lastTradeDate) {
+		this.lastTradeDate = lastTradeDate;
+	}
+
 
 	private int salt = 0;
 	
@@ -81,13 +99,7 @@ public class CustomerBean {
 		return zip;
 	}
 
-	public String getCash() {
-		return cash;
-	}
-
-	public String getLastTradeDate() {
-		return lastTradeDate;
-	}
+	
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
@@ -125,13 +137,7 @@ public class CustomerBean {
 		this.zip = zip;
 	}
 
-	public void setCash(String cash) {
-		this.cash = cash;
-	}
-
-	public void setLastTradeDate(String lastTradeDate) {
-		this.lastTradeDate = lastTradeDate;
-	}
+	
 	
 	private String hash(String clearPassword) {
 		MessageDigest md = null;

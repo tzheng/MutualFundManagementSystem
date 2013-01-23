@@ -71,11 +71,8 @@ public class CustomerDAO extends BaseDAO {
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
         		
-        		DecimalFormat formatter = new DecimalFormat("#0.00");
-				//convert cash from LONG to DOUBLE
-        		long cash = rs.getLong("cash");
-        		double cashD = cash/100.00;
-        		customer.setCash(formatter.format(cashD));//CHANGE
+        		long cashL = Math.round(customer.getCash() * 100);
+        		customer.setCash(cashL);//CHANGE
 
         		customer.setSalt(rs.getInt("salt"));
         		
@@ -119,11 +116,8 @@ public class CustomerDAO extends BaseDAO {
         		customer.setZip(rs.getInt("zip"));
 
         		
-        		DecimalFormat formatter = new DecimalFormat("#0.00");
-				//convert cash from LONG to DOUBLE
-        		long cash = rs.getLong("cash");
-        		double cashD = cash/100.00;
-        		customer.setCash(formatter.format(cashD));//CHANGE
+        		long cashL = Math.round(customer.getCash() * 100);
+        		customer.setCash(cashL);//CHANGE
 
         		customer.setSalt(rs.getInt("salt"));
         		//CHANGE
@@ -164,7 +158,8 @@ public class CustomerDAO extends BaseDAO {
 
 			pstmt.setInt(10, customer.getSalt());
 			
-			pstmt.setString(11, customer.getCash()); // CHANGE
+			long cashL = Math.round(customer.getCash() * 100);
+			pstmt.setLong(11,cashL); // CHANGE
 
 			
 			int count = pstmt.executeUpdate();
@@ -253,11 +248,8 @@ public class CustomerDAO extends BaseDAO {
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
 
-        		DecimalFormat formatter = new DecimalFormat("#0.00");
-				//convert cash from LONG to DOUBLE
-        		long cash = rs.getLong("cash");
-        		double cashD = cash/100.00;
-        		customer.setCash(formatter.format(cashD));//CHANGE // NEED TO BE CHANGED
+        		long cashL = Math.round(customer.getCash() * 100);
+        		customer.setCash(cashL);// NEED TO BE CHANGED
 
         		customer.setSalt(rs.getInt("salt"));
         		
