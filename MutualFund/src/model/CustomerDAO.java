@@ -71,8 +71,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
         		
-        		long cashL = Math.round(customer.getCash() * 100);
-        		customer.setCash(cashL);//CHANGE
+        		customer.setCash(rs.getLong("cash")/100.00);//CHANGE
 
         		customer.setSalt(rs.getInt("salt"));
         		
@@ -116,8 +115,7 @@ public class CustomerDAO extends BaseDAO {
         		customer.setZip(rs.getInt("zip"));
 
         		
-        		long cashL = Math.round(customer.getCash() * 100);
-        		customer.setCash(cashL);//CHANGE
+        		customer.setCash(rs.getLong("cash")/100.00);//CHANGE
 
         		customer.setSalt(rs.getInt("salt"));
         		//CHANGE
@@ -222,50 +220,6 @@ public class CustomerDAO extends BaseDAO {
 //        	throw new Exception(e);
 //        }
 //	}
-	
-	public CustomerBean lookup(int customerId) throws Exception{
-		Connection con = null;
-        try {
-        	con = getConnection();
-
-        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE customerId=?");
-        	pstmt.setInt(1, customerId);
-        	ResultSet rs = pstmt.executeQuery();
-        	
-        	CustomerBean customer;
-        	if (!rs.next()) {
-        		customer = null;
-        	} else {
-        		customer = new CustomerBean();
-        		customer.setCustomerId(rs.getInt("customerId"));
-        		customer.setUserName(rs.getString("userName"));
-        		customer.setFirstName(rs.getString("firstName"));
-        		customer.setLastName(rs.getString("lastName"));
-        		customer.setDirectPassword(rs.getString("password"));
-        		customer.setAddrLine1(rs.getString("addrLine1"));
-        		customer.setAddrLine2(rs.getString("addrLine2"));
-        		customer.setCity(rs.getString("city"));
-        		customer.setState(rs.getString("state"));
-        		customer.setZip(rs.getInt("zip"));
-
-        		long cashL = Math.round(customer.getCash() * 100);
-        		customer.setCash(cashL);// NEED TO BE CHANGED
-
-        		customer.setSalt(rs.getInt("salt"));
-        		
-
-        	}
-        	
-        	rs.close();
-        	pstmt.close();
-        	releaseConnection(con);
-            return customer;
-            
-        } catch (Exception e) {
-            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-        	throw new Exception(e);
-        }
-	}
 	
 	// Method to Create New Table if Table Doesn't exist
 		protected void createTable() throws MyDAOException {
