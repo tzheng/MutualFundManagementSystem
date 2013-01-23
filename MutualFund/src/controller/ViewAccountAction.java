@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,7 @@ public class ViewAccountAction extends Action {
 			int customerId = 1;
 //			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-			String lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
+			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			customer.setLastTradeDate(lastTradeDate);
 			
 			request.setAttribute("customer", customer);
