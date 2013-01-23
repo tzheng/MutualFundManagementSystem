@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 import databean.CustomerBean;
 
@@ -65,7 +66,12 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		customer.setCash(rs.getDouble("cash")); //CHANGE
+        		
+        		DecimalFormat formatter = new DecimalFormat("#0.00");
+				//convert cash from LONG to DOUBLE
+        		long cash = rs.getLong("cash");
+        		double cashD = cash/100.00;
+        		customer.setCash(formatter.format(cashD));//CHANGE
         	}
         	
         	rs.close();
@@ -103,7 +109,12 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		customer.setCash(rs.getDouble("cash")); //CHANGE
+        		
+        		DecimalFormat formatter = new DecimalFormat("#0.00");
+				//convert cash from LONG to DOUBLE
+        		long cash = rs.getLong("cash");
+        		double cashD = cash/100.00;
+        		customer.setCash(formatter.format(cashD));//CHANGE
         	}
         	
         	rs.close();
@@ -137,7 +148,7 @@ public class CustomerDAO extends BaseDAO {
 			pstmt.setString(7, customer.getCity());
 			pstmt.setString(8, customer.getState());
 			pstmt.setInt(9, customer.getZip());
-			pstmt.setDouble(10, customer.getCash()); // CHANGE
+//			pstmt.setLong(10, customer.getCash()); // CHANGE
 			
 			int count = pstmt.executeUpdate();
         	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
@@ -224,7 +235,12 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		customer.setCash(rs.getDouble("cash")); // NEED TO BE CHANGED
+        		
+        		DecimalFormat formatter = new DecimalFormat("#0.00");
+				//convert cash from LONG to DOUBLE
+        		long cash = rs.getLong("cash");
+        		double cashD = cash/100.00;
+        		customer.setCash(formatter.format(cashD));//CHANGE // NEED TO BE CHANGED
         	}
         	
         	rs.close();

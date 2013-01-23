@@ -11,7 +11,7 @@ public class CustomerBean {
 	private String city;
 	private String state;
 	private int zip;
-	private double cash;
+	private String cash;
 	private String lastTradeDate;
 	
 	public int getCustomerId() {
@@ -44,7 +44,7 @@ public class CustomerBean {
 	public int getZip() {
 		return zip;
 	}
-	public double getCash() {
+	public String getCash() {
 		return cash;
 	}
 	public String getLastTradeDate() {
@@ -81,7 +81,7 @@ public class CustomerBean {
 	public void setZip(int zip) {
 		this.zip = zip;
 	}
-	public void setCash(double cash) {
+	public void setCash(String cash) {
 		this.cash = cash;
 	}
 	public void setLastTradeDate(String lastTradeDate) {
