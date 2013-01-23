@@ -1,9 +1,12 @@
 package model;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +64,38 @@ public class TransactionHistoryDAO extends BaseDAO {
 				history.setOperation(typeStr);
 				
 				history.setFundName(rs.getString("name"));
-				history.setShareNumber(rs.getInt("shares"));
-				history.setSharePrice(rs.getFloat("shareprice"));
-				history.setDollarAmount(rs.getFloat("amount"));
-				history.setTransactionStatus(rs.getString("transactionstatus"));
+				
+				
+				DecimalFormat formatter = new DecimalFormat("#0.000");
+				//convert sharenumber from LONG to DOUBLE
+				long shareNumber = rs.getLong("shares");
+				double shares = shareNumber / 1000.000;
+				//BigDecimal share1 = new BigDecimal(shares);
+				history.setShareNumber(formatter.format(shares));
+				
+				formatter = new DecimalFormat("#0.00");
+				long sharePrice = rs.getLong("shareprice");
+				double price = sharePrice / 100.00;
+				history.setSharePrice(formatter.format(price));
+				
+				long amount = rs.getLong("amount");
+				double amountD = amount / 100.00;
+				history.setDollarAmount(formatter.format(amountD));
+				
+				int status = rs.getInt("transactionstatus");
+				String statusStr = "";
+				switch (status) {
+				case 1:
+					statusStr = "Processed";
+					break;
+				case 0:
+					statusStr = "Pending";
+					break;
+				case -1:
+					statusStr = "Rejected";
+					break;
+				}
+				history.setTransactionStatus(statusStr);
 				history.setCustomerId(rs.getInt("customerid"));
 				list.add(history);
 			}
@@ -99,14 +130,60 @@ public class TransactionHistoryDAO extends BaseDAO {
 			while (rs.next()) {
 				TransactionHistoryBean history = new TransactionHistoryBean();
 				history.setTransactionDate(rs.getDate("executedate"));
-				history.setOperation(rs.getString("transactionType"));
-				history.setFundName(rs.getString("name"));
-				history.setShareNumber(rs.getInt("shares"));
-				history.setSharePrice(rs.getFloat("shareprice"));
-				history.setDollarAmount(rs.getFloat("amount"));
-				history.setTransactionStatus(rs.getString("transactionstatus"));
-				history.setCustomerId(rs.getInt("customerid"));
+				//convert int type to real operation: 
+				// 1 = BUY FUND, 2 = SELL FUND,  3 = REQUEST CHECK  4 = DEPOSIT CHECK 
+				int type = rs.getInt("transactionType");
+				String typeStr = "";
+				switch (type) {
+				case 1:
+					typeStr = "BUY FUND";
+					break;
+				case 2:
+					typeStr = "SELL FUND";
+					break;
+				case 3:
+					typeStr = "REQUEST CHECK";
+					break;
+				case 4:
+					typeStr = "DEPOSIT CHECK";
+					break;
+				}
+				history.setOperation(typeStr);
 				
+				history.setFundName(rs.getString("name"));
+				
+				
+				DecimalFormat formatter = new DecimalFormat("#0.000");
+				//convert sharenumber from LONG to DOUBLE
+				long shareNumber = rs.getLong("shares");
+				double shares = shareNumber / 1000.000;
+				//BigDecimal share1 = new BigDecimal(shares);
+				history.setShareNumber(formatter.format(shares));
+				
+				formatter = new DecimalFormat("#0.00");
+				long sharePrice = rs.getLong("shareprice");
+				double price = sharePrice / 100.00;
+				history.setSharePrice(formatter.format(price));
+				
+				long amount = rs.getLong("amount");
+				double amountD = amount / 100.00;
+				history.setDollarAmount(formatter.format(amountD));
+				
+				int status = rs.getInt("transactionstatus");
+				String statusStr = "";
+				switch (status) {
+				case 1:
+					statusStr = "Processed";
+					break;
+				case 0:
+					statusStr = "Pending";
+					break;
+				case -1:
+					statusStr = "Rejected";
+					break;
+				}
+				history.setTransactionStatus(statusStr);
+				history.setCustomerId(rs.getInt("customerid"));
 				list.add(history);
 			}
 			
