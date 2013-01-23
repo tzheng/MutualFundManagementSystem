@@ -71,7 +71,9 @@ public class CustomerLoginAction extends Action {
 	            return "index.jsp";
 	        }
 	        
-	        if (!customer.getPassword().equals(form.getPassword())) {
+	        //System.out.println(customer.checkPassword(form.getPassword()));
+	        //System.out.println(customer.getSalt());
+	        if (!customer.checkPassword(form.getPassword())) {
 	            errors.add("Customer's password is incorrect");
 	            return "index.jsp";
 	        }
