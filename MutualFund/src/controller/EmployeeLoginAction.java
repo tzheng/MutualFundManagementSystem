@@ -73,7 +73,7 @@ public class EmployeeLoginAction extends Action {
 	            return "index.jsp";
 	        }
 	        
-	        if (!employee.getPassword().equals(form.getPassword())) {
+	        if (!employee.checkPassword(form.getPassword())) {
 	            errors.add("Employee's password is incorrect");
 	            return "index.jsp";
 	        }

@@ -16,6 +16,21 @@ public class EmployeeBean {
 	private String firstName;
 	private String lastName;
 	private int salt = 0;
+	
+	public boolean checkPassword(String password) {
+		System.out.println("Original password is " + this.password);
+		System.out.println("hashed password is " + hash(password));
+		return this.password.equals(hash(password));
+	}
+	
+	public void setDirectPassword(String password) {
+		this.password = password;
+	}
+	
+	public void setPassword(String password) {
+		salt = newSalt();
+		this.password = hash(password);
+	}
 
 	public int getSalt() {
 		return salt;
@@ -37,9 +52,7 @@ public class EmployeeBean {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 
 	public String getFirstName() {
 		return firstName;

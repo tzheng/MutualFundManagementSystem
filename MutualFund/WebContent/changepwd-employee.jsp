@@ -8,23 +8,25 @@
 		 -->
 
 <h4>Change Password</h4> <hr />
-<form class="form-horizontal">
+<jsp:include page="error-list.jsp" />
+<jsp:include page="success-status.jsp" />
+<form class="form-horizontal" method="POST" action="employee-change-pwd.do">
   <div class="control-group">
     <label class="control-label" for="inputOldPassword">Old Password</label>
     <div class="controls">
-      <input type="text" id="inputOldPassword" placeholder="Old Password">
+      <input type="text" id="inputOldPassword" placeholder="Old Password" name="oldPassword">
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputNewPassword">New Password</label>
     <div class="controls">
-      <input type="password" id="inputNewPassword" placeholder="New Password">
+      <input type="password" id="inputNewPassword" placeholder="New Password" name="newPassword">
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputConfirmPassword">Confirm New Password</label>
     <div class="controls">
-      <input type="password" id="inputConfirmPassword" placeholder="Confirm New Password">
+      <input type="password" id="inputConfirmPassword" placeholder="Confirm New Password" name="confirmPassword">
     </div>
   </div>
   <div class="control-group">

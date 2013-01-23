@@ -21,8 +21,6 @@ public class CustomerBean {
 	private int salt = 0;
 	
 	public boolean checkPassword(String password) {
-		System.out.println("Original password is " + this.password);
-		System.out.println("hashed password is " + hash(password));
 		return this.password.equals(hash(password));
 	}
 	
