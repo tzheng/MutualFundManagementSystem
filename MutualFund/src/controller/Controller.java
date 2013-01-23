@@ -29,6 +29,7 @@ public class Controller extends HttpServlet {
         Action.add(new CustomerChangePwdAction(model));
         Action.add(new EmployeeChangePwdAction(model));
         Action.add(new EmployeeResetCustomerPwdAction(model));
+        Action.add(new CustomerBuyFundAction(model));
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

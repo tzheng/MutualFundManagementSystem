@@ -3,7 +3,7 @@
 
 <h4>Fund List</h4>	
 <hr>
-<table class="table table-striped">
+			<table class="table table-striped">
 		 				<thead>
 	   								<tr class="info">
 	   									<th>Fund Name</th>
@@ -14,18 +14,15 @@
   									</tr>
   						</thead>
   						<tbody>
-  							   		
-  							   		
   							   <c:forEach var="fundlist" items="fundGeneralList">
 	  							   	<tr>
   							   			<td>${fundlist.fundName} </td>
   							   			<td>${fundlist.symbol} </td>
   							   			<td>${fundlist.lastTradingDate} </td>
   							   			<td>${fundlist.lastTradingPrice}</td>
-  							   			<input type="hidden" name="fundId" value="${fundlist.fundId} " />
   							   			<td> <button class="btn">Buy Fund</button>
   							   		</tr>
-  							   		
+  							   		<input type="hidden" name="fundId" value="${fundlist.fundId} " />
   							   </c:forEach>
   						</tbody>
   				</table>

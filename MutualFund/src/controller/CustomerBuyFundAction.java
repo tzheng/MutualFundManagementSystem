@@ -34,8 +34,9 @@ public class CustomerBuyFundAction extends Action {
 			
 			//get general information of all funds
 			FundBean[] fundlist = fundDAO.readAllFunds();
+			System.out.println(fundlist.length);
 			FundGeneralInfoBean[] fundGeneralList = new FundGeneralInfoBean[fundlist.length];
-			for (int i = 0; i<fundlist.length; i++) {
+			for (int i = 0; i<fundlist.length-1; i++) {
 				fundGeneralList[i].setFundId(fundlist[i].getFundId());
 				fundGeneralList[i].setFundName(fundlist[i].getName());
 				fundGeneralList[i].setSymbol(fundlist[i].getSymbol());
