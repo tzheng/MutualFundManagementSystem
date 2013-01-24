@@ -2,26 +2,27 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
-	   	<script type="text/javascript">
-							function changefund(obj){
-								txt = obj.options[obj.selectedIndex].text;
-								
-								document.getElementById('fundname').value=txt;
-							}
-		</script>	
 	   	
 	   	<!--put your page content here 
 		  ============================================
 		 -->
 	 				<h4> Buy Fund </h4> <hr>
+	 				<jsp:include page="success-status.jsp"></jsp:include>
 	 				<jsp:include page="error-list.jsp"></jsp:include>
-			   		 <form class="form-horizontal">
+			   		 <form class="form-horizontal" method="post" action="customer-buyfund.do">
 				   		  <div class="control-group">
-							    <label class="control-label" for="balance"><b>Name of the Fund</b></label>
+							    <label class="control-label" for="balance"><b>Fund Name</b></label>
 							    <div class="controls controlwords">
 							       <div class="row-fluid">
 							      			<div class="span4">
-							      					<input id="fundname"  name="fundName"  type="text" placeholder="Fund Name" > 
+							      				<c:choose>
+							      						<c:when test="${ empty fundName }">
+							      							<input id="fundname"  name="fundName"  type="text" placeholder="Fund Name"  value="${ form.fundName }" >
+							      						</c:when>
+							      						<c:otherwise>
+							      							 <input id="fundname"  name="fundName"  type="text" placeholder="Fund Name"  value="${fundName }">
+							      						</c:otherwise>
+							      				</c:choose>
 							      			</div>
 							      			
 							      			<!-- 
@@ -43,15 +44,6 @@
 							    </div>
 						  </div>
 						  
-						  <div class="control-group">
-							    <label class="control-label" for="mailadd"><b> Last Trading Price:</b></label>
-							    <div class="controls controlwords">
-							      	<p id="mailadd" >
-							      	<i> "Current price goes in Here"</i>
-									</p>
-							    </div>
-						  </div>
-						  
 						    <div class="control-group">
 							    <label class="control-label" for="mailadd"><b> Your Account Balance: </b></label>
 							    <div class="controls controlwords">
@@ -67,7 +59,7 @@
 							    <div class="controls">
 							      	<div class="input-prepend">
 									  	<span class="add-on">$</span>
-									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="0.00">
+									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="0.00" name="amount" value="${ form.amount }" >
 									</div>
 							    </div>
 						  </div>
@@ -93,15 +85,14 @@
   									</tr>
   						</thead>
   						<tbody>
-  							   <c:forEach var="fundlist" items="fundGeneralList">
+  							   <c:forEach var="fundlist" items="${ fundGeneralList}">
 	  							   	<tr>
-  							   			<td>${fundlist.fundName} </td>
+  							   			<td>${fundlist.name} </td>
   							   			<td>${fundlist.symbol} </td>
   							   			<td>${fundlist.lastTradingDate} </td>
   							   			<td>${fundlist.lastTradingPrice}</td>
-  							   			<td> <button class="btn">Buy Fund</button>
+  							   			<td> <button class="btn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</button>
   							   		</tr>
-  							   		<input type="hidden" name="fundId" value="${fundlist.fundId} " />
   							   </c:forEach>
   						</tbody>
   				</table>

@@ -139,7 +139,7 @@ public class FundDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
+			PreparedStatement pstmt = con.prepareStatement("SELECT fundId,name,symbol FROM " + tableName);
 			ResultSet rs = pstmt.executeQuery();
 			
 			List<FundBean> list = new ArrayList<FundBean>();

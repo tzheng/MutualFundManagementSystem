@@ -2,7 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 
 <h4>Fund List</h4>	
-<hr>
+		<hr>
 			<table class="table table-striped">
 		 				<thead>
 	   								<tr class="info">
@@ -14,9 +14,9 @@
   									</tr>
   						</thead>
   						<tbody>
-  							   <c:forEach var="fundlist" items="fundGeneralList">
+  							   <c:forEach var="fundlist" items="${ fundGeneralList}">
 	  							   	<tr>
-  							   			<td>${fundlist.fundName} </td>
+  							   			<td>${fundlist.name} </td>
   							   			<td>${fundlist.symbol} </td>
   							   			<td>${fundlist.lastTradingDate} </td>
   							   			<td>${fundlist.lastTradingPrice}</td>

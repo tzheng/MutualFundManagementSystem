@@ -48,6 +48,39 @@ public class TransactionDAO extends BaseDAO{
         }
 	}
 	
+	public void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+        	con.setAutoCommit(false);
+        	
+			// you might need to change this query, i didn't finish it.
+			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName  
+														+ " (customerId, fundId, transactionType, transactionStatus, amount) "
+														+ " VALUES (?,?,?,?,?)");
+			// add the vaule to prepare statement.
+			pstmt.setInt(1, customerId);
+			pstmt.setInt(2, fundId);
+			pstmt.setInt(3, 1);
+			pstmt.setInt(4, 0);
+			long amountL = Math.round(amount * 100.00);
+			pstmt.setLong(5, amountL);
+			
+			int count = pstmt.executeUpdate();
+        	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
+			
+        	pstmt.close();
+        	
+        	con.commit();
+            con.setAutoCommit(true);
+        	releaseConnection(con);
+			
+		} catch (SQLException e) {
+			try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public void insertCash(double cash) throws MyDAOException {
 		//check, deposit
 		Connection con;

@@ -129,7 +129,8 @@ public class TransactionHistoryDAO extends BaseDAO {
 			List<TransactionHistoryBean> list = new ArrayList<TransactionHistoryBean>();
 			while (rs.next()) {
 				TransactionHistoryBean history = new TransactionHistoryBean();
-				history.setTransactionDate(rs.getDate("executedate"));
+				if (rs.getDate("executedate") != null)
+					history.setTransactionDate(rs.getDate("executedate"));
 				//convert int type to real operation: 
 				// 1 = BUY FUND, 2 = SELL FUND,  3 = REQUEST CHECK  4 = DEPOSIT CHECK 
 				int type = rs.getInt("transactionType");

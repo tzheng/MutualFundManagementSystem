@@ -44,7 +44,6 @@ public class CustomerViewTransactionAction extends Action {
 			}
 			**/
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
-			System.out.println(customerId);
 			
 			CustomerBean customer = customerDAO.read(customerId);
 			//TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(form.getCustomerIdasInt()); 

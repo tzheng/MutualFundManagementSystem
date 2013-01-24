@@ -28,7 +28,7 @@ public class CustomerIdForm extends FormBean {
 		List<String> errors = new ArrayList<String>();
 		
 		if (customerId == null || customerId.length() == 0) {
-			errors.add("customer Id is required");
+			errors.add("customer Id is required!");
 			return errors;
 		}
 		

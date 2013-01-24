@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class FundGeneralInfoBean {
 	private int fundId;
-	private String fundName;
+	private String name;
 	private String symbol;
 	private String lastTradingPrice;
 	private Date lastTradingDate;
@@ -17,9 +17,6 @@ public class FundGeneralInfoBean {
 	public int getFundId() {
 		return fundId;
 	}
-	public String getFundName() {
-		return fundName;
-	}
 	public String getSymbol() {
 		return symbol;
 	}
@@ -29,8 +26,11 @@ public class FundGeneralInfoBean {
 	public void setFundId(int fundId) {
 		this.fundId = fundId;
 	}
-	public void setFundName(String fundName) {
-		this.fundName = fundName;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;

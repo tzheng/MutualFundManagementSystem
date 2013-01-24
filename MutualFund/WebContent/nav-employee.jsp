@@ -12,7 +12,7 @@
 	   		 					<li><a href="employee-reset-customer-pwd.do">Reset Customer Password</a></li>
 	   		 					<li><a href="employee-viewcustomer.jsp">View Customer Account</a></li>
 	   		 					<li><a href="employeehistory.do">Customer Transaction History</a></li>
-	   		 					<li><a href="employee-depositcheck.jsp">Depoist Check</a></li>
+	   		 					<li><a href="employee-depositcheck.jsp">Deposit Check</a></li>
 	   		 					<li class="nav-header">Fund Management</li>
 	   		 					<li><a href="employee-createfund.jsp">Create Fund</a></li>
 	   		 					<li><a href="employee-transactionday.jsp">Transition Day</a></li>
