@@ -36,6 +36,8 @@
 							      							 <input id="fundname" name="fundName"  type="text" placeholder="Fund Name"  value="${getFundName }">
 							      						</c:otherwise>
 							      				</c:choose>
+							      				<br>
+							      				<a href="#fundlist">View Funds</a>
 							      			</div>
 							      			
 							      			<!-- 
@@ -85,7 +87,7 @@
 					  </form>
 		<hr>
 		
-		<h4>Fund List</h4>	
+		<h4 id="fundlist">Fund List</h4>	
 		<hr>
 			<table class="table table-striped">
 		 				<thead>
