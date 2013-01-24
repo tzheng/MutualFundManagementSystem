@@ -52,6 +52,7 @@ public class CustomerBuyFundAction extends Action {
 			String getFundName = request.getParameter("getFundName");
 			if (getFundName != null) request.setAttribute("getFundName", getFundName);
 			
+			//get full fund list, allows customer to choose
 			FundBean[] fundlist = fundDAO.readAllFunds();
 			FundGeneralInfoBean[] fundGeneralList = new FundGeneralInfoBean[fundlist.length];
 			for (int i = 0; i<fundlist.length; i++) {
@@ -59,14 +60,21 @@ public class CustomerBuyFundAction extends Action {
 				fundGeneralList[i].setFundId(fundlist[i].getFundId());
 				fundGeneralList[i].setName(fundlist[i].getName());
 				fundGeneralList[i].setSymbol(fundlist[i].getSymbol());
-				FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
-				fundGeneralList[i].setLastTradingDate(history.getPrice_date());
-				double price = history.getPrice();
-				DecimalFormat formatter = new DecimalFormat("#0.00");
-				fundGeneralList[i].setLastTradingPrice(formatter.format(price));
-				
+				if (fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId())!= null) {
+					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
+					fundGeneralList[i].setLastTradingDate(history.getPrice_date());
+					double price = history.getPrice();
+					DecimalFormat formatter = new DecimalFormat("#0.00");
+					fundGeneralList[i].setLastTradingPrice(formatter.format(price));
+				}
 			}
 			request.setAttribute("fundGeneralList", fundGeneralList);
+			
+			// get customer id from session, and read customer information
+			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
+			CustomerBean customer = customerDAO.read(customerId);
+			DecimalFormat formatter = new DecimalFormat("#,###.00");
+			request.setAttribute("cash", formatter.format(customer.getCash()));
 			
 			BuyFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
@@ -85,14 +93,11 @@ public class CustomerBuyFundAction extends Action {
 				errors.add("Fund does not exist!");
 				return "customer-buyfund.jsp";
 			}
-			// get customer id from session, and read customer information
-			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
-			CustomerBean customer = customerDAO.read(customerId);
 			
 			//now we have fund, we have amount, we need to check whether customer has enough money
 			double amount = form.getAmountAsDouble();
 			double cash = customer.getCash();
-			DecimalFormat formatter = new DecimalFormat("#,###.00");
+			formatter = new DecimalFormat("#,###.00");
 			if (amount > cash) {
 				errors.add("Amount is more than your cash! Please enter a number less than: " + formatter.format(cash));
 				return "customer-buyfund.jsp";

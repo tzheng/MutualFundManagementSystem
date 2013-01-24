@@ -12,9 +12,9 @@
 		 		<jsp:include page="error-list.jsp" />
 		 		 <form class="form-horizontal" method="post" action="employeehistory.do">
 				 		 <div class="control-group">
-							    <label class="control-label" for="scustomer">Customer ID</label>
+							    <label class="control-label" for="scustomer">Customer Username</label>
 							    <div class="controls">
-							          	<input type="text" id="scustomer" name="customerId" placeholder="Customer ID">
+							          	<input type="text" id="scustomer" name="username" placeholder="Customer Username">
 							    </div>
 						  </div>
 						  
@@ -33,7 +33,7 @@
 		 		<table class="table table-striped">
 		 				<thead>
 	   								<tr class="info">
-	   									<th>Customer ID</th>
+	   									<th>Customer</th>
                                           <th>Transaction Date</th>
     										<th>Operation</th>
     										<th>Fund Name</th>
@@ -61,7 +61,7 @@
   							   		</c:choose>
   							   		
   							   		
-  							   			<td>${history.customerId } </td>
+  							   			<td>${history.username } </td>
   							   			<td>${history.transactionDate} </td>
   							   			<td>${history.operation} </td>
   							   			<td>${history.fundName} </td>

@@ -6,36 +6,22 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class CustomerIdForm extends FormBean {
-	private String customerId;
-	
-	public int getCustomerIdasInt() {
-		try {
-			return Integer.parseInt(customerId);
-		} catch (NumberFormatException e) {
-			return -1;
-		}
+	private String username;
+
+	public String getUsername() {
+		return username;
 	}
 
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		if (customerId == null || customerId.length() == 0) {
-			errors.add("customer Id is required!");
+		if (username == null || username.trim().length() == 0) {
+			errors.add("Username is required!");
 			return errors;
-		}
-		
-		try {
-			Integer.parseInt(customerId);
-		} catch (NumberFormatException e) {
-			errors.add("Customer Id is Invalid (Must be an Integer).");
 		}
 		
 		return errors;

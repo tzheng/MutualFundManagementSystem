@@ -1,12 +1,25 @@
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
+	   
+	   
+	   
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
+
+
+		<script type="text/javascript">
+				$(document).ready(function(){
+					$('.fundBtn').click(function(e){
+						$.scrollTop(300);
+						e.preventDefault();
+					});
+				});
+		</script>
 	   	
 	   	<!--put your page content here 
 		  ============================================
 		 -->
-	 				<h4> Buy Fund </h4> <hr>
+	 				<h4 id="chooseFund"> Buy Fund </h4> <hr>
 	 				<jsp:include page="success-status.jsp"></jsp:include>
 	 				<jsp:include page="error-list.jsp"></jsp:include>
 			   		 <form class="form-horizontal" method="post" action="customer-buyfund.do">
@@ -48,7 +61,7 @@
 							    <label class="control-label" for="mailadd"><b> Your Account Balance: </b></label>
 							    <div class="controls controlwords">
 							      	<p id="FundInfo" >
-							      	<i> "Fund information goes in here"</i>
+							      	 $ ${cash }
 									</p>
 							    </div>
 						  </div>
@@ -59,7 +72,7 @@
 							    <div class="controls">
 							      	<div class="input-prepend">
 									  	<span class="add-on">$</span>
-									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="0.00" name="amount" value="${ form.amount }" >
+									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="Max: ${cash }" name="amount" value="${ form.amount }" >
 									</div>
 							    </div>
 						  </div>
@@ -91,7 +104,7 @@
   							   			<td>${fundlist.symbol} </td>
   							   			<td>${fundlist.lastTradingDate} </td>
   							   			<td>${fundlist.lastTradingPrice}</td>
-  							   			<td> <button class="btn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</button>
+  							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</a>
   							   		</tr>
   							   </c:forEach>
   						</tbody>
