@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import databean.FundBean;
 
@@ -87,6 +89,7 @@ public class FundDAO extends BaseDAO {
         		fund = null;
         	} else {
         		fund = new FundBean();
+        		fund.setFundId(rs.getInt("fundId"));
         		fund.setName(rs.getString("name"));
         		fund.setSymbol(rs.getString("symbol"));
         	}
@@ -115,6 +118,7 @@ public class FundDAO extends BaseDAO {
         		fund = null;
         	} else {
         		fund = new FundBean();
+        		fund.setFundId(rs.getInt("fundId"));
         		fund.setName(rs.getString("name"));
         		fund.setSymbol(rs.getString("symbol"));
         	}
@@ -129,5 +133,30 @@ public class FundDAO extends BaseDAO {
         	throw new MyDAOException(e);
         }
 	}
-
+	
+	public FundBean[] readAllFunds() throws MyDAOException {
+		Connection con;
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT fundId,name,symbol FROM " + tableName);
+			ResultSet rs = pstmt.executeQuery();
+			
+			List<FundBean> list = new ArrayList<FundBean>();
+			while (rs.next()) {
+				FundBean fund = new FundBean();
+				fund.setFundId(rs.getInt("fundId"));
+				fund.setName(rs.getString("name"));
+				fund.setSymbol(rs.getString("symbol"));
+				list.add(fund);
+			}
+			
+			pstmt.close();
+			releaseConnection(con);
+			
+			return list.toArray(new FundBean[list.size()]);
+		} catch (SQLException e) {
+			throw new MyDAOException(e);
+		}
+	}
 }

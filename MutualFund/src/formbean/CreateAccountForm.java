@@ -110,7 +110,7 @@ public class CreateAccountForm extends FormBean {
 	public List<String> getValidationErrors() {
         List<String> errors = new ArrayList<String>();
 
-        if (userName == null || userName.length() == 0) errors.add("username address is required");
+        if (userName == null || userName.length() == 0) errors.add("Username is required");
         if (firstName == null || firstName.length() == 0) errors.add("First name is required");
         if (lastName == null || lastName.length() == 0) errors.add("Last name is required");
         if (password == null || password.length() == 0) errors.add("Password is required");

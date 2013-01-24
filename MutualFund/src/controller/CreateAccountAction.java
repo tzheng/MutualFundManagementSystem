@@ -66,7 +66,7 @@ public class CreateAccountAction extends Action {
 	       	customer.setCity(form.getCity());
 	       	customer.setState(form.getState());
 	       	customer.setZip(form.getZipAsInt());
-	       	customer.setCash(0.0);
+//	       	customer.setCash(0.0);
 	       	customerDAO.create(customer);
         
 //	        HttpSession session = request.getSession(false);

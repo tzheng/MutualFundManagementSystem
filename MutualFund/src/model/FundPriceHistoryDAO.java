@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import databean.FundGeneralInfoBean;
 import databean.FundPriceHistoryBean;
 
 public class FundPriceHistoryDAO extends BaseDAO {
@@ -25,7 +26,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (fundId INT NOT NULL, pricedate DATE NOT NULL, price FLOAT NOT NULL, "
+					+ " (fundId INT NOT NULL, priceDate DATE NOT NULL, price BIGINT(32) NOT NULL, "
 					+ "PRIMARY KEY (fundId, pricedate), FOREIGN KEY (fundId) REFERENCES fund (fundId))");
             
             stmt.close();
@@ -48,7 +49,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			// convert java.utl.date to java.sql.date so that can insert date to ...
 			Date sqlDate = new Date(priceHistory.getPrice_date().getTime());
 			pstmt.setDate(2, sqlDate);
-			pstmt.setDouble(3, priceHistory.getPrice());
+			pstmt.setDouble(3, priceHistory.getPrice()); //CHANGE
 			
 			int count = pstmt.executeUpdate();
 			if (count != 1) throw new SQLException("insert updated " + count + "rows");
@@ -67,7 +68,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName +" WHERE fund_id=?");
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName +" WHERE fundId=?");
 			pstmt.setInt(1, fund_id);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -76,7 +77,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			while (rs.next()) {
 				FundPriceHistoryBean price = new FundPriceHistoryBean();
 				price.setFund_id(rs.getInt("fundid"));
-				price.setPrice(rs.getDouble("price"));
+				price.setPrice(rs.getDouble("price")); //change
 				price.setPrice_date(rs.getDate("pricedate"));
 				list.add(price);
 			}
@@ -88,6 +89,50 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		} catch (SQLException e) {
 			throw new MyDAOException(e);
 		}
+	}
+	
+	public FundPriceHistoryBean getLastTrading(int fundId) throws MyDAOException {
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " 
+														+ tableName 
+														+ " WHERE fundId=?"
+														+ " ORDER BY priceDate DESC LIMIT 0,1");
+			pstmt.setInt(1, fundId);
+			ResultSet rs = pstmt.executeQuery();
+			
+			FundPriceHistoryBean fundPriceHistoryBean;
+			if (!rs.next()) {
+				fundPriceHistoryBean = null;
+			} else {
+				fundPriceHistoryBean = new FundPriceHistoryBean();
+				fundPriceHistoryBean.setFund_id(rs.getInt("fundId"));
+				long priceL = rs.getLong("price");
+				double price = priceL / 100.00;
+				fundPriceHistoryBean.setPrice(price);
+				fundPriceHistoryBean.setPrice_date(rs.getDate("priceDate"));
+			}
+			
+			rs.close();
+			pstmt.close();
+			releaseConnection(con);
+			return fundPriceHistoryBean;
+		} catch (SQLException e) {
+			throw new MyDAOException(e);
+		}
+	}
+	
+	public double getLastTradingPrice(int fundId) throws MyDAOException {
+		FundPriceHistoryBean fund = getLastTrading(fundId);
+		return fund.getPrice();
+	}
+	
+	public java.util.Date getLastTradingDate(int fundId) throws MyDAOException {
+		FundPriceHistoryBean fund = getLastTrading(fundId);
+		return fund.getPrice_date();
 	}
 
 }

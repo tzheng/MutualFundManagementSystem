@@ -14,6 +14,7 @@ import databean.TransactionHistoryBean;
 
 import formbean.CustomerIdForm;
 
+import model.CustomerDAO;
 import model.Model;
 import model.MyDAOException;
 import model.TransactionHistoryDAO;
@@ -22,9 +23,10 @@ public class CustomerViewTransactionAction extends Action {
 	private FormBeanFactory<CustomerIdForm> formBeanFactory = FormBeanFactory.getInstance(CustomerIdForm.class);
 	
 	private TransactionHistoryDAO transactionHistoryDAO;
-	
+	private CustomerDAO customerDAO;
 	public CustomerViewTransactionAction(Model model) {
 		transactionHistoryDAO = model.getTransactionHistoryDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 	
 	public String getName() { return "customerhistory.do"; }
@@ -41,7 +43,9 @@ public class CustomerViewTransactionAction extends Action {
 				return "error.jsp";
 			}
 			**/
-			CustomerBean customer = (CustomerBean) request.getSession(false).getAttribute("customer");
+			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
+			
+			CustomerBean customer = customerDAO.read(customerId);
 			//TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(form.getCustomerIdasInt()); 
 			TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions(customer.getCustomerId());
 			request.setAttribute("transactionHistory", historyList);

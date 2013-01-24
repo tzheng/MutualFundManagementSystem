@@ -16,11 +16,11 @@ public class LogoutAction extends Action {
 	public String perform(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
-		if (session.getAttribute("customer") != null)
-			session.setAttribute("customer", null);
+		if (session.getAttribute("customerId") != null)
+			session.setAttribute("customerId", null);
 		
-		if (session.getAttribute("employee") != null) 
-			session.setAttribute("employee", null);
+		if (session.getAttribute("employeeUserName") != null) 
+			session.setAttribute("employeeUserName", null);
 		
 		return "index.jsp";
 	}
