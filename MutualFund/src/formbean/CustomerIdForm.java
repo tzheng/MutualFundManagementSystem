@@ -21,9 +21,9 @@ public class CustomerIdForm extends FormBean {
 		
 		if (username == null || username.trim().length() == 0) {
 			errors.add("Username is required!");
-			return errors;
 		}
-		
 		return errors;
 	}
 }
+
+
