@@ -7,7 +7,7 @@
 		 -->
 		
 		<div class="span11">
-				<h4>Your current account balance is: $10000.00 </h4>
+				<h4>Your current account balance is: $10,000.00 </h4>
 				<p>Maybe some more general Information  </p>
 				
 				<hr>
