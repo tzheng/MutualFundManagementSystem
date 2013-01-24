@@ -140,13 +140,26 @@
   							   			<td>${history.transactionDate} </td>
   							   			<td>${history.operation} </td>
   							   			<td>${history.fundName} </td>
-  							   			<td>${history.shareNumber} </td>
-  							   			<td>${history.sharePrice} </td>
   							   			
   							   			<c:set var="amount" value="${history.dollarAmount}"></c:set>
   							   			<c:set var="zero" value = "0.00"></c:set> 
+  							   			
+  							   			<td>${history.shareNumber} </td>
+  							   			
+  							   			<c:set var="amount1" value="${history.sharePrice}"></c:set>
+  							   			<c:set var="zero" value = "0.00"></c:set> 
   							   			<c:choose>
-  							   				<c:when test="${amount eq zero }" >
+  							   				<c:when test="${amount1 eq zero }" >
+  							   					<td style ="text-align: center"> - </td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td>${history.sharePrice} </td>
+  							   				</c:otherwise> 
+  							   			</c:choose>
+  							   			
+  							   			<c:set var="amount2" value="${history.dollarAmount}"></c:set>
+  							   			<c:choose>
+  							   				<c:when test="${amount2 eq zero }" >
   							   					<td style ="text-align: center"> - </td>
   							   				</c:when>
   							   				<c:otherwise>

@@ -36,7 +36,11 @@ public class CreateFundAction extends Action {
 		HttpSession session = request.getSession();
 		request.setAttribute("errors", errors);
 
+		List<String> successes = new ArrayList<String>();
+		request.setAttribute("successes", successes);
+		
 		try {
+			
 		
 			FundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);

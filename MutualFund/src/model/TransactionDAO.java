@@ -11,14 +11,13 @@ import java.util.List;
 
 import model.MyDAOException;
 
-
 public class TransactionDAO extends BaseDAO{
 	public TransactionDAO(String jdbcDriver, String jdbcURL, String tableName)
 			throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public String getCustomerLastTradeDate(int customerId) throws MyDAOException {
+	public Date getCustomerLastTradeDate(int customerId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -31,11 +30,11 @@ public class TransactionDAO extends BaseDAO{
         	pstmt.setInt(1, customerId);
         	ResultSet rs = pstmt.executeQuery();
         	
-        	String lastTradeDate;
+        	Date lastTradeDate;
         	if (!rs.next()) {
         		lastTradeDate = null;
         	} else {
-        		lastTradeDate = rs.getString("executeDate");
+        		lastTradeDate = rs.getDate("executeDate");
         	}
         	
         	rs.close();
@@ -47,6 +46,39 @@ public class TransactionDAO extends BaseDAO{
             try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
         	throw new MyDAOException(e);
         }
+	}
+	
+	public void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+        	con.setAutoCommit(false);
+        	
+			// you might need to change this query, i didn't finish it.
+			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName  
+														+ " (customerId, fundId, transactionType, transactionStatus, amount) "
+														+ " VALUES (?,?,?,?,?)");
+			// add the vaule to prepare statement.
+			pstmt.setInt(1, customerId);
+			pstmt.setInt(2, fundId);
+			pstmt.setInt(3, 1);
+			pstmt.setInt(4, 0);
+			long amountL = Math.round(amount * 100.00);
+			pstmt.setLong(5, amountL);
+			
+			int count = pstmt.executeUpdate();
+        	if (count != 1) throw new SQLException("Insert updated "+count+" rows");
+			
+        	pstmt.close();
+        	
+        	con.commit();
+            con.setAutoCommit(true);
+        	releaseConnection(con);
+			
+		} catch (SQLException e) {
+			try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
 	}
 	
 	public void insertCash(double cash) throws MyDAOException {
@@ -76,8 +108,8 @@ public class TransactionDAO extends BaseDAO{
 			stmt.executeUpdate("CREATE TABLE "
 					+ tableName
 					+ " (transactionId INT NOT NULL AUTO_INCREMENT, customerId INT NOT NULL, fundId INT, "
-					+ " executeDate DATE NOT NULL, shares BIGINT(32), sharePrice BIGINT(32),transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(32),"
-					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Position (customerId), FOREIGN KEY (customerId) REFERENCES Customer (customerId), FOREIGN KEY (fundId) REFERENCES Position (fundId))");
+					+ " executeDate DATE, shares BIGINT(32), sharePrice BIGINT(32),transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(32),"
+					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Customer (customerId))");
 			stmt.close();
 			releaseConnection(con);
 		} catch (SQLException e) {
