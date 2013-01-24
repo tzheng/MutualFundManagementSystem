@@ -16,11 +16,11 @@
 							       <div class="row-fluid">
 							      			<div class="span4">
 							      				<c:choose>
-							      						<c:when test="${ empty fundName }">
-							      							<input id="fundname"  name="fundName"  type="text" placeholder="Fund Name"  value="${ form.fundName }" >
+							      						<c:when test="${ empty getFundName }">
+							      							<input id="fundname" name="fundName"  type="text" placeholder="Fund Name"  value="${ form.fundName }" >
 							      						</c:when>
 							      						<c:otherwise>
-							      							 <input id="fundname"  name="fundName"  type="text" placeholder="Fund Name"  value="${fundName }">
+							      							 <input id="fundname" name="fundName"  type="text" placeholder="Fund Name"  value="${getFundName }">
 							      						</c:otherwise>
 							      				</c:choose>
 							      			</div>

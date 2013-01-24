@@ -49,8 +49,8 @@ public class CustomerBuyFundAction extends Action {
 		
 		try {
 			//user can reach this page from other page, for example, user can click "BUY MORE FUND" in mainpanel
-			String fundName = request.getParameter("fundName");
-			if (fundName != null) request.setAttribute("fundName", fundName);
+			String getFundName = request.getParameter("getFundName");
+			if (getFundName != null) request.setAttribute("getFundName", getFundName);
 			
 			FundBean[] fundlist = fundDAO.readAllFunds();
 			FundGeneralInfoBean[] fundGeneralList = new FundGeneralInfoBean[fundlist.length];
@@ -69,7 +69,7 @@ public class CustomerBuyFundAction extends Action {
 			request.setAttribute("fundGeneralList", fundGeneralList);
 			
 			BuyFundForm form = formBeanFactory.create(request);
-			
+			request.setAttribute("form",form);
 			if (!form.isPresent()) {
 				return "customer-buyfund.jsp";
 			}
