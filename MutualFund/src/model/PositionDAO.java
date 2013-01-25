@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import databean.PositionBean;
-import databean.UserBean;
 
 public class PositionDAO extends BaseDAO {
 	public PositionDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
@@ -57,7 +56,7 @@ public class PositionDAO extends BaseDAO {
 		}
 	}
 	
-	public void update(PositionBean bean) {
+	public void update(PositionBean bean) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();

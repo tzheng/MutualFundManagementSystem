@@ -6,27 +6,28 @@
 		  ============================================
 		 -->
 		<div class="span11">
-				<h4>Personal Information: </h4>
-				<table class="table table-condensed">
+				<h4>Personal Information for: ${customer.firstName} &nbsp;${customer.lastName}</h4>
+				<form class="form-horizontal" method="POST" action="view-account.do">
+				<table class="table table-condensed" >
 					<thead>
 								<tr>
 									
-									<th>Qi Wang</th>
+									<th>Address</th>
 									<th>Cash Balance</th>
 									<th>Last Trading Day</th>
-									
-									
 									<th></th>
 									<th></th>
 								</tr>
 						</thead>
 						<tbody>
 								
-									<td>Address: 5000Forbes Avenues</br>Carnegie Mellon University</br>Pittsburgh,PA15213</td>
-									<td>1000,000.00</td>
+									<td>${customer.addrLine1}</br>${customer.addrLine2}</br>${customer.city}&nbsp;,&nbsp;${customer.state}</br>Zipcode:${customer.zip}</td>
+									<td>${customer.cash}</td>
 									<td>01-01-2013</td>
+									
 								
 				</table>
+				</form>
 				
 				
 				
@@ -95,6 +96,7 @@
 						</tbody>
 				</table>
 		</div>
+		
 		
 		
 		
