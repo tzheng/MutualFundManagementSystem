@@ -27,14 +27,14 @@ public class TransactionHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT transaction.customerid, transaction.executedate," 
+			PreparedStatement pstmt = con.prepareStatement("SELECT transaction.transactionId, transaction.customerid, transaction.executedate," 
 														+ " transaction.transactionType, fund.name, transaction.shares,"
 														+ " transaction.shareprice, transaction.amount, transaction.transactionstatus"
 														+ " FROM transaction"
 														+ " LEFT JOIN fund" 
 														+ " ON transaction.fundid = fund.fundid"
 														+ " WHERE transaction.customerid=?"
-														+ " ORDER BY executeDate DESC");
+														+ " ORDER BY transactionId DESC");
 			pstmt.setInt(1, customerId);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -116,13 +116,13 @@ public class TransactionHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT transaction.customerid, transaction.executedate," 
+			PreparedStatement pstmt = con.prepareStatement("SELECT transaction.transactionId, transaction.customerid, transaction.executedate," 
 														+ " transaction.transactionType, fund.name, transaction.shares,"
 														+ " transaction.shareprice, transaction.amount, transaction.transactionstatus"
 														+ " FROM transaction"
 														+ " LEFT JOIN fund" 
 														+ " ON transaction.fundid = fund.fundid"
-														+ " ORDER BY customerid, executedate DESC");
+														+ " ORDER BY customerid, transactionId DESC");
 			
 			ResultSet rs = pstmt.executeQuery();
 			

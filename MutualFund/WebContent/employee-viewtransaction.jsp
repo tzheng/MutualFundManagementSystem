@@ -34,13 +34,13 @@
 		 				<thead>
 	   								<tr class="info">
 	   									<th>Customer</th>
-                                          <th>Transaction Date</th>
+                                          <th>Date</th>
     										<th>Operation</th>
     										<th>Fund Name</th>
     										<th>Share Number</th>
     										<th>Share Price</th>
     										<th>Dollar Amount</th>
-    										<th>Transaction Status</th>
+    										<th>Status</th>
   									</tr>
   						</thead>
   						<tbody>
@@ -59,15 +59,51 @@
 	  							   			<tr>
 	  							   		</c:otherwise>
   							   		</c:choose>
-  							   		
-  							   		
   							   			<td>${history.username } </td>
-  							   			<td>${history.transactionDate} </td>
+  							   			
+  							   			<c:choose>
+  							   				<c:when test="${ empty history.transactionDate }">
+  							   					<td style="text-align: center">-</td> 
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td>${history.transactionDate} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
+  							   			
   							   			<td>${history.operation} </td>
   							   			<td>${history.fundName} </td>
-  							   			<td>${history.shareNumber} </td>
-  							   			<td>${history.sharePrice} </td>
-  							   			<td>${history.dollarAmount} </td>
+  							   			
+  							   			<c:set var="shares" value="${history.shareNumber}"></c:set>
+  							   			<c:set var="zero" value = "0.000"></c:set> 
+  							   			<c:choose>
+  							   				<c:when test= "${shares eq zero }">
+  							   						<td style="text-align: center">-</td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: right; padding-right: 20px;">${history.shareNumber} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
+  							   			
+  							   			<c:set var="price" value="${history.sharePrice}"></c:set>
+  							   			<c:set var="zero1" value = "0.00"></c:set> 
+  							   			<c:choose>
+  							   				<c:when test= "${price eq zero1 }">
+  							   						<td style="text-align: center">-</td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: right; padding-right: 20px;">${history.sharePrice} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
+  							   			
+  							   			<c:set var="dollar" value="${history.dollarAmount}"></c:set>
+  							   			<c:choose>
+  							   				<c:when test= "${dollar eq zero1 }">
+  							   						<td style="text-align: center;">-</td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: right; padding-right: 20px;">${history.dollarAmount} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
   							   			<td>${history.transactionStatus} </td>
   							   		</tr>
   							   		
@@ -76,7 +112,7 @@
   				</table>
 		 </div>
 		
-		
+										
 		
 		
 		
