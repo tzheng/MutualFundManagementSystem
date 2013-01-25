@@ -5,24 +5,21 @@
 		  ============================================
 		 -->
 				          <div>
-					           <form class="form-horizontal">
-					          <legend>Deposit Check</legend>
+					           <form class="form-horizontal" method="POST" action="employee-depositcheck.do">
+					          <legend>Deposit Check</legend> 
+						<jsp:include page="error-list.jsp"></jsp:include>
 						<div class="control-group">
-							<label class="control-label" for="inputCustomerid">Customer ID</label>
+							<label class="control-label" for="inputCustomerid">Username</label>
 							<div class="controls">
-								<input type="text" id="inputCustomerid" placeholder="Customer ID">
-							</div>
+								<input type="text" name="userName" value="${form.userName}">							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label"for="inputAmount">Amount $</label>
 							<div class="controls">
-								<input type="text" id="inputAmount" placeholder=".00">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label"for="inputDate">Deposit Date</label>
-							<div class="controls">
-								<input type="text" id="inputDate" placeholder="dd/mm/yy">
+									<div class="input-prepend">
+									  	<span class="add-on">$</span>
+									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="0.00" name="amount" >
+									</div>
 							</div>
 						</div>
 							<div class="control-group">
