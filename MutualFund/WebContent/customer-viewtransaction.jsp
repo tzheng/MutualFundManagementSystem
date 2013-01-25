@@ -9,8 +9,9 @@
 		  ============================================
 		 -->
 		 
+		 <!-- 
 		  <h4>Transaction History Filter</h4> <hr>
-		 <div>  <!--  This is filter for Transaction History -->
+		 <div>  
 		 		 <form class="form-horizontal">
 				 		 <div class="control-group">
 							    <label class="control-label" for="dateRange">Date Range</label>
@@ -55,7 +56,7 @@
 					</script>	  
 						  
 					<div class="control-group">
-					          <!-- Select Basic -->
+					          
 					          <label class="control-label">Transaction Type</label>
 					          <div class="controls">
 					            <select class="input-xlarge" id="transactionType" onchange="changeFilter(this)">
@@ -66,7 +67,6 @@
 					        </div>	  
 					        
 					 <div class="control-group" id="cashOperation">
-					          <!-- Select Basic -->
 					          <label class="control-label">Cash Operation</label>
 					          <div class="controls">
 					            <select class="input-xlarge">
@@ -76,7 +76,6 @@
 					        </div>
 					
 					    <div class="control-group" id="fundOperation" style="display: none;">
-					          <!-- Select Basic -->
 					          <label class="control-label">Fund Operation</label>
 					          <div class="controls">
 					            <select class="input-xlarge">
@@ -86,7 +85,6 @@
 					        </div>
 					
 					    <div class="control-group">
-					          <!-- Select Basic -->
 					          <label class="control-label">Status</label>
 					          <div class="controls">
 					            <select class="input-xlarge">
@@ -106,18 +104,19 @@
 		 </div>
 		 
 		 <hr>
+		  -->
 		  <h4>Transaction History</h4>  <hr>
 		 <div>  <!--  Here list the Transactions -->
-		 		<table class="table table-striped">
+		 		<table class="table table-striped" >
 		 				<thead>
-	   								<tr class="info">
-                                          <th>Transaction Date</th>
+	   								<tr class="info" style="text-align: right;">
+                                          <th style="text-align: center;">Date</th>
     										<th>Operation</th>
     										<th>Fund Name</th>
-    										<th>Share Number</th>
-    										<th>Share Price</th>
-    										<th>Dollar Amount</th>
-    										<th>Transaction Status</th>
+    										<th style="text-align: center;">Share Number</th>
+    										<th style="text-align: center;">Share Price</th>
+    										<th style="text-align: center;">Dollar Amount</th>
+    										<th>Status</th>
   									</tr>
   						</thead>
   						<tbody>
@@ -137,36 +136,52 @@
 	  							   		</c:otherwise>
   							   		</c:choose>
   							   		
-  							   			<td>${history.transactionDate} </td>
+  							   			<c:choose>
+  							   				<c:when test="${ empty history.transactionDate }">
+  							   					<td style="text-align: center">-</td> 
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: center;">${history.transactionDate} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
+  							   			
   							   			<td>${history.operation} </td>
   							   			<td>${history.fundName} </td>
   							   			
   							   			<c:set var="amount" value="${history.dollarAmount}"></c:set>
   							   			<c:set var="zero" value = "0.00"></c:set> 
   							   			
-  							   			<td>${history.shareNumber} </td>
-  							   			
-  							   			<c:set var="amount1" value="${history.sharePrice}"></c:set>
-  							   			<c:set var="zero" value = "0.00"></c:set> 
+  							   			<c:set var="shares" value="${history.shareNumber}"></c:set>
+  							   			<c:set var="zero" value = "0.000"></c:set> 
   							   			<c:choose>
-  							   				<c:when test="${amount1 eq zero }" >
-  							   					<td style ="text-align: center"> - </td>
+  							   				<c:when test= "${shares eq zero }">
+  							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td>${history.sharePrice} </td>
-  							   				</c:otherwise> 
+  							   					<td style="text-align: right; padding-right: 50px;">${history.shareNumber} </td>
+  							   				</c:otherwise>
   							   			</c:choose>
   							   			
-  							   			<c:set var="amount2" value="${history.dollarAmount}"></c:set>
+  							   			<c:set var="price" value="${history.sharePrice}"></c:set>
+  							   			<c:set var="zero1" value = "0.00"></c:set> 
   							   			<c:choose>
-  							   				<c:when test="${amount2 eq zero }" >
-  							   					<td style ="text-align: center"> - </td>
+  							   				<c:when test= "${price eq zero1 }">
+  							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td>${history.dollarAmount} </td>
-  							   				</c:otherwise> 
+  							   					<td style="text-align: right; padding-right: 50px;">${history.sharePrice} </td>
+  							   				</c:otherwise>
   							   			</c:choose>
   							   			
+  							   			<c:set var="dollar" value="${history.dollarAmount}"></c:set>
+  							   			<c:choose>
+  							   				<c:when test= "${dollar eq zero1 }">
+  							   						<td style="text-align: center">-</td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: right; padding-right: 50px;">${history.dollarAmount} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
   							   			<td>${history.transactionStatus} </td>
   							   		</tr>
   							   		

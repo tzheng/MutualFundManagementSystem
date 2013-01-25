@@ -73,7 +73,7 @@ public class CustomerBuyFundAction extends Action {
 			// get customer id from session, and read customer information
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-			DecimalFormat formatter = new DecimalFormat("#,###.00");
+			DecimalFormat formatter = new DecimalFormat("#,##0.00");
 			request.setAttribute("cash", formatter.format(customer.getCash()));
 			
 			BuyFundForm form = formBeanFactory.create(request);
@@ -97,7 +97,7 @@ public class CustomerBuyFundAction extends Action {
 			//now we have fund, we have amount, we need to check whether customer has enough money
 			double amount = form.getAmountAsDouble();
 			double cash = customer.getCash();
-			formatter = new DecimalFormat("#,###.00");
+			formatter = new DecimalFormat("#,##0.00");
 			if (amount > cash) {
 				errors.add("Amount is more than your cash! Please enter a number less than: " + formatter.format(cash));
 				return "customer-buyfund.jsp";
