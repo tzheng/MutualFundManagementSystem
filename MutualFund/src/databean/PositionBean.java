@@ -8,16 +8,19 @@ package databean;
 public class PositionBean {
 	private int customerId;
 	private int fundId;
-	private int shares;
-	
+	private double shares;
+	private double availableShares;
 	public int getCustomerId() {
 		return customerId;
 	}
 	public int getFundId() {
 		return fundId;
 	}
-	public int getShares() {
+	public double getShares() {
 		return shares;
+	}
+	public double getAvailableShares() {
+		return availableShares;
 	}
 	
 	public void setCustomerId(int customerId) {
@@ -26,9 +29,11 @@ public class PositionBean {
 	public void setFundId(int fundId) {
 		this.fundId = fundId;
 	}
-	public void setShares(int shares) {
+	public void setShares(double shares) {
 		this.shares = shares;
 	}
-	
+	public void setAvailableShares(double availableShares) {
+		this.availableShares = availableShares;
+	}
 	
 }

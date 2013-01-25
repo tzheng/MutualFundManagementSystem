@@ -43,9 +43,6 @@ public class Model {
 		}
 	}
 	
-	public PositionDAO getPosistionDAO(){
-		return positionDAO;
-	}
 	public CustomerDAO getCustomerDAO() { return customerDAO;}
 	public EmployeeDAO getEmployeeDAO() { return employeeDAO;}
 	public FundDAO getFundDAO() { return fundDAO;}

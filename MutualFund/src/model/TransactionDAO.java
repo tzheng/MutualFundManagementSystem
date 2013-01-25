@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import databean.PositionBean;
+
 import model.MyDAOException;
 
 public class TransactionDAO extends BaseDAO{
@@ -48,6 +50,41 @@ public class TransactionDAO extends BaseDAO{
         }
 	}
 	
+//	public PositionBean[] getCustomerPendingSells(int customerId) throws MyDAOException {
+//		Connection con = null;
+//        try {
+//        	con = getConnection();
+//
+//        	PreparedStatement pstmt = con.prepareStatement(
+//        			"SELECT fundId, SUM(shares) FROM" + tableName +
+//        			"WHERE customerId = ? AND transactionType = ? AND transactionStatus = ?" +
+//        			"GROUP BY fundId" +
+//        			"ORDER BY fundId ASC");
+//        	pstmt.setInt(1, customerId);
+//        	pstmt.setInt(2, 2);
+//        	pstmt.setInt(3, 0);
+//        	ResultSet rs = pstmt.executeQuery();
+//        	
+//        	List<PositionBean> list = new ArrayList<PositionBean>();
+//            while (rs.next()) {
+//            	PositionBean bean = new PositionBean();
+//            	bean.setCustomerId(rs.getInt("customerId"));
+//            	bean.setFundId(rs.getInt("fundId"));
+//            	bean.setShares(rs.getInt("shares")); // CHANGE
+//            	list.add(bean);
+//            }
+//        	
+//        	rs.close();
+//        	pstmt.close();
+//        	releaseConnection(con);
+//            return list.toArray(new PositionBean[list.size()]);
+//            
+//        } catch (Exception e) {
+//            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+//        	throw new MyDAOException(e);
+//        }
+//	}
+	
 	public void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
 		Connection con = null;
 		try {
@@ -81,6 +118,43 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
+	public void sellFund(int customerId, int fundId, double shares) throws MyDAOException {
+		Connection con = null;
+    	try {
+        	con = getConnection();
+        	con.setAutoCommit(false);
+
+            PreparedStatement pstmt = con.prepareStatement(
+            		"INSERT INTO " + tableName  
+					+ " (customerId, fundId, transactionType, transactionStatus, shares) "
+					+ " VALUES (?,?,?,?,?)");
+            pstmt.setInt(1, customerId);
+			pstmt.setInt(2, fundId);
+			pstmt.setInt(3, 1);
+			pstmt.setInt(4, 0);
+			long sharesL = Math.round(shares * 1000.00);
+			pstmt.setLong(5, sharesL);
+            
+            int count = pstmt.executeUpdate();
+            if (count != 1) throw new SQLException("Insert updated "+count+" rows");
+            
+            pstmt.close();
+            
+            con.commit();
+            con.setAutoCommit(true);
+            releaseConnection(con);
+         
+    	} catch (SQLException e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public void insertCash(double cash) throws MyDAOException {
 		//check, deposit
 		Connection con;
@@ -95,10 +169,6 @@ public class TransactionDAO extends BaseDAO{
 			
 		}
 			
-	}
-	
-	public void insertFund() {
-		//buy fund and sell fund
 	}
 	
 	protected void createTable() throws MyDAOException {
