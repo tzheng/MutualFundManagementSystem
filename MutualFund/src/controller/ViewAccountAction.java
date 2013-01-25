@@ -38,6 +38,7 @@ public class ViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
+        
 		try {
 			int customerId = 1;
 //			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
@@ -49,8 +50,11 @@ public class ViewAccountAction extends Action {
 			
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
+			return "template-customer.jsp";
 			
-	        return "customer-viewaccount.jsp";
+			
+			
+	        
         } catch (MyDAOException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,21 +10,29 @@ import javax.servlet.http.HttpSession;
 import model.CustomerDAO;
 import model.Model;
 import model.MyDAOException;
+import model.PositionDAO;
+import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
+import databean.PositionBean;
 import formbean.LoginForm;
 
 public class CustomerLoginAction extends Action {
 	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class);
 	
 	private CustomerDAO customerDAO;
+	private TransactionDAO transactionDAO;
+	private PositionDAO positionDAO;
 	
 	public CustomerLoginAction(Model model){
 		customerDAO = model.getCustomerDAO();
+		transactionDAO = model.getTransactionDAO();
+		positionDAO = model.getPositionDAO();
+		
 	}
 
 	@Override
@@ -79,10 +88,18 @@ public class CustomerLoginAction extends Action {
 	        }
 	        
 	        // Attach (this copy of) the user bean to the session
-	        session.setAttribute("customerId", customer.getCustomerId());
+	        int customerId = customer.getCustomerId();
+	        session.setAttribute("customerId", customerId);
+	        Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
+			customer.setLastTradeDate(lastTradeDate);
+			
+			request.setAttribute("customer", customer);
+			
+			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
+			request.setAttribute("positionList", positionList);
 	        
 	        // If redirectTo is null, redirect to the "todolist" action
-			return "customer-mainpanel.jsp";
+			return "template-customer.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
