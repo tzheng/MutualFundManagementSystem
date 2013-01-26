@@ -130,7 +130,7 @@ public class TransactionDAO extends BaseDAO{
 					+ " VALUES (?,?,?,?,?)");
             pstmt.setInt(1, customerId);
 			pstmt.setInt(2, fundId);
-			pstmt.setInt(3, 1);
+			pstmt.setInt(3, 2);
 			pstmt.setInt(4, 0);
 			long sharesL = Math.round(shares * 1000.00);
 			pstmt.setLong(5, sharesL);
