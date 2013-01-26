@@ -60,6 +60,10 @@ public class EmployeeResetCustomerPwdAction extends Action {
 			}
 			
 			CustomerBean customer = customerDAO.read(form.getUserName());
+			if (customer == null) {
+				errors.add("Customer does not exist");
+				return "employee-resetcustomerpswd.jsp";
+			}
 			
 			customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 

@@ -2,7 +2,14 @@
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 
-
+<!--display path  -->	   		 		
+		<div>
+				<ul class="breadcrumb">
+						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Change Password</li>  
+				</ul>
+		</div>	 
+		
 	   	<!--put your page content here 
 		  ============================================
 		 -->

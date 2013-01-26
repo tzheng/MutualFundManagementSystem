@@ -79,14 +79,14 @@ public class CustomerSellFundAction extends Action {
 				return "customer-sellfund.jsp";
 			}
 			
-			if (shares > positionList[index].getAvailableShares()) {
-				errors.add("Cannot sell fund shares more than your available shares");
+			if (shares > positionList[index].getShares()) {
+				errors.add("Cannot sell fund shares more than your owned");
 				return "customer-sellfund.jsp";
 			}
 			
 			transactionDAO.sellFund(customerId, fundBean.getFundId(), shares);
-			positionList[index].setAvailableShares(positionList[index].getAvailableShares() - shares);
-			positionDAO.update(positionList[index]);
+			//positionList[index].setAvailableShares(positionList[index].getAvailableShares() - shares);
+			//positionDAO.update(positionList[index]);
 			
 	        return "customer-sellfund.jsp";
 	 	} catch (MyDAOException e) {

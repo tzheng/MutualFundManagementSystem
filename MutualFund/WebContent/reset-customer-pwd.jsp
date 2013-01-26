@@ -1,7 +1,12 @@
 
  <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
-
+<div>
+				<ul class="breadcrumb">
+						<li><a href="employee-mainpanel.jsp"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Reset Customer Password</li>
+				</ul>
+		</div>
 
 	   	<!--put your page content here 
 		  ============================================
