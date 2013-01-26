@@ -11,23 +11,30 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.FundDAO;
+import model.FundPriceHistoryDAO;
 import model.Model;
 import model.MyDAOException;
 import model.CustomerDAO;
 import model.PositionDAO;
 import model.TransactionDAO;
 import databean.CustomerBean;
+import databean.FundBean;
+import databean.FundValueBean;
 import databean.PositionBean;
 
 public class ViewAccountAction extends Action {
 	private CustomerDAO customerDAO;
 	private PositionDAO positionDAO;
 	private TransactionDAO transactionDAO;
+	private FundPriceHistoryDAO pricehistoryDAO;
+	private FundDAO fundDAO;
 	
 	public ViewAccountAction(Model model) {
 		customerDAO = model.getCustomerDAO();
 		positionDAO = model.getPositionDAO();
 		transactionDAO = model.getTransactionDAO();
+		fundDAO = model.getFundDAO();
 	}
 
 	public String getName() { return "view-account.do"; }
@@ -39,9 +46,12 @@ public class ViewAccountAction extends Action {
         request.setAttribute("errors",errors);
         
         
+       
+        
+        
 		try {
-			int customerId = 1;
-//			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
+			//int customerId = 1;
+			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
 			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			customer.setLastTradeDate(lastTradeDate);
@@ -50,6 +60,25 @@ public class ViewAccountAction extends Action {
 			
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
+	
+	        
+	        //List<PositionBean> userPosition = new ArrayList<PositionBean>();
+	        List<FundValueBean> fundValue = new ArrayList<FundValueBean>();
+	        PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customerId);
+	        for (int i = 0; i< userPosition.length; i++){
+	        	
+				PositionBean temp = userPosition[i];
+				double price = pricehistoryDAO.getLastTradingPrice(temp.getFundId());
+				FundBean fundBean = fundDAO.read(temp.getFundName());
+				FundValueBean current = new FundValueBean();
+				current.setLastTradingPrice(price);
+				current.setFundName(fundBean.getName());
+	        }
+	        
+	        request.setAttribute("fundvalue",fundValue);
+	        
+			
+			
 			return "template-customer.jsp";
 			
 			
