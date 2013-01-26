@@ -60,7 +60,7 @@
 						  </div>
 						  
 						    <div class="control-group">
-							    <label class="control-label" for="mailadd"><b> Your Account Balance: </b></label>
+							    <label class="control-label" for="mailadd"><b> Current Account Balance: </b></label>
 							    <div class="controls controlwords">
 							      	<p id="FundInfo" >
 							      	 $ ${cash }
@@ -74,7 +74,7 @@
 							    <div class="controls">
 							      	<div class="input-prepend">
 									  	<span class="add-on">$</span>
-									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="Max: ${cash }" name="amount" value="${ form.amount }" >
+									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="0.00" name="amount" value="${ form.amount }" >
 									</div>
 							    </div>
 						  </div>

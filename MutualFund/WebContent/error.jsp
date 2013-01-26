@@ -1,12 +1,18 @@
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 	   	
+	   	<div>
+				<ul class="breadcrumb">
+						<li><a href="employee-mainpanel.jsp"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Error</li>
+				</ul>
+		</div>
 	   	
 	   	<!--put your page content here 
 		  ============================================
 		 -->
 		
-		OOPS! ERROR
+		OOPS! ERROR <br>
 		
 		<jsp:include page="error-list.jsp" />
 	
