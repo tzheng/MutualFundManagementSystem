@@ -50,38 +50,48 @@ public class FundValueDAO extends BaseDAO {
 		
 		}
 	
-	public FundPriceHistoryBean getLastTrading(int fundId) throws MyDAOException {
+	public FundValueBean getLastTrading(int fundId) throws MyDAOException {
 		Connection con = null;
 		
 		try {
 			con = getConnection();
 			
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " 
-														+ tableName 
+														+ "fundPriceHistory" 
 														+ " WHERE fundId=?"
 														+ " ORDER BY priceDate DESC LIMIT 0,1");
 			pstmt.setInt(1, fundId);
 			ResultSet rs = pstmt.executeQuery();
 			
-			FundPriceHistoryBean fundPriceHistoryBean;
+			FundValueBean fundValueBean;
 			if (!rs.next()) {
-				fundPriceHistoryBean = null;
+				fundValueBean = null;
 			} else {
-				fundPriceHistoryBean = new FundPriceHistoryBean();
-				fundPriceHistoryBean.setFund_id(rs.getInt("fundId"));
+				fundValueBean = new FundValueBean();
+				fundValueBean.setFundId(rs.getInt("fundId"));
 				long priceL = rs.getLong("price");
 				double price = priceL / 100.00;
-				fundPriceHistoryBean.setPrice(price);
-				fundPriceHistoryBean.setPrice_date(rs.getDate("priceDate"));
+                fundValueBean.setLastTradingPrice(price);
+                fundValueBean.setLastTradingDate(rs.getDate("priceDate"));
 			}
 			
 			rs.close();
 			pstmt.close();
 			releaseConnection(con);
-			return fundPriceHistoryBean;
+			return fundValueBean;
 		} catch (SQLException e) {
 			throw new MyDAOException(e);
 		}
+	}
+	
+	public double getLastTradingPrice(int fundId) throws MyDAOException {
+		FundValueBean value = getLastTrading(fundId);
+		return value.getLastTradingPrice();
+	}
+	
+	public java.util.Date getLastTradingDate(int fundId) throws MyDAOException {
+		FundValueBean value = getLastTrading(fundId);
+		return value.getLastTradingDate();
 	}
 	@Override
 	protected void createTable() throws MyDAOException {

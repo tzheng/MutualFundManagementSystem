@@ -7,16 +7,16 @@ public class FundValueBean {
      private String name;
      private String shares;
      private Date lastTradingDate;
-     private String lastTradingPrice;
+     private double lastTradingPrice;
         
 	
-	public String getLastTradingPrice() {
+	
+	public double getLastTradingPrice() {
 		return lastTradingPrice;
 	}
-	public void setLastTradingPrice(String lastTradingPrice) {
+	public void setLastTradingPrice(double lastTradingPrice) {
 		this.lastTradingPrice = lastTradingPrice;
 	}
-	
 	public int getFundId() {
 		return fundId;
 	}
