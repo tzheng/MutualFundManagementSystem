@@ -8,13 +8,13 @@
 		<div class="span11">
 				<h4>Personal Information For: ${customer.firstName} &nbsp; ${customer.lastName} </h4>
 				<form class="form-horizontal" method= "POST" action= "view-account.do">
-				<table class="table table-condensed" >
+				<table class="table table-striped" >
 					<thead>
-								<tr>
+								<tr class="info" style="text-align: right;">
 									
-									<th>Address</th>
-									<th>Cash Balance</th>
-									<th>Last Trading Day</th>
+									<th style="text-align: left;">Address</th>
+									<th style="text-align: left;">Cash Balance</th>
+									<th style="text-align: left;">Last Trading Day</th>
 									
 									
 									<th></th>
@@ -23,7 +23,7 @@
 						</thead>
 						<tbody>
 								
-									<td>${customer.addrLine1}</br>
+									<td style="text-align: left;">${customer.addrLine1}</br>
 										${customer.addrLine2}</br>
 										${customer.city} &nbsp;,${customer.state} &nbsp;, &nbsp;Zipcode:${customer.zip} <br />
 										<a href="#" class="btn" onclick="showEdit();">Edit</a>
@@ -90,67 +90,67 @@
 				
 				<hr>
 				
-				<h4>Fund Porfolio: </h4>
-				<table class="table">
+				<h4>Fund Portfolio: </h4>
+				<div>
+				<table class="table table-striped">
 						<thead>
-								<tr>
+								<tr class="info" style="text-align: center;">
 									<th>#</th>
-									<th>Fund</th>
-									<th>Purchase Date</th>
+									<th>Fund Name</th>
 									<th>Shares</th>
+									<th>Last Trading Date</th>
+									<th>Last Trading Price</th>
 									<th>Value</th>
-									
-									<th></th>
-									<th></th>
+								
 								</tr>
 						</thead>
 						<tbody>
-								<tr class="success">
-								 <%-- <c:forEach var="positionlist" items="${ positionList}"> --%>
-	  							   	<tr>
-									<td>1</td>
-									<td>{positionlist.name}</td>
-									<td>01-01-2013</td>
-									<td>${positionlist.shares}</td>
-									<td>$120.00</td>
-									
-									<td>
-										<a href="#" class="btn">Buy +</a>
-									</td>
-									<td>
-										<a href="#" class="btn">Sell-</a>
-									</td>
-								</tr>
-								
-								<tr >
-									<td>2</td>
-									<td>Normal Fund</td>
-									<td>01-01-2013</td>
-									<td>100.00</td>
-									<td>$100.00</td>
-									
-									<td>
-										<a href="#" class="btn">Buy +</a>
-									</td>
-									<td>
-										<a href="#" class="btn">Sell-</a>
-									</td>
-								</tr>
-								
-								<tr class="error">
-									<td>3</td>
-									<td>Bad Fund</td>
-									<td>01-01-2013</td>
-									<td>100.00</td>
-									<td>$80.00</td>
-									
-									<td>
-										<a href="#" class="btn">Buy +</a>
-									</td>
-									<td>
-										<a href="#" class="btn">Sell-</a>
-									</td>
-								</tr>
+										
+										
+										<c:forEach var="value" items="${fundValue}">
+							
+										<td>#</td>
+										<c:choose>
+  							   					<c:when test = "${empty value.fundName }">
+  							   							<td style="text-align: center">-</td>
+  							   					</c:when>
+  							   					<c:otherwise>
+  							   						<td style="text-align: right; padding-right: 50px;">${value.fundName} </td>
+  							   					</c:otherwise>
+  							   			</c:choose>
+  							   			
+  							   			<c:set var="shares" value="${value.shares}"></c:set>
+  							   			<c:set var="zero" value = "0.000"></c:set>
+  							   			<c:choose>
+  							   				<c:when test= "${shares eq zero }">
+  							   						<td style="text-align: center">-</td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: right; padding-right: 50px;">${value.shares} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
+  							   			
+  							   			<c:choose>
+  							   					<c:when test = "${empty value.lastTradingDate }">
+  							   							<td style="text-align: center">-</td>
+  							   					</c:when>
+  							   					<c:otherwise>
+  							   						<td style="text-align: right; padding-right: 50px;">${value.lastTradingDate} </td>
+  							   					</c:otherwise>
+  							   			</c:choose> 
+  							   			
+  							   			<c:set var="price" value="${value.lastTradingPrice}"></c:set>
+  							   			<c:set var="zero1" value = "0.00"></c:set> 
+  							   			<c:choose>
+  							   				<c:when test= "${price eq zero1 }">
+  							   						<td style="text-align: center">-</td>
+  							   				</c:when>
+  							   				<c:otherwise>
+  							   					<td style="text-align: right; padding-right: 50px;">${value.lastTradingPrice} </td>
+  							   				</c:otherwise>
+  							   			</c:choose>
+	  							   	
+								</c:forEach>
 						</tbody>
 				</table>
 		</div>

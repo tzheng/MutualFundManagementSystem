@@ -71,7 +71,7 @@ public class FundValueDAO extends BaseDAO {
 			List<FundValueBean> list = new ArrayList<FundValueBean>();
 			while (rs.next()) {
 				FundValueBean value = new FundValueBean();
-				value.setName(rs.getString("fundId"));
+				value.setFundName(rs.getString("name"));
 				list.add(value);
 			}
 
