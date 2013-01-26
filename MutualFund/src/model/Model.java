@@ -21,7 +21,7 @@ public class Model {
 	private TransactionDAO transactionDAO;
 	private TransactionHistoryDAO transactionHistoryDAO; 
 	private PositionDAO positionDAO;
-	
+	private FundValueDAO fundValueDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -37,7 +37,7 @@ public class Model {
 			transactionDAO = new TransactionDAO(jdbcDriver, jdbcURL, "transaction");
 			
 			transactionHistoryDAO = new TransactionHistoryDAO(jdbcDriver, jdbcURL, ""); //don't need to create any table. 
-
+			fundValueDAO = new FundValueDAO(jdbcDriver, jdbcURL, ""); 
 		} catch (MyDAOException e) {
 			throw new ServletException(e);
 		}
@@ -50,4 +50,5 @@ public class Model {
 	public PositionDAO getPositionDAO() { return positionDAO; }
 	public TransactionDAO getTransactionDAO() { return transactionDAO; }
 	public TransactionHistoryDAO getTransactionHistoryDAO() { return transactionHistoryDAO; }
+	public FundValueDAO getFundValueDAO() { return fundValueDAO; }
 }

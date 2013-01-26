@@ -75,7 +75,7 @@ public class CreateAccountAction extends Action {
 	        
 	        
 	        //set success message, and return to confirmation page!
-	        request.setAttribute("message","Successfully create account " + "<b>" + form.getUserName() + "</b>");
+	        request.setAttribute("message","Successfully create account for " + "<b>" + form.getUserName() + "</b>" + "</b>!");
 
 	        return "employee-confirmation.jsp";
 			

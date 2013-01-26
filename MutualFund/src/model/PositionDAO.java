@@ -22,7 +22,9 @@ public class PositionDAO extends BaseDAO {
         	con.setAutoCommit(false);
         	
         	PreparedStatement pstmt = con.prepareStatement(
-        			"SELECT * FROM " + tableName + " WHERE customerId = ? ORDER BY fundId ASC");
+        			"SELECT position.fundId, position.customerId, position.shares, position.availableShares, fund.name, fund.symbol " +
+        			" FROM position INNER JOIN fund on position.fundId = fund.fundId " +
+        			" WHERE customerId = ? ORDER BY position.fundId ASC");
         	pstmt.setInt(1, customerId);
 
             ResultSet rs = pstmt.executeQuery();
@@ -34,6 +36,8 @@ public class PositionDAO extends BaseDAO {
             	bean.setFundId(rs.getInt("fundId"));
             	bean.setShares(rs.getLong("shares") / 1000.00);
             	bean.setAvailableShares(rs.getLong("availableShares") / 1000.00);
+            	bean.setFundName(rs.getString("name"));
+            	bean.setFundSymbol(rs.getString("symbol"));
             	list.add(bean);
             }
             rs.close();
