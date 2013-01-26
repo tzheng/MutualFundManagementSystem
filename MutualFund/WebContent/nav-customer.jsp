@@ -9,7 +9,7 @@
 	   		 					<li><a href="changepwd-customer.jsp">Change Password</a></li>
 	   		 					<li class="nav-header">Fund Management</li>
 	   		 					<li><a href="customer-buyfund.do">Buy Fund</a></li>
-	   		 					<li><a href="customer-sellfund.jsp">Sell Fund</a></li>
+	   		 					<li><a href="customer-sellfund.do">Sell Fund</a></li>
 	   		 					<li><a href="customer-researchfund.jsp">Research Fund</a></li>
 	   		 					<li><a href="customerhistory.do">Transaction History</a></li>
 	   		 					<li><a href="customer-requestcheck.jsp">Request Check</a></li>
