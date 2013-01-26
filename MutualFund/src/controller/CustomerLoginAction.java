@@ -98,7 +98,7 @@ public class CustomerLoginAction extends Action {
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
 	        
-	        // If redirectTo is null, redirect to the "todolist" action
+	        // If redirectTo is null, redirect to the action
 			return "customer-viewaccount.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
