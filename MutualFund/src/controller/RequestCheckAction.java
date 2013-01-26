@@ -59,8 +59,8 @@ public class RequestCheckAction extends Action{
 			RequestCheckFormBean form = formBeanFactory.create(request);
             request.setAttribute("form", form);
             
-            
             CustomerBean customer = customerDAO.read(customerId);
+            request.setAttribute("customer", customer);
             
             double availableBalance = customer.getCash();
             DecimalFormat formatter = new DecimalFormat("#,##0.00");
@@ -85,17 +85,16 @@ public class RequestCheckAction extends Action{
 
 			transactionDAO.requestCheck(customerId, amount);
 			
-			request.setAttribute("message","Your request for check for $ " + "<b>" + form.getwithdrawamount() + "</b>"+ "has been queued as a pending transaction");
+			request.setAttribute("message","Your request for check for $ " + "<b>" + form.getwithdrawamount() + "</b>"+ " has been queued as a pending transaction");
 			
             return successPage;
         } catch (FormBeanException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	errors.add(e.getMessage());
+			return "error.jsp";
         } catch (MyDAOException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
 		}
 		
-        return actionPage;		
 	}
 }

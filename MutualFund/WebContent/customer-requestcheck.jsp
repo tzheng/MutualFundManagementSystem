@@ -7,23 +7,22 @@
 		 -->
 		 
 			   		 <h4> Request Check </h4> <hr>
-			   		 <form class="form-horizontal">
+			   		 <jsp:include page="error-list.jsp"></jsp:include>
+			   		 <form class="form-horizontal" method="POST" action="customer-requestcheck.do">
 				   		  <div class="control-group">
-							    <label class="control-label" for="balance"><b>Available Balance</b></label>
+							    <label class="control-label" for="balance"><b>Available Balance $</b></label>
 							    <div class="controls controlwords">
-							      <p id="balance" >$ "Available balance goes in Here" </p>
+							      <p id="balance" > ${availableBalance} </p>
 							    </div>
 						  </div>
 						  
 						  <div class="control-group">
-							    <label class="control-label" for="mailadd"><b> Check Mailing Address:</b></label>
+							    <label class="control-label" for="mailadd"><b> Check Mailing Address</b></label>
 							    <div class="controls controlwords">
 							      	<p id="mailadd" >
-							      	 "Check Mailing Address: goes in Here"
-									<br> Address line1
-									<br> Address Line2
-									<br> City, State, Zip
-									<br> <a href="edit">Edit</a>
+									 ${customer.addrLine1}  <br>
+									${customer.addrLine2} <br>
+									${customer.city}, ${customer.state}, ${customer.zip} <br>
 									</p>
 							    </div>
 						  </div>
@@ -34,7 +33,7 @@
 							    <div class="controls">
 							      	<div class="input-prepend">
 									  	<span class="add-on">$</span>
-									  	<input class="span10" id="appendedPrependedInput" type="text" placeholder="0.00">
+									  	<input type="text" class="span10" name="withdrawamount" placeholder="Max: ${availableBalance}" value="${form.withdrawamount}"/>
 									</div>
 							    </div>
 						  </div>

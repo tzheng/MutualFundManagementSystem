@@ -146,7 +146,15 @@
   							   			</c:choose>
   							   			
   							   			<td>${history.operation} </td>
-  							   			<td>${history.fundName} </td>
+  							   			
+  							   			<c:choose>
+  							   					<c:when test = "${empty history.fundName }">
+  							   							<td style="text-align: center">-</td>
+  							   					</c:when>
+  							   					<c:otherwise>
+  							   						<td>${history.fundName} </td>
+  							   					</c:otherwise>
+  							   			</c:choose>
   							   			
   							   			<c:set var="amount" value="${history.dollarAmount}"></c:set>
   							   			<c:set var="zero" value = "0.00"></c:set> 

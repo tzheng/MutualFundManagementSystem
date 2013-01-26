@@ -33,9 +33,14 @@ public class FundPriceHistoryDAO extends BaseDAO {
         	releaseConnection(con);
 
         } catch (SQLException e) {
-            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
         	throw new MyDAOException(e);
-        }
+		}
 	}
 	 
 	public void create(FundPriceHistoryBean priceHistory) throws MyDAOException {
@@ -58,8 +63,14 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			releaseConnection(con);
 			
 		} catch (SQLException e) {
-			throw new MyDAOException(e);
-		} 
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
 	}
 	
 	public FundPriceHistoryBean[] getFundPriceHistory(int fund_id) throws MyDAOException {
@@ -87,7 +98,13 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			
 			return list.toArray(new FundPriceHistoryBean[list.size()]);
 		} catch (SQLException e) {
-			throw new MyDAOException(e);
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
 		}
 	}
 	
@@ -121,7 +138,13 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			releaseConnection(con);
 			return fundPriceHistoryBean;
 		} catch (SQLException e) {
-			throw new MyDAOException(e);
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
 		}
 	}
 	
