@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class FundValueBean {
      private int fundId;
-     private String name;
+     private String fundName;
      private String shares;
      private Date lastTradingDate;
      private double lastTradingPrice;
@@ -23,11 +23,11 @@ public class FundValueBean {
 	public void setFundId(int fundId) {
 		this.fundId = fundId;
 	}
-	public String getName() {
-		return name;
+	public String getFundName() {
+		return fundName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setFundName(String name) {
+		this.fundName = name;
 	}
 	public String getShares() {
 		return shares;
