@@ -1,6 +1,15 @@
 	   <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
 			   		
+			   		
+	    <!--display path  -->	   		 		
+		<div>
+				<ul class="breadcrumb">
+						<li><a href="employee-mainpanel.jsp"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Deposit Check</li>
+				</ul>
+		</div>
+		
 		<!--put your page content here 
 		  ============================================
 		 -->

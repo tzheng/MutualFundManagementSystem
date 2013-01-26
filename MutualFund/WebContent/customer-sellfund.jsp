@@ -4,6 +4,15 @@
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 	   	
+	   	<!--display path  -->	   		 		
+		<div>
+				<ul class="breadcrumb">
+						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Sell Fund</li>  
+				</ul>
+		</div>	 
+	   	
+	   	
 	   	<script type="text/javascript">
 				$(document).ready(function(){
 					$('.fundBtn').click(function(e){
