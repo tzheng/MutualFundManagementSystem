@@ -7,7 +7,7 @@
 		 -->
 		<div class="span11">
 				<h4>Personal Information For: ${customer.firstName} &nbsp; ${customer.lastName} </h4>
-				<form class="form-horizontal">
+				<form class="form-horizontal" method= "POST" action= "view-account.do">
 				<table class="table table-condensed" >
 					<thead>
 								<tr>
@@ -106,7 +106,7 @@
 						</thead>
 						<tbody>
 								<tr class="success">
-								 <c:forEach var="positionlist" items="${ positionList}">
+								 <%-- <c:forEach var="positionlist" items="${ positionList}"> --%>
 	  							   	<tr>
 									<td>1</td>
 									<td>{positionlist.name}</td>
