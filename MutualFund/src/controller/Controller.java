@@ -30,6 +30,7 @@ public class Controller extends HttpServlet {
         Action.add(new EmployeeChangePwdAction(model));
         Action.add(new EmployeeResetCustomerPwdAction(model));
         Action.add(new CustomerBuyFundAction(model));
+        Action.add(new CustomerSellFundAction(model));
         Action.add(new DepositCheckAction(model));
         Action.add(new RequestCheckAction(model));
     }
