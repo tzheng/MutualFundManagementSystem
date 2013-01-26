@@ -93,7 +93,7 @@
   							   			<td>${fund.symbol} </td>
   							   			<td>${fund.shares} </td>
   							   			<td>${fund.availableShares}</td>
-  							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${positionList.name}';">Buy Fund</a>
+  							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fund.name}';">Sell Fund</a>
   							   		</tr>
   							   </c:forEach>
   						</tbody>
