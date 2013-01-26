@@ -38,7 +38,7 @@ public class FundValueDAO extends BaseDAO {
 			while (rs.next()) {
 				FundValueBean value = new FundValueBean();
 				value.setFundId(rs.getInt("fundId"));
-				value.setShares(rs.getString("shares"));
+//				value.setShares(rs.getString("shares"));
 				list.add(value);
 			}
 

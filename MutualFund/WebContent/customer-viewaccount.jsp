@@ -88,7 +88,16 @@
 
 									</td>
 									<td>${customer.cash}</td>
-									<td>01-01-2013</td>
+									<c:forEach var="value" items="${fundValue}">
+									<c:choose>
+  							   					<c:when test = "${empty value.lastTradingDate }">
+  							   							<td style="text-align: center">-</td>
+  							   					</c:when>
+  							   					<c:otherwise>
+  							   						<td style="text-align: right; padding-right: 50px;">${value.lastTradingDate} </td>
+  							   					</c:otherwise>
+  							   			</c:choose>
+  							   			</c:forEach> 
 								
 				</table>
 				</form>
@@ -106,7 +115,6 @@
 									<th>#</th>
 									<th>Fund Name</th>
 									<th>Shares</th>
-									<th>Last Trading Date</th>
 									<th>Last Trading Price</th>
 									<th>Value</th>
 								
@@ -138,14 +146,6 @@
   							   				</c:otherwise>
   							   			</c:choose>
   							   			
-  							   			<c:choose>
-  							   					<c:when test = "${empty value.lastTradingDate }">
-  							   							<td style="text-align: center">-</td>
-  							   					</c:when>
-  							   					<c:otherwise>
-  							   						<td style="text-align: right; padding-right: 50px;">${value.lastTradingDate} </td>
-  							   					</c:otherwise>
-  							   			</c:choose> 
   							   			
   							   			<c:set var="price" value="${value.lastTradingPrice}"></c:set>
   							   			<c:set var="zero1" value = "0.00"></c:set> 
