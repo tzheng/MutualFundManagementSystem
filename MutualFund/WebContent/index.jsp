@@ -64,10 +64,6 @@
 					
 					<div class="control-group">
 						<div class="controls">
-							<label class="checkbox"> <input type="checkbox">
-								Remember me
-							</label>
-
 							<button type="submit" onClick="OnSubmitForm(this.form);"  class="btn">
 								 Login
 							</button>
