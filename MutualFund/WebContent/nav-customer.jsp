@@ -5,13 +5,12 @@
 	   		 				<hr>
 	   		 				<ul class="nav nav-list">
 	   		 					<li class="nav-header">Account Management</li>
-<<<<<<< HEAD
+
 	   		 					<li><a href="view-account.do">View Account</a></li>
 	   		 					<li><a href="changepwd-customer.jsp">Change Password</a></li>
-=======
+
 	   		 					<li><a href="customer-viewaccount.jsp">View Account</a></li>
 	   		 					<li><a href="customer-change-pwd.do">Change Password</a></li>
->>>>>>> branch 'master' of git@github.com:tzheng/A-Web-Project.git
 	   		 					<li class="nav-header">Fund Management</li>
 	   		 					<li><a href="customer-buyfund.do">Buy Fund</a></li>
 	   		 					<li><a href="customer-sellfund.do">Sell Fund</a></li>
