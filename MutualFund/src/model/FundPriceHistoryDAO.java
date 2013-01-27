@@ -148,6 +148,37 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		}
 	}
 	
+	public Date getLastTradingDateOfALLFunds() throws MyDAOException {
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT MAX(priceDate) FROM " + tableName);
+			ResultSet rs = pstmt.executeQuery();
+			
+			Date date;
+			if (!rs.next()) {
+				date = null;
+			} else {
+				date = rs.getDate("priceDate");
+			}
+			
+			rs.close();
+			pstmt.close();
+			releaseConnection(con);
+			return date;
+		} catch (SQLException e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public double getLastTradingPrice(int fundId) throws MyDAOException {
 		FundPriceHistoryBean fund = getLastTrading(fundId);
 		return fund.getPrice();
@@ -157,9 +188,4 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		FundPriceHistoryBean fund = getLastTrading(fundId);
 		return fund.getPrice_date();
 	}
-
 }
-
-
-
-
