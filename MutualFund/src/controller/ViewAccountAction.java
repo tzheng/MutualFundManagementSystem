@@ -49,25 +49,21 @@ public class ViewAccountAction extends Action {
 
 
 		try {
-//			int customerId = 1;
+
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
 
-//			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
-//			customer.setLastTradeDate(lastTradeDate);
+
 
 			request.setAttribute("customer", customer);
-//
-//			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
-//			request.setAttribute("positionList", positionList);
 
-			//List<PositionBean> userPosition = new ArrayList<PositionBean>();
-			  //CustomerBean customer = customerDAO.read(fundvalue.getUserName());
+
+			
 			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customer.getCustomerId());
-			//FundPriceHistoryBean [] fundpriceHistory = pricehistoryDAO.G
+		
 			
 			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
-			//FundBean fundBean = fundDAO.read()
+			
 			for (int i = 0; i< userPosition.length; i++){
 				PositionBean temp = userPosition[i];
 				fundValue[i] = new FundValueBean();
