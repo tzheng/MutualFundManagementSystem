@@ -76,14 +76,14 @@ public class CustomerLoginAction extends Action {
 	        CustomerBean customer = customerDAO.read(form.getUserName());
 	        
 	        if (customer == null) {
-	            errors.add("Customer's userName not found");
+	            errors.add("Incorrect/Invalid Customer Username");
 	            return "index.jsp";
 	        }
 	        
 	        //System.out.println(customer.checkPassword(form.getPassword()));
 	        //System.out.println(customer.getSalt());
 	        if (!customer.checkPassword(form.getPassword())) {
-	            errors.add("Customer's password is incorrect");
+	            errors.add("Incorrect/Invalid Password");
 	            return "index.jsp";
 	        }
 	        
@@ -92,8 +92,8 @@ public class CustomerLoginAction extends Action {
 	        session.setAttribute("customerId", customerId);
 	        Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			customer.setLastTradeDate(lastTradeDate);
-			
-			request.setAttribute("customer", customer);
+			session.setAttribute("firstname", customer.getFirstName());
+			session.setAttribute("lastname", customer.getLastName());
 			
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);

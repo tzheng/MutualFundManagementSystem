@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import databean.FundGeneralInfoBean;
 import databean.FundPriceHistoryBean;
 
 public class FundPriceHistoryDAO extends BaseDAO {

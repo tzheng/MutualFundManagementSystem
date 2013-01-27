@@ -66,7 +66,7 @@ public class CustomerChangePwdAction extends Action {
 			
 			// check old password
 			if(!customer.checkPassword(form.getOldPassword())){
-				errors.add("Please your correct old password!");
+				errors.add("Incorrect Password!! Please re-enter your current password.");
 				return "changepwd-customer.jsp";
 			}
 			
@@ -74,8 +74,10 @@ public class CustomerChangePwdAction extends Action {
 			customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 			
 			// Success
-			successes.add("Password updated!");
-			return "changepwd-customer.jsp";
+			//successes.add("Password changed successfully!");
+			//return "changepwd-customer.jsp";
+			request.setAttribute("message", "Password changed successfully!");
+			return "customer-confirmation.jsp";
 		} catch (MyDAOException e) {
 			errors.add(e.toString());
 			return "error.jsp";

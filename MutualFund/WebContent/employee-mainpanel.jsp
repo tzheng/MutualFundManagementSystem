@@ -7,15 +7,18 @@
 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="employee-mainpanel.jsp"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li><a href="employee-mainpanel.jsp"><i class="icon-home"></i> Home</a> </li>
 				</ul>
 		</div>
 		
 		<div class="span11">
+				
+				<!-- 
 				<h4> There are 5 check request. <a href="#">Deposit Check</a> </h4>
 				<p>Maybe some more general Information  </p>
-				
+				 
 				<hr>
+				-->
 				
 				<div id="panel-nav" class="row-fluid">
 						<ul id="panel-nav-ul">

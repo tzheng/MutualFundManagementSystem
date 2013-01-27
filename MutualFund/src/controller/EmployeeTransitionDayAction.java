@@ -40,10 +40,11 @@ public class EmployeeTransitionDayAction extends Action {
 	public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
-        
+        System.out.println("123");
         try {
         	Date lastDate = fundPriceHistoryDAO.getLastTradingDateOfALLFunds();
             request.setAttribute("lastDate", lastDate);
+            System.out.println("abc");
             
         	//get full fund list, allows customer to choose
 			FundBean[] fundlist = fundDAO.readAllFunds();
