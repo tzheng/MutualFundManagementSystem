@@ -22,7 +22,7 @@
 <div class="span11">
 	<h4>Personal Information For: ${customer.firstName} &nbsp;
 		${customer.lastName}</h4>
-	<form class="form-horizontal" method="POST" action="view-account.do">
+	<form class="form-horizontal" method="post" action="view-account.do">
 		<table class="table table-striped">
 			<thead>
 				<tr class="info" style="text-align: right;">
@@ -39,8 +39,8 @@
 			<tbody>
 
 				<td style="text-align: left;">${customer.addrLine1}</br>
-					${customer.addrLine2}</br> ${customer.city} &nbsp;,${customer.state}
-					&nbsp;, &nbsp;Zipcode:${customer.zip} <br/>
+					${customer.addrLine2}</br> ${customer.city},${customer.state}
+					;, &nbsp;Zipcode:${customer.zip} <br/>
 				</td>
 				<td>${customer.cash}</td>
 				<c:forEach var="value" items="${fundValue}">
@@ -56,7 +56,7 @@
 				</c:forEach>
 				</tbody>
 		</table>
-	</form>
+	
 
 	<hr>
 
@@ -76,61 +76,19 @@
 			<tbody>
 
 
-				<c:forEach var="value" items="${fundValue}">
-
-					<td>#</td>
-					<c:choose>
-						<c:when test="${empty value.fundName }">
-							<td style="text-align: center">-</td>
-						</c:when>
-						<c:otherwise>
-							<td style="text-align: right; padding-right: 50px;">${value.fundName}
-							</td>
-						</c:otherwise>
-					</c:choose>
-
-					<c:set var="shares" value="${value.shares}"></c:set>
-					<c:set var="zero" value="0.000"></c:set>
-					<c:choose>
-						<c:when test="${shares eq zero }">
-							<td style="text-align: center">-</td>
-						</c:when>
-						<c:otherwise>
-							<td style="text-align: right; padding-right: 50px;">${value.shares}
-							</td>
-						</c:otherwise>
-					</c:choose>
-
-
-					<c:set var="price" value="${value.lastTradingPrice}"></c:set>
-					<c:set var="zero1" value="0.00"></c:set>
-					<c:choose>
-						<c:when test="${price eq zero1 }">
-							<td style="text-align: center">-</td>
-						</c:when>
-						<c:otherwise>
-							<td style="text-align: right; padding-right: 50px;">${value.lastTradingPrice}
-							</td>
-						</c:otherwise>
-					</c:choose>
-					
-					<c:set var="price" value="${value.value}"></c:set>
-					<c:set var="zero1" value="0.00"></c:set>
-					<c:choose>
-						<c:when test="${price eq zero1 }">
-							<td style="text-align: center">-</td>
-						</c:when>
-						<c:otherwise>
-							<td style="text-align: right; padding-right: 50px;">${value.value}
-							</td>
-						</c:otherwise>
-					</c:choose>
-
+				<c:forEach var="value" items="${ fundValue}">
+						<tr class="info">
+						<td># </td>
+						<td>${value.fundName} </td>
+						<td>${value.shares} </td>
+						<td>${value.lastTradingPrice} </td>
+						<td>${value.value}</td>
+					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-
+</form>
 
 
 

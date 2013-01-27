@@ -17,6 +17,7 @@ import databean.CustomerBean;
 import model.MyDAOException;
 
 public class CustomerDAO extends BaseDAO {
+	int count;
 	
 	
 	public CustomerDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
@@ -180,7 +181,7 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-//	public CustomerBean[] getUsers() throws Exception {
+//	public CustomerBean[] getCustomer(int customerId) throws Exception {
 //		Connection con = null;
 //        try {
 //        	con = getConnection();
@@ -190,9 +191,9 @@ public class CustomerDAO extends BaseDAO {
 //        	
 //        	
 //        	CustomerBean [] customer = null;
-////        	if(count != 0) {
-////        		user = new CustomerBean[count];
-////        	}
+//       	if(count != 0) {
+//      		customer = new CustomerBean[count];
+//       	}
 //        	if(rs.first()) {
 //        		for(int i=0;i<count;i++) {
 //        			customer[i] = new CustomerBean();
@@ -220,7 +221,7 @@ public class CustomerDAO extends BaseDAO {
 //        	throw new Exception(e);
 //        }
 //	}
-	
+//	
 	// Method to Create New Table if Table Doesn't exist
 		protected void createTable() throws MyDAOException {
 			Connection con = null;

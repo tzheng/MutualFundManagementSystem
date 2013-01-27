@@ -20,6 +20,7 @@ import model.PositionDAO;
 import model.TransactionDAO;
 import databean.CustomerBean;
 import databean.FundBean;
+import databean.FundPriceHistoryBean;
 import databean.FundValueBean;
 import databean.PositionBean;
 
@@ -46,32 +47,29 @@ public class ViewAccountAction extends Action {
 		request.setAttribute("errors",errors);
 
 
-
-
-
 		try {
-			int customerId = 1;
-			//int customerId = (Integer) request.getSession(false).getAttribute("customerId");
+//			int customerId = 1;
+			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
-			customer.setLastTradeDate(lastTradeDate);
-
-			request.setAttribute("customer", customer);
-
-			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
-			request.setAttribute("positionList", positionList);
-
-
-			//List<PositionBean> userPosition = new ArrayList<PositionBean>();
 			
-			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customerId);
-			CustomerBean customerInfo = customerDAO.read(customerId);
+//			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
+//			customer.setLastTradeDate(lastTradeDate);
+
+			//request.setAttribute("customer", customer);
+//
+//			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
+//			request.setAttribute("positionList", positionList);
+			
+			//List<PositionBean> userPosition = new ArrayList<PositionBean>();
+			  //CustomerBean customer = customerDAO.read(fundvalue.getUserName());
+			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customer.getCustomerId());
 			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
 			for (int i = 0; i< userPosition.length; i++){
 				
 				fundValue[i] = new FundValueBean();
 				fundValue[i].setFundId(userPosition[i].getFundId());
 				fundValue[i].setShares(userPosition[i].getShares());
+				double price = pricehistoryDAO.getLastTradingPrice(userPosition[i].getFundId());
 				
 
 //				PositionBean temp = userPosition[i];
@@ -85,16 +83,20 @@ public class ViewAccountAction extends Action {
 //				current.setLastTradingDate(date);
 //				current.setValue(price*temp.getShares());
 			}
+		
+			
 
 			request.setAttribute("fundvalue",fundValue);
+			
+			
 			return "customer-viewaccount.jsp";
-
-
-
 
 		} catch (MyDAOException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
 		}
 	}
-}
+
+}	
+	        
+

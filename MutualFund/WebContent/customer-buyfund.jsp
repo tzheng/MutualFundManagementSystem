@@ -102,6 +102,7 @@
   						<tbody>
   							   <c:forEach var="fundlist" items="${ fundGeneralList}">
 	  							   	<tr>
+  							 
   							   			<td>${fundlist.name} </td>
   							   			<td>${fundlist.symbol} </td>
   							   			<td>${fundlist.lastTradingDate} </td>
