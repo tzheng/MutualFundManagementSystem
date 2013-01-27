@@ -80,13 +80,8 @@ public class ViewAccountAction extends Action {
 	        }
 	        
 	        request.setAttribute("fundvalue",fundValue);
-	        
-			
 			
 			return "template-customer.jsp";
-			
-			
-			
 	        
         } catch (MyDAOException e) {
         	errors.add(e.getMessage());
