@@ -29,7 +29,7 @@ public class ViewAccountAction extends Action {
 	private CustomerDAO customerDAO;
 	private PositionDAO positionDAO;
 	private TransactionDAO transactionDAO;
-	private FundPriceHistoryDAO pricehistoryDAO;
+	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private FundDAO fundDAO;
 
 	public ViewAccountAction(Model model) {
@@ -37,6 +37,7 @@ public class ViewAccountAction extends Action {
 		positionDAO = model.getPositionDAO();
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
+		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 	}
 
 	public String getName() { return "view-account.do"; }
@@ -47,7 +48,9 @@ public class ViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 
-
+		List<String> successes = new ArrayList<String>();
+		request.setAttribute("successes", successes);
+		
 		try {
 
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
@@ -60,18 +63,32 @@ public class ViewAccountAction extends Action {
 
 			
 			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customer.getCustomerId());
-		
+			
 			
 			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
-			
+//			FundPriceHistoryBean[] fundHistory = fundPriceHistoryDAO.getFundPriceHistory(fundValue.)
 			for (int i = 0; i< userPosition.length; i++){
 				PositionBean temp = userPosition[i];
+				
 				fundValue[i] = new FundValueBean();
 				fundValue[i].setFundId(userPosition[i].getFundId());
 				fundValue[i].setShares(userPosition[i].getShares());
 				//double price = pricehistoryDAO.getLastTradingPrice(userPosition[i].getFundId());
 				FundBean fundBean = fundDAO.read(temp.getFundName());
 				fundValue[i].setFundName(fundBean.getName());
+				if(fundPriceHistoryDAO.getLastTrading(userPosition[i].getFundId())!= null){
+				
+				
+				
+					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(userPosition[i].getFundId());
+					
+					fundValue[i].setLastTradingDate(history.getPrice_date());
+					double price = history.getPrice();
+					DecimalFormat formatter = new DecimalFormat("#0.00");
+					fundValue[i].setLastTradingPrice(formatter.format(price));
+					double value = userPosition[i].getShares()*price;
+					fundValue[i].setValue(formatter.format(value));
+				}
 				//FundPriceHistoryBean [] fundpriceHistory = pricehistoryDAO.getFundPriceHistory(temp.getFundId());
 						
 			

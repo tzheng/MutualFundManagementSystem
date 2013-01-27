@@ -19,19 +19,16 @@
 <!--put your page content here 
 		  ============================================
 		 -->
-<div class="span11">
+
 	<h4>Personal Information For: ${customer.firstName} &nbsp;
 		${customer.lastName}</h4>
 	
 		<table class="table table-striped">
 			<thead>
 				<tr class="info" style="text-align: right;">
-
-					<th style="text-align: left;">Address</th>
+					<th style="text-align: left;">Address Information</th>
 					<th style="text-align: left;">Cash Balance</th>
-					<th style="text-align: left;">Last Trading Day</th>
-
-
+					<!-- <th style="text-align: left;">Last Trading Price</th> -->
 					<th></th>
 					<th></th>
 				</tr>
@@ -39,16 +36,19 @@
 			<tbody>
 				<td style="text-align: left;">${customer.addrLine1}</br>
 					${customer.addrLine2}</br> ${customer.city} &nbsp;,${customer.state}
-					&nbsp;, &nbsp;Zipcode:${customer.zip} <br/>
+					&nbsp;,&nbsp;Zipcode:${customer.zip} <br/>
 				</td>
 				<td>${customer.cash}</td>
+				
 				
 
 
 	<hr>
 
+	
+	</tbody>
+	</table>
 	<h4>Fund Portfolio:</h4>
-	<div>
 		<table class="table table-striped">
 			<thead>
 				<tr class="info" style="text-align: center;">
@@ -56,6 +56,7 @@
 					<th>Fund Name</th>
 					<th>Shares</th>
 					<th>Last Trading Price</th>
+					<th>Last Trading Date</th>
 					<th>Value</th>
 
 				</tr>
@@ -74,10 +75,10 @@
 						
 					</tr>
 				
-				</c:forEach>>
+				</c:forEach>
 			</tbody>
 		</table>
-	</div>
+	
 
 
 

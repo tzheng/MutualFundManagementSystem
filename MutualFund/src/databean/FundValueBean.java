@@ -45,13 +45,14 @@ public class FundValueBean {
      private double shares;
      private Date lastTradingDate;
      private String lastTradingPrice;
-     private double value;
+     private String value;
 	
 	
-	public double getValue() {
+	
+	public String getValue() {
 		return value;
 	}
-	public void setValue(double value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	public String getLastTradingPrice() {
