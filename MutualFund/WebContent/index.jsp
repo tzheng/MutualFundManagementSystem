@@ -111,20 +111,37 @@
 			-->
 			 
 	   			
-	   			<div class="span7" >
-	   				<div id="advertisement">
-						<h1> This is Advertisement! <br> Some other content <br> maybe with some pictures!</h1>
-						<p>Carnegie Financial Service Mutual Fund Management System....</p>
-						<a class="btn btn-large btn-success" href="#">More Information...</a>
-					</div>
-	   			</div>
+	   			
+	   					<div id="myCarousel" class="carousel slide span7" >
+	   							<div class="carousel-inner">
+	   									<div class="active item">
+	   											<img src="img/1.jpg" alt="">
+	   											<div class="carousel-caption">
+							                      	<h4>Carnegie Financial Service</h4>
+							                      	<p>World Leading Mutual Fund Management System </p>
+							                     </div>
+	   									</div>
+	   									
+	   									<div class="item">
+	   											<img src="img/2.jpg" alt="">
+	   											<div class="carousel-caption">
+							                      	<h4>Carnegie Financial Service</h4>
+							                      	<p>Your best choice </p>
+							                     </div>
+	   									</div>
+	   							</div>
+	   							<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  								<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	   					</div>
+	   					
+	   					
+	   			</div> <!--  end of .row-fluid -->
 	   			
 	   			
-	   		</div> <!--  end of .row-fluid -->
+	   		</div> <!--  end of container -->
 
 
 
-		</div>
 
 		<!--include footer -->
 		<jsp:include page="footer.jsp" />
