@@ -4,7 +4,7 @@
 		       <ul class="nav nav-pills pull-right">
 		          <li class="active"><a href="#">Home</a></li>
 		          <li><a href="#myModal"	data-toggle="modal">About</a></li>
-		          <li><a href="#myModal">Contact</a></li>
+		          <li><a href="#myModal" data-toggle="modal">Contact</a></li>
 		       </ul>
 		       
 		       <h3>Carnegie Financial Service</h3>
