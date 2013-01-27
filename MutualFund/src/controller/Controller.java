@@ -19,23 +19,25 @@ public class Controller extends HttpServlet {
         Model model = new Model(getServletConfig());
 
         //Action.add(new AddAction(model));
-        Action.add(new CustomerViewTransactionAction(model));
-        Action.add(new EmployeeViewTransactionAction(model));
-        Action.add(new CustomerLoginAction(model));
-        Action.add(new EmployeeLoginAction(model));
-        Action.add(new CreateAccountAction(model));
-        Action.add(new ViewAccountAction(model));
-        Action.add(new CreateFundAction(model));
-        Action.add(new LogoutAction(model));
-        Action.add(new CreateEmployeeAccountAction(model));
-        Action.add(new CustomerChangePwdAction(model));
-        Action.add(new EmployeeChangePwdAction(model));
-        Action.add(new EmployeeResetCustomerPwdAction(model));
         Action.add(new CustomerBuyFundAction(model));
+        Action.add(new CustomerChangePwdAction(model));
+        Action.add(new CustomerLoginAction(model));
         Action.add(new CustomerSellFundAction(model));
-        Action.add(new DepositCheckAction(model));
-        Action.add(new RequestCheckAction(model));
         Action.add(new CustomerResearchFundAction(model));
+        Action.add(new CustomerViewTransactionAction(model));
+        Action.add(new EmployeeChangePwdAction(model));
+        Action.add(new EmployeeLoginAction(model));
+        Action.add(new EmployeeResetCustomerPwdAction(model));
+        Action.add(new EmployeeViewTransactionAction(model));
+        Action.add(new EmployeeTransitionDayAction(model));
+        
+        Action.add(new CreateAccountAction(model));
+        Action.add(new CreateEmployeeAccountAction(model));
+        Action.add(new CreateFundAction(model));
+        Action.add(new DepositCheckAction(model));
+        Action.add(new LogoutAction(model));
+        Action.add(new RequestCheckAction(model));
+        Action.add(new ViewAccountAction(model));
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -127,7 +129,7 @@ public class Controller extends HttpServlet {
     	
     	throw new ServletException(Controller.class.getName()+".sendToNextPage(\"" + nextPage + "\"): invalid extension.");
     }
-
+    
 	/*
 	 * Returns the path component after the last slash removing any "extension"
 	 * if present.

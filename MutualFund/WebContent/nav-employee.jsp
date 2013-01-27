@@ -15,7 +15,7 @@
 	   		 					<li><a href="employee-depositcheck.jsp">Deposit Check</a></li>
 	   		 					<li class="nav-header">Fund Management</li>
 	   		 					<li><a href="employee-createfund.jsp">Create Fund</a></li>
-	   		 					<li><a href="employee-transactionday.jsp">Transition Day</a></li>
+	   		 					<li><a href="employee-transitionday.do">Transition Day</a></li>
 	   		 				</ul>
 	   		 			</div>
 	   		 		</div>
