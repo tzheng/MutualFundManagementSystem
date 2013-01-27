@@ -80,6 +80,32 @@ body {
 	text-align: center;
 	margin-left: 10px;
 	margin-right: 10px;
-	margin-top: 50%;
+	margin-top: 30%;
 	width: 90%;
+}
+
+
+@font-face {
+    font-family: 'WebSymbolsRegular';
+    src: url('websymbols-regular-webfont.eot');
+    src: url('WebSymbols-Regular.otf');
+    src: url('websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('websymbols-regular-webfont.woff') format('woff'),
+        url('websymbols-regular-webfont.ttf') format('truetype'),
+        url('websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.ca-icon{
+    font-family: 'WebSymbolsRegular', cursive;
+    font-size: 60px;
+    opacity: 0.6;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    text-shadow: 1px 0px 1px rgba(255,255,255,0.7);
+    
+    text-align: center;
+	
 }
