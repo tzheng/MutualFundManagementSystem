@@ -22,7 +22,7 @@
 <div class="span11">
 	<h4>Personal Information For: ${customer.firstName} &nbsp;
 		${customer.lastName}</h4>
-	<form class="form-horizontal" method="post" action="view-account.do">
+	
 		<table class="table table-striped">
 			<thead>
 				<tr class="info" style="text-align: right;">
@@ -37,26 +37,13 @@
 				</tr>
 			</thead>
 			<tbody>
-
 				<td style="text-align: left;">${customer.addrLine1}</br>
-					${customer.addrLine2}</br> ${customer.city},${customer.state}
-					;, &nbsp;Zipcode:${customer.zip} <br/>
+					${customer.addrLine2}</br> ${customer.city} &nbsp;,${customer.state}
+					&nbsp;, &nbsp;Zipcode:${customer.zip} <br/>
 				</td>
 				<td>${customer.cash}</td>
-				<c:forEach var="value" items="${fundValue}">
-					<c:choose>
-						<c:when test="${empty value.lastTradingDate }">
-							<td style="text-align: center">-</td>
-						</c:when>
-						<c:otherwise>
-							<td style="text-align: right; padding-right: 50px;">${value.lastTradingDate}
-							</td>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				</tbody>
-		</table>
-	
+				
+
 
 	<hr>
 
@@ -76,19 +63,21 @@
 			<tbody>
 
 
-				<c:forEach var="value" items="${ fundValue}">
+				<c:forEach var="value" items="${fundvalue}">
 						<tr class="info">
-						<td># </td>
+						<td>${value.fundId}</td>
 						<td>${value.fundName} </td>
 						<td>${value.shares} </td>
-						<td>${value.lastTradingPrice} </td>
+						<td>${value.lastTradingPrice}</td>
+						<td>${value.lastTradingDate} </td> 
 						<td>${value.value}</td>
+						
 					</tr>
-				</c:forEach>
+				
+				</c:forEach>>
 			</tbody>
 		</table>
 	</div>
-</form>
 
 
 
