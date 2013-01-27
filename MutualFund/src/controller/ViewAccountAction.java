@@ -69,10 +69,14 @@ public class ViewAccountAction extends Action {
 	        	
 				PositionBean temp = userPosition[i];
 				double price = pricehistoryDAO.getLastTradingPrice(temp.getFundId());
+				Date date = pricehistoryDAO.getLastTradingDate(temp.getFundId());
 				FundBean fundBean = fundDAO.read(temp.getFundName());
 				FundValueBean current = new FundValueBean();
 				current.setLastTradingPrice(price);
 				current.setFundName(fundBean.getName());
+				current.setShares(temp.getShares());
+				current.setLastTradingDate(date);
+				current.setValue(price*temp.getShares());
 	        }
 	        
 	        request.setAttribute("fundvalue",fundValue);

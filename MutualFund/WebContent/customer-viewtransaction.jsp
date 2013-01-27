@@ -156,7 +156,7 @@
   							   			<td>${history.operation} </td>
   							   			
   							   			<c:choose>
-  							   					<c:when test = "${empty history.fundName }">
+  							   					<c:when test = "${empty history.fundName}">
   							   							<td style="text-align: center">-</td>
   							   					</c:when>
   							   					<c:otherwise>

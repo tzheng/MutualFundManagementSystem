@@ -1,6 +1,6 @@
 package databean;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class FundValueBean {
      private int fundId;
@@ -8,9 +8,15 @@ public class FundValueBean {
      private double shares;
      private Date lastTradingDate;
      private double lastTradingPrice;
-        
+     private double value;
 	
 	
+	public double getValue() {
+		return value;
+	}
+	public void setValue(double value) {
+		this.value = value;
+	}
 	public double getLastTradingPrice() {
 		return lastTradingPrice;
 	}
