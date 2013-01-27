@@ -29,7 +29,7 @@ public class ViewAccountAction extends Action {
 	private TransactionDAO transactionDAO;
 	private FundPriceHistoryDAO pricehistoryDAO;
 	private FundDAO fundDAO;
-	
+
 	public ViewAccountAction(Model model) {
 		customerDAO = model.getCustomerDAO();
 		positionDAO = model.getPositionDAO();
@@ -39,58 +39,62 @@ public class ViewAccountAction extends Action {
 
 	public String getName() { return "view-account.do"; }
 
-	
+
 	public String perform(HttpServletRequest request) {
-        // Set up the errors list
+		// Set up the errors list
 		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
-        
-       
-        
-        
+		request.setAttribute("errors",errors);
+
+
+
+
+
 		try {
-			//int customerId = 1;
-			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
+			int customerId = 1;
+			//int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
 			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			customer.setLastTradeDate(lastTradeDate);
-			
+
 			request.setAttribute("customer", customer);
-			
+
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
-	
-	        
-	        //List<PositionBean> userPosition = new ArrayList<PositionBean>();
-	        List<FundValueBean> fundValue = new ArrayList<FundValueBean>();
-	        PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customerId);
-	        for (int i = 0; i< userPosition.length; i++){
-	        	
-				PositionBean temp = userPosition[i];
-				double price = pricehistoryDAO.getLastTradingPrice(temp.getFundId());
-				Date date = pricehistoryDAO.getLastTradingDate(temp.getFundId());
-				FundBean fundBean = fundDAO.read(temp.getFundName());
-				FundValueBean current = new FundValueBean();
-				current.setLastTradingPrice(price);
-				current.setFundName(fundBean.getName());
-				current.setShares(temp.getShares());
-				current.setLastTradingDate(date);
-				current.setValue(price*temp.getShares());
-	        }
-	        
-	        request.setAttribute("fundvalue",fundValue);
-	        
+
+
+			//List<PositionBean> userPosition = new ArrayList<PositionBean>();
 			
-			
-			return "template-customer.jsp";
-			
-			
-			
-	        
-        } catch (MyDAOException e) {
-        	errors.add(e.getMessage());
-        	return "error.jsp";
-        }
-    }
+			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customerId);
+			CustomerBean customerInfo = customerDAO.read(customerId);
+			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
+			for (int i = 0; i< userPosition.length; i++){
+				
+				fundValue[i] = new FundValueBean();
+				fundValue[i].setFundId(userPosition[i].getFundId());
+				fundValue[i].setShares(userPosition[i].getShares());
+				
+
+//				PositionBean temp = userPosition[i];
+//				double price = pricehistoryDAO.getLastTradingPrice(temp.getFundId());
+//				Date date = pricehistoryDAO.getLastTradingDate(temp.getFundId());
+//				FundBean fundBean = fundDAO.read(temp.getFundName());
+//				FundValueBean current = new FundValueBean();
+//				current.setLastTradingPrice(price);
+//				current.setFundName(fundBean.getName());
+//				current.setShares(temp.getShares());
+//				current.setLastTradingDate(date);
+//				current.setValue(price*temp.getShares());
+			}
+
+			request.setAttribute("fundvalue",fundValue);
+			return "customer-viewaccount.jsp";
+
+
+
+
+		} catch (MyDAOException e) {
+			errors.add(e.getMessage());
+			return "error.jsp";
+		}
+	}
 }
