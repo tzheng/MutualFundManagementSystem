@@ -7,10 +7,8 @@
 	   		 					<li class="nav-header">Account Management</li>
 
 	   		 					<li><a href="view-account.do">View Account</a></li>
-	   		 					<li><a href="changepwd-customer.jsp">Change Password</a></li>
-
-	   		 					<li><a href="customer-viewaccount.jsp">View Account</a></li>
 	   		 					<li><a href="customer-change-pwd.do">Change Password</a></li>
+
 	   		 					<li class="nav-header">Fund Management</li>
 	   		 					<li><a href="customer-buyfund.do">Buy Fund</a></li>
 	   		 					<li><a href="customer-sellfund.do">Sell Fund</a></li>
