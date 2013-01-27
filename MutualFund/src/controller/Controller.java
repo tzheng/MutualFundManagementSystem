@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import basic.ActionNames;
+
 import model.Model;
 
 @SuppressWarnings("serial")
@@ -21,6 +23,7 @@ public class Controller extends HttpServlet {
         Action.add(new CustomerChangePwdAction(model));
         Action.add(new CustomerLoginAction(model));
         Action.add(new CustomerSellFundAction(model));
+        Action.add(new CustomerResearchFundAction(model));
         Action.add(new CustomerViewTransactionAction(model));
         Action.add(new EmployeeChangePwdAction(model));
         Action.add(new EmployeeLoginAction(model));
@@ -57,10 +60,45 @@ public class Controller extends HttpServlet {
         HttpSession session     = request.getSession(true);
         String      servletPath = request.getServletPath();
         String      action = getActionName(servletPath);
+        String      urlName = request.getRequestURL().toString();
+        urlName = getURLName(urlName);
         
+        
+        
+        // start the website
         if (action.equals("start")) {
+        	if (session.getAttribute("customerId") != null){
+        		return "customer-mainpanel.jsp";
+            }
+            
+            if (session.getAttribute("employeeUserName") != null) {
+            	return "employee-mainpanel.jsp";
+            }
+            
         	return "index.jsp";
         }
+        
+        if(action.endsWith(".do")){
+        	if(containsAction(action, ActionNames.customerActions)){
+        		if(session.getAttribute("customerId") == null){
+        			return Action.perform("logout.do", request);
+        		}
+        	}else if(containsAction(action, ActionNames.employeeActions)){
+        		if (session.getAttribute("employeeUserName") == null) {
+        			return Action.perform("logout.do", request);
+        		}
+        	}
+        	
+        }
+        
+        /*
+        if(urlName.endsWith(".jsp")){
+        	return Action.perform("logout.do", request);
+        }
+        */
+        
+        
+     
         
       	// Let the logged in user run his chosen action
 		return Action.perform(action, request);
@@ -100,5 +138,20 @@ public class Controller extends HttpServlet {
     	// We're guaranteed that the path will start with a slash
         int slash = path.lastIndexOf('/');
         return path.substring(slash+1);
+    }
+    
+    private String getURLName(String path){
+    	int slash = path.lastIndexOf('/');
+        return path.substring(slash+1);
+    }
+    
+    private boolean containsAction(String action, String[] list	){
+    	for (String item : list	){
+    		if(item.equals(action)){
+    			return true;
+    		}
+    	}
+    	
+    	return false;
     }
 }

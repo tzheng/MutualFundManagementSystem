@@ -29,10 +29,4 @@
 			   		 <div class="span9">
 			   		 
 			   		 
-		<!--display path  -->	   		 		
-		<div>
-				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-						<li class="active">Path</li>  
-				</ul>
-		</div>	  
+		 

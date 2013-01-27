@@ -99,7 +99,7 @@ public class CustomerLoginAction extends Action {
 			request.setAttribute("positionList", positionList);
 	        
 	        // If redirectTo is null, redirect to the action
-			return "customer-viewaccount.jsp";
+			return "customer-mainpanel.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

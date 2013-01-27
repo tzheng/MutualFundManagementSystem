@@ -1,6 +1,15 @@
 
 	   <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
+	   
+	   <!--display path  -->	   		 		
+		<div>
+				<ul class="breadcrumb">
+						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Create Customer Account</li>  
+				</ul>
+		</div>	 
+		
 	  <%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
        <c:forEach var="error" items="${errors}">

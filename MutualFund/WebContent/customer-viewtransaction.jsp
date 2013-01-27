@@ -4,6 +4,14 @@
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 	   	
+	   	<!--display path  -->	   		 		
+		<div>
+				<ul class="breadcrumb">
+						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Transaction History</li>  
+				</ul>
+		</div>	 
+		
 	   	
 	   	<!--put your page content here 
 		  ============================================
@@ -148,7 +156,7 @@
   							   			<td>${history.operation} </td>
   							   			
   							   			<c:choose>
-  							   					<c:when test = "${empty history.fundName }">
+  							   					<c:when test = "${empty history.fundName}">
   							   							<td style="text-align: center">-</td>
   							   					</c:when>
   							   					<c:otherwise>
