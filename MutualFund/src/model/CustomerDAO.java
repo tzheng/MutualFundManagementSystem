@@ -40,6 +40,7 @@ public class CustomerDAO extends BaseDAO {
         	int count = pstmt.executeUpdate();
         	if (count != 1)
 				throw new SQLException("Updated " + count + " rows in customer table when changing password.");
+        	
         	con.commit();
         	
         	pstmt.close();
