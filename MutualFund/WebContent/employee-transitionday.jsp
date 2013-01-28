@@ -14,17 +14,17 @@
 <div class="row-fluid">
 	<!-- customer name -->
 	<h4>Transition Day</h4>
-	<div class="span2">
-		<label>Last Trading Day: ${ lastDate }</label>
+	<div >
+		<label>Last Trading Day: <b>${ lastDate }</b></label>
 	</div>
-	<div class="span2">
-		<label>Specify a date:</label>
+	<div>
+		<label style="float: left; margin-right: 10px; padding-top: 5px;">Specify a date:</label>
 		<c:choose>
 			<c:when test="${ empty specifiedDate }">
-				<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ lastDate }" />
+				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ lastDate }" />
 			</c:when>
 			<c:otherwise>
-				<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ specifiedDate }" />
+				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ specifiedDate }" />
 			</c:otherwise>
 		</c:choose>
 		
