@@ -76,13 +76,13 @@ public class RequestCheckAction extends Action{
                 return actionPage;
             }
             
-            //Balance Check
             double amount = form.getAmountAsDouble();
+            /**
             if (availableBalance < amount || availableBalance <= 0) {
                 errors.add("You have Insufficient balance");
                 return actionPage;
             }
-
+			**/
 			transactionDAO.requestCheck(customerId, amount);
 			
 			request.setAttribute("message","Your request for check for $ " + "<b>" + form.getwithdrawamount() + "</b>"+ " has been queued as a pending transaction");

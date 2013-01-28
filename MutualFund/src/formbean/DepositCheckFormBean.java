@@ -37,11 +37,11 @@ public class DepositCheckFormBean extends FormBean{
 		List<String> errors = new ArrayList<String>();
 		
 		if (amount == null || amount.trim().length() == 0) {
-			errors.add("Please enter the deposit Amount");
+			errors.add("Deposit Amount is required");
 		}
 		
 		if (userName == null || userName.trim().length() == 0) {
-			errors.add("Please enter the username");
+			errors.add("Username is required");
 		}
 		
 		if (amount.matches(".*[<>\"].*")) {
@@ -51,12 +51,15 @@ public class DepositCheckFormBean extends FormBean{
 		try {
 			double amountD = Double.parseDouble(amount);
 			if (amountD <= 0) {
-                errors.add("Deposit amount value should be a positive value");
+	            errors.add("Deposit amount value should be a positive value");
+			}
+			if (amountD > 1000000000 || amountD < 1) {
+				errors.add("Amount should between $1 (one) dollar to 10,000,000,000 (one billion) dollars");
 			}
 		} catch (NumberFormatException e) {
-			errors.add("Deposit amount is not an number");
+			errors.add("Deposit amount is not a number!! Please enter a numerical value");
 		}
-
+		
 		return errors;
 	}
 

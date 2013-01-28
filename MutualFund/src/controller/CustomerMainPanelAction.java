@@ -39,12 +39,21 @@ public class CustomerMainPanelAction extends Action {
 			request.setAttribute("currentBalance", format.format(customer.getCash()));
 			// get the last trading date of this customer
 			Date lastTradingDate = transactionDAO.getCustomerLastTradeDate(customerId);
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy");
-			request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
-			//get customer's Rejected transactions of his/her Last Trading Day
-			request.setAttribute("processedNumber", transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate));
-			//get customer's Processed transactions of his/her Last Trading Day
-			request.setAttribute("rejectedNumber", transactionDAO.getCustomerTransactionNum(customerId, -1, lastTradingDate));
+			if (lastTradingDate != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy");
+				request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
+				//get customer's Rejected transactions of his/her Last Trading Day
+				request.setAttribute("processedNumber", transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate));
+				//get customer's Processed transactions of his/her Last Trading Day
+				request.setAttribute("rejectedNumber", transactionDAO.getCustomerTransactionNum(customerId, -1, lastTradingDate));
+			} else {
+				request.setAttribute("lastTradingDate", null);
+				request.setAttribute("processedNumber", null);
+				//get customer's Processed transactions of his/her Last Trading Day
+				request.setAttribute("rejectedNumber", null);
+			}
+			
+			
 
 			return "customer-mainpanel.jsp";
 		} catch (MyDAOException e) {

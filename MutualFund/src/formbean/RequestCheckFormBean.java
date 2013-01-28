@@ -31,7 +31,7 @@ public class RequestCheckFormBean extends FormBean{
 		List<String> errors = new ArrayList<String>();
 		
 		if (withdrawamount == null || withdrawamount.length() == 0) {
-			errors.add("Please enter the  withdrawamount");
+			errors.add("Amount is required");
 		}
 		
 		if (withdrawamount.matches(".*[<>\"].*")) {
@@ -43,8 +43,11 @@ public class RequestCheckFormBean extends FormBean{
 			if (buywithdrawamount <= 0) {
                 errors.add("Withdraw amount value should be a positive value");
 			}
+			if (buywithdrawamount > 1000000000 || buywithdrawamount < 1) {
+                errors.add("Amount should between $1 (one) dollar to 10,000,000,000 (one billion) dollars");
+			}
 		} catch (NumberFormatException e) {
-			errors.add("Withdraw amount is not an integer");
+			errors.add("Amount is not a number!! Please enter a numerical value");
 		}
 
 		return errors;

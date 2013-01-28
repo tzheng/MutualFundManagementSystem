@@ -1,6 +1,9 @@
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
 	   	
+	   	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	
 	   	<!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
@@ -16,11 +19,19 @@
 				
 				<p>Your current account balance is: <b>$  ${currentBalance} </b> </p>
 				
-				<p>Your Last trading date is: <b>${lastTradingDate }</b>
-				<p>During the last trading date:
-				<p><b>${processedNumber}</b> of your transactions have been processed. </p>
-				<p><b>${rejectedNumber}</b> of your transactions have been rejected. </p>
-				<a href="customerhistory.do" >View Transaction History</a>
+				<c:choose>
+						<c:when test ="${ empty lastTradingDate }">
+							<h5>You don't have any transactions currently. </h5>
+						</c:when>
+						<c:otherwise>
+							<p>Your Last trading date is: <b>${lastTradingDate }</b>
+							<p>During the last trading date:
+							<p><b>${processedNumber}</b> of your transactions have been processed. </p>
+							<p><b>${rejectedNumber}</b> of your transactions have been rejected. </p>
+							<a href="customerhistory.do" >View Transaction History</a>
+						</c:otherwise>
+				</c:choose>
+				
 				
 				<!-- 
 				<hr>

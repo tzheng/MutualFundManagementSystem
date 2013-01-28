@@ -33,15 +33,15 @@ public class CustomerChangePwdForm extends FormBean {
 	public List<String> getValidationErrors(){
 		List<String> errors = new ArrayList<String>();
 		
-		if (oldPassword == null || oldPassword.length() == 0) {
-			errors.add("Old Password is required");
+		if (oldPassword == null || oldPassword.trim().length() == 0) {
+			errors.add("Current Password is Required");
 		}
 		
-		if (newPassword == null || newPassword.length() == 0) {
+		if (newPassword == null || newPassword.trim().length() == 0) {
 			errors.add("New Password is required");
 		}
 		
-		if (confirmNewPassword == null || confirmNewPassword.length() == 0) {
+		if (confirmNewPassword == null || confirmNewPassword.trim().length() == 0) {
 			errors.add("Confirm New Password is required");
 		}
 		
@@ -50,12 +50,12 @@ public class CustomerChangePwdForm extends FormBean {
 		}
 		
 		if (oldPassword.equals(newPassword)) {
-			errors.add("New password cannot be as same as previous one");
+			errors.add("New password cannot be as same as the current password");
 		}
 		
 		
 		if (!newPassword.equals(confirmNewPassword)) {
-			errors.add("Passwords do not match");
+			errors.add("Passwords do not match! Please re-enter");
 		}
 		
 		return errors;
