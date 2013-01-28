@@ -20,8 +20,8 @@ public abstract class BaseDAO {
 	public BaseDAO(String jdbcDriver, String jdbcURL, String tableName) throws MyDAOException {
 		this.jdbcDriver = jdbcDriver;
 		this.jdbcURL    = jdbcURL;
+		//this.jdbcURL    = jdbcURL + ":3306/cfsdb?user=admin&password=cfsdbadmin";
 		this.tableName  = tableName;
-		
 		if (!tableExists()) createTable();
 	}
 	
@@ -63,6 +63,7 @@ public abstract class BaseDAO {
 
         try {
             return DriverManager.getConnection(jdbcURL + "?useUnicode=true&characterEncoding=utf-8");
+            //return DriverManager.getConnection(jdbcURL, "admin", "cfsdbadmin");
         } catch (SQLException e) {
             throw new MyDAOException(e);
         }

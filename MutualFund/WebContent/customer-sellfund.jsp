@@ -7,7 +7,7 @@
 	   	<!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li><a href="customer-mainpanel.do"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
 						<li class="active">Sell Fund</li>  
 				</ul>
 		</div>	 
@@ -91,7 +91,7 @@
 	   										<th>Fund Name</th>
 	   										<th>Fund Symbol</th>
     										<th>Shares you own</th>
-    										<th>Available Shares</th>
+    										<!-- <th>Available Shares</th> -->
     										<th></th>
   									</tr>
   						</thead>
@@ -101,7 +101,7 @@
   							   			<td>${fund.fundName} </td>
   							   			<td>${fund.fundSymbol} </td>
   							   			<td>${fund.shares} </td>
-  							   			<td>${fund.availableShares}</td>
+  							   			<!-- <td>${fund.availableShares}</td> -->
   							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fund.fundName}';">Sell Fund</a>
   							   		</tr>
   							   </c:forEach>

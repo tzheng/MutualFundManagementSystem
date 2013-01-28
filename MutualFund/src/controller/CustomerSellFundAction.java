@@ -75,7 +75,7 @@ public class CustomerSellFundAction extends Action {
 			int index = findByFundId(positionList, fundBean.getFundId());
 			
 			if (index == -1) {
-				errors.add("Cannot sell the fund you don't have");
+				errors.add("You don't have this fund in your portfolio.");
 				return "customer-sellfund.jsp";
 			}
 			
@@ -85,10 +85,9 @@ public class CustomerSellFundAction extends Action {
 			}
 			
 			transactionDAO.sellFund(customerId, fundBean.getFundId(), shares);
-			//positionList[index].setAvailableShares(positionList[index].getAvailableShares() - shares);
-			//positionDAO.update(positionList[index]);
 			
-	        return "customer-sellfund.jsp";
+			request.setAttribute("message", "Your request for selling shares of the \"" + fundBean.getName() + "\" fund is queued as a pending transaction.");
+	        return "customer-confirmation.jsp";
 	 	} catch (MyDAOException e) {
 			errors.add(e.getMessage());
 			return "customer-sellfund.jsp";

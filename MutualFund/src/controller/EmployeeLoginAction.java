@@ -69,17 +69,19 @@ public class EmployeeLoginAction extends Action {
 			EmployeeBean employee = employeeDAO.read(form.getUserName());
 			
 			if (employee == null) {
-	            errors.add("Employee's userName not found");
+	            errors.add("Incorrect/Invalid Employee Username");
 	            return "index.jsp";
 	        }
 	        
 	        if (!employee.checkPassword(form.getPassword())) {
-	            errors.add("Employee's password is incorrect");
+	            errors.add("Incorrect/Invalid Password");
 	            return "index.jsp";
 	        }
 
 			// Attach (this copy of) the user bean to the session
 			session.setAttribute("employeeUserName", employee.getUserName());
+			session.setAttribute("firstname", employee.getFirstName());
+			session.setAttribute("lastname", employee.getLastName());
 
 			// If redirectTo is null, redirect to the "todolist" action
 			return "employee-mainpanel.jsp";

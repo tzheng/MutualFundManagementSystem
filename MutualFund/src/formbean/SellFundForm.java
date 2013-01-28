@@ -40,16 +40,18 @@ public class SellFundForm extends FormBean {
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		if (fundName == null || fundName.length() == 0) errors.add("Fund Name is required");
-		if (shares == null || shares.length() == 0) errors.add("Shares number is required");
+		if (fundName == null || fundName.length() == 0) errors.add("Please enter fund name");
+		if (shares == null || shares.length() == 0) errors.add("Please enter number of shares");
 		
 		if (errors.size() > 0) return errors;
 
 		try {
 			Double temp = Double.parseDouble(shares);
-			if (temp < 0) errors.add("Share number cannot be negative");
+			if (temp <= 0) errors.add("Number of shares cannot be a negative value");
+			if (temp > 100000000 || temp < 0.01) 
+				errors.add("Share number should between 0.01 to 10,000,000,000 (one billion)");
 		} catch (NumberFormatException e) {
-			errors.add("Share number is not an number");
+			errors.add("Number of shares is not a number!! Please enter a numerical value");
 		}
 		
 		return errors;

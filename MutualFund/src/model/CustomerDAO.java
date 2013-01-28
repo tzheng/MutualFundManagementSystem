@@ -10,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import databean.CustomerBean;
 
@@ -36,7 +37,9 @@ public class CustomerDAO extends BaseDAO {
         	pstmt.setString(1, customer.getPassword());
         	pstmt.setInt(2, customer.getSalt());
         	pstmt.setInt(3, customerId);
-        	int rs = pstmt.executeUpdate();
+        	int count = pstmt.executeUpdate();
+        	if (count != 1)
+				throw new SQLException("Updated " + count + " rows in customer table when changing password.");
         	con.commit();
         	
         	pstmt.close();
@@ -181,47 +184,87 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-//	public CustomerBean[] getCustomer(int customerId) throws Exception {
-//		Connection con = null;
-//        try {
-//        	con = getConnection();
-//
-//        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
-//        	ResultSet rs = pstmt.executeQuery();
-//        	
-//        	
-//        	CustomerBean [] customer = null;
-//       	if(count != 0) {
-//      		customer = new CustomerBean[count];
-//       	}
-//        	if(rs.first()) {
-//        		for(int i=0;i<count;i++) {
-//        			customer[i] = new CustomerBean();
-//        			customer[i].setCustomerId(rs.getInt("customerId"));
-//        			customer[i].setUserName(rs.getString("userName"));
-//        			customer[i].setFirstName(rs.getString("firstName"));
-//        			customer[i].setLastName(rs.getString("lastName"));
-//        			customer[i].setPassword(rs.getString("password"));
-//        			customer[i].setAddrLine1(rs.getString("addrLine1"));
-//        			customer[i].setAddrLine2(rs.getString("addrLine2"));
-//        			customer[i].setCity(rs.getString("city"));
-//        			customer[i].setState(rs.getString("state"));
-//        			customer[i].setZip(rs.getInt("zip"));
-//            		rs.next();
-//            	}
-//        	}
-//        	
-//        	rs.close();
-//        	pstmt.close();
-//        	releaseConnection(con);
-//            return customer;
-//            
-//        } catch (Exception e) {
-//            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-//        	throw new Exception(e);
-//        }
-//	}
-//	
+	public void updateCash(CustomerBean bean) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+			con.setAutoCommit(false);
+
+			PreparedStatement pstmt = con
+					.prepareStatement(
+							"UPDATE " + tableName + 
+							" SET cash = ?" +
+							" WHERE customerId = ?");
+
+			long cashLong = Math.round(bean.getCash() * 100.00);
+			pstmt.setLong(1, cashLong);
+			pstmt.setInt(2, bean.getCustomerId());
+			int count = pstmt.executeUpdate();
+			if (count != 1)
+				throw new SQLException("Updated " + count + " rows in customer table");
+
+			pstmt.close();
+
+			con.commit();
+			con.setAutoCommit(true);
+			releaseConnection(con);
+
+		} catch (SQLException e) {
+			// If this exception is caused by database-related problem, roll
+			// back and close this connection.
+			try {
+				if (con != null) {
+					con.rollback();
+					con.close();
+				}
+			} catch (SQLException e2) { /* ignore */
+			}
+			throw new MyDAOException(e);
+		} finally {
+			// If this exception is caused by illegal update action, roll back
+			// but don't close this connection.
+			try {
+				if (con != null) {
+					con.rollback();
+					con.setAutoCommit(true);
+					releaseConnection(con);
+				}
+			} catch (SQLException e2) { /* ignore */
+			}
+		}
+	}
+	
+		public CustomerBean[] getAllCustomers() throws Exception {
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	List<CustomerBean> list = new ArrayList<CustomerBean>();
+
+        	while (rs.next()) {
+        		CustomerBean customer = new CustomerBean();
+        		customer.setUserName(rs.getString("userName"));
+        		customer.setCustomerId(rs.getInt("customerId"));
+        		customer.setFirstName(rs.getString("firstName"));
+        		customer.setLastName(rs.getString("lastName"));
+        		list.add(customer);
+        	}
+	       	
+	        	rs.close();
+	        	pstmt.close();
+	        	releaseConnection(con);
+	            return list.toArray(new CustomerBean[list.size()]);
+	            
+	        } catch (Exception e) {
+	            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+	        	throw new Exception(e);
+	        }
+	}
+	
+	
 	// Method to Create New Table if Table Doesn't exist
 		protected void createTable() throws MyDAOException {
 			Connection con = null;

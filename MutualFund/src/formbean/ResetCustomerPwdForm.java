@@ -13,16 +13,16 @@ public class ResetCustomerPwdForm extends FormBean {
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		if (userName == null || userName.length() == 0) {
+		if (userName == null || userName.trim().length() == 0) {
 			errors.add("Username is required");
 		}
 		
-		if (newPassword == null || newPassword.length() == 0) {
+		if (newPassword == null || newPassword.trim().length() == 0) {
 			errors.add("New Password is required");
 		}
 		
-		if (confirmPassword == null || confirmPassword.length() == 0) {
-			errors.add("Confirm Pwd is required");
+		if (confirmPassword == null || confirmPassword.trim().length() == 0) {
+			errors.add("Confirm Password is required");
 		}
 		
 		if (errors.size() > 0) {

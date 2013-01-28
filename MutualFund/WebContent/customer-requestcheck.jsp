@@ -3,7 +3,7 @@
 	   	<!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li><a href="customer-mainpanel.do"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
 						<li class="active">Request Check</li>  
 				</ul>
 		</div>	 
@@ -40,7 +40,7 @@
 							    <div class="controls">
 							      	<div class="input-prepend">
 									  	<span class="add-on">$</span>
-									  	<input type="text" class="span10" name="withdrawamount" placeholder="Max: ${availableBalance}" value="${form.withdrawamount}"/>
+									  	<input type="text" class="span10" name="withdrawamount" placeholder="0.00" value="${form.withdrawamount}"/>
 									</div>
 							    </div>
 						  </div>

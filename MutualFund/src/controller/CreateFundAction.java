@@ -72,7 +72,7 @@ public class CreateFundAction extends Action {
 			fund.setName(form.getFundName());
 			fundDAO.create(fund);
 			
-			request.setAttribute("message","Successfully create fund: " + "<b>" + form.getFundName() 
+			request.setAttribute("message"," Fund Successfully Created. Fund: " + "<b>" + form.getFundName() 
 					+ "</b>, Symbol: <b>" + form.getSymbol() + "</b>");
 			return "employee-confirmation.jsp";
 			

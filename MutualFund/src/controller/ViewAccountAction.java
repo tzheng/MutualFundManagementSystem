@@ -5,6 +5,7 @@
 
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ViewAccountAction extends Action {
 	private CustomerDAO customerDAO;
 	private PositionDAO positionDAO;
 	private TransactionDAO transactionDAO;
-	private FundPriceHistoryDAO pricehistoryDAO;
+	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private FundDAO fundDAO;
 
 	public ViewAccountAction(Model model) {
@@ -36,6 +37,7 @@ public class ViewAccountAction extends Action {
 		positionDAO = model.getPositionDAO();
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
+		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 	}
 
 	public String getName() { return "view-account.do"; }
@@ -46,51 +48,56 @@ public class ViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 
-
+		List<String> successes = new ArrayList<String>();
+		request.setAttribute("successes", successes);
+		
 		try {
-//			int customerId = 1;
+
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-			
-//			Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
-//			customer.setLastTradeDate(lastTradeDate);
+			DecimalFormat formatter = new DecimalFormat("#,##0.00");
+			request.setAttribute("cashBalance",formatter.format(customer.getCash()));
 
-			//request.setAttribute("customer", customer);
-//
-//			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
-//			request.setAttribute("positionList", positionList);
+
+			request.setAttribute("customer", customer);
+
+
 			
-			//List<PositionBean> userPosition = new ArrayList<PositionBean>();
-			  //CustomerBean customer = customerDAO.read(fundvalue.getUserName());
 			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customer.getCustomerId());
+			
 			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
+//			FundPriceHistoryBean[] fundHistory = fundPriceHistoryDAO.getFundPriceHistory(fundValue.)
 			for (int i = 0; i< userPosition.length; i++){
+				PositionBean temp = userPosition[i];
 				
 				fundValue[i] = new FundValueBean();
 				fundValue[i].setFundId(userPosition[i].getFundId());
-				fundValue[i].setShares(userPosition[i].getShares());
-				double price = pricehistoryDAO.getLastTradingPrice(userPosition[i].getFundId());
+				double shares = userPosition[i].getShares();
+				DecimalFormat formatter1 = new DecimalFormat("#,##0.000");
+				fundValue[i].setShares(formatter1.format(shares));
+//				fundValue[i].setShares(userPosition[i].getShares());
+				//double price = pricehistoryDAO.getLastTradingPrice(userPosition[i].getFundId());
+				FundBean fundBean = fundDAO.read(temp.getFundName());
+				fundValue[i].setFundName(fundBean.getName());
+				if(fundPriceHistoryDAO.getLastTrading(userPosition[i].getFundId())!= null){
 				
-
-//				PositionBean temp = userPosition[i];
-//				double price = pricehistoryDAO.getLastTradingPrice(temp.getFundId());
-//				Date date = pricehistoryDAO.getLastTradingDate(temp.getFundId());
-//				FundBean fundBean = fundDAO.read(temp.getFundName());
-//				FundValueBean current = new FundValueBean();
-//				current.setLastTradingPrice(price);
-//				current.setFundName(fundBean.getName());
-//				current.setShares(temp.getShares());
-//				current.setLastTradingDate(date);
-//				current.setValue(price*temp.getShares());
-			}
+				
+				
+					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(userPosition[i].getFundId());
+					
+					fundValue[i].setLastTradingDate(history.getPrice_date());
+					double price = history.getPrice();
+					formatter = new DecimalFormat("#,##0.00");
+					fundValue[i].setLastTradingPrice(formatter.format(price));
+					double value = userPosition[i].getShares()*price;
+					fundValue[i].setValue(formatter.format(value));
+				}
 		
-			
+			}
 
 			request.setAttribute("fundvalue",fundValue);
-			
-			
-			return "customer-viewaccount.jsp";
 
+			return "customer-viewaccount.jsp";
 		} catch (MyDAOException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
@@ -98,5 +105,3 @@ public class ViewAccountAction extends Action {
 	}
 
 }	
-	        
-

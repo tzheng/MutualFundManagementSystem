@@ -13,16 +13,16 @@ public class ChangePasswordForm extends FormBean{
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		if (oldPassword == null || newPassword.length() == 0) {
+		if (oldPassword == null || newPassword.trim().length() == 0) {
 			errors.add("Old Password is required");
 		}
 
-		if (newPassword == null || newPassword.length() == 0) {
+		if (newPassword == null || newPassword.trim().length() == 0) {
 			errors.add("New Password is required");
 		}
 		
-		if (confirmPassword == null || confirmPassword.length() == 0) {
-			errors.add("Confirm Pwd is required");
+		if (confirmPassword == null || confirmPassword.trim().length() == 0) {
+			errors.add("Confirm Password is required");
 		}
 		
 		if (errors.size() > 0) {
@@ -30,7 +30,7 @@ public class ChangePasswordForm extends FormBean{
 		}
 		
 		if (!newPassword.equals(confirmPassword)) {
-			errors.add("Passwords do not match");
+			errors.add("Passwords do not match! Please re-enter");
 		}
 
 		return errors;

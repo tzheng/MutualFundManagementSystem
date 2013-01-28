@@ -40,6 +40,10 @@ public class BuyFundForm extends FormBean {
 			errors.add("Fund Name is required!");
 		}
 		
+		if (fundName.trim().length() > 30) {
+			errors.add("Fund Name should be less than 30 characters");
+		}
+		
 		if (amount == null || amount.trim().length() == 0) {
 			errors.add("Amount is required!");
 		}
@@ -58,6 +62,10 @@ public class BuyFundForm extends FormBean {
 		
 		if (amountD <= 0) {
 			errors.add("Invalid amount! Please enter a positive number!");
+		}
+		
+		if (amountD > 1000000000 || amountD < 1) {
+			errors.add("Amount should between $1 (one) dollar to 10,000,000,000 (one billion) dollars");
 		}
 		
 		return errors;

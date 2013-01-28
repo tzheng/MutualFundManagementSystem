@@ -22,6 +22,11 @@ public class CustomerIdForm extends FormBean {
 		if (username == null || username.trim().length() == 0) {
 			errors.add("Username is required!");
 		}
+		
+		if (username.trim().length() > 30) {
+			errors.add("Username should be less then 30 characters.");
+		}
+		
 		return errors;
 	}
 }

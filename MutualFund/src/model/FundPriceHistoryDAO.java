@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import databean.FundGeneralInfoBean;
 import databean.FundPriceHistoryBean;
@@ -54,7 +54,8 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			// convert java.utl.date to java.sql.date so that can insert date to ...
 			Date sqlDate = new Date(priceHistory.getPrice_date().getTime());
 			pstmt.setDate(2, sqlDate);
-			pstmt.setDouble(3, priceHistory.getPrice()); //CHANGE
+			long priceL = Math.round(priceHistory.getPrice() * 100.00);
+			pstmt.setLong(3, priceL); //CHANGE
 			
 			int count = pstmt.executeUpdate();
 			if (count != 1) throw new SQLException("insert updated " + count + "rows");
@@ -108,6 +109,58 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		}
 	}
 	
+	public FundGeneralInfoBean[] getAllFundsGeneralInfo() throws MyDAOException {
+		Connection con = null;
+		DecimalFormat formatter = new DecimalFormat("#,##0.00");
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement(
+					"SELECT d.fundId, d.name, d.symbol, c.priceDate, c.price" +
+					" FROM fund d LEFT JOIN (" +
+					" 	SELECT a.fundId, a.priceDate, a.price" +
+					"   FROM pricehistory a INNER JOIN " +
+					" 		(SELECT fundId, MAX(priceDate) AS lastDate from pricehistory GROUP BY fundId) b" +
+					"	ON (a.fundId = b.fundId)" +
+					" 	WHERE a.priceDate = b.lastDate) c" +
+					" ON d.fundId = c.fundId");
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			List<FundGeneralInfoBean> list = new ArrayList<FundGeneralInfoBean>();
+			while (rs.next()) {
+				FundGeneralInfoBean bean = new FundGeneralInfoBean();
+				bean.setFundId(rs.getInt("fundId"));
+				bean.setName(rs.getString("name"));
+				bean.setSymbol(rs.getString("symbol"));
+				
+				if (rs.getString("price") != null) {
+					bean.setLastTradingDate(rs.getDate("priceDate"));
+					
+					long priceL = rs.getLong("price");
+					double priceD = Math.round(priceL / 100.00);
+					bean.setLastTradingPrice(formatter.format(priceD));
+				}
+				
+				list.add(bean);
+			}
+			
+			pstmt.close();
+			releaseConnection(con);
+			
+			return list.toArray(new FundGeneralInfoBean[list.size()]);
+		} catch (SQLException e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public FundPriceHistoryBean getLastTrading(int fundId) throws MyDAOException {
 		Connection con = null;
 		
@@ -148,6 +201,37 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		}
 	}
 	
+	public Date getLastTradingDateOfALLFunds() throws MyDAOException {
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT MAX(priceDate) AS priceDate FROM " + tableName);
+			ResultSet rs = pstmt.executeQuery();
+			
+			Date date;
+			if (!rs.next()) {
+				date = null;
+			} else {
+				date = rs.getDate("priceDate");
+			}
+			
+			rs.close();
+			pstmt.close();
+			releaseConnection(con);
+			return date;
+		} catch (SQLException e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public double getLastTradingPrice(int fundId) throws MyDAOException {
 		FundPriceHistoryBean fund = getLastTrading(fundId);
 		return fund.getPrice();
@@ -157,9 +241,4 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		FundPriceHistoryBean fund = getLastTrading(fundId);
 		return fund.getPrice_date();
 	}
-
 }
-
-
-
-

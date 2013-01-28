@@ -68,7 +68,7 @@ public class EmployeeResetCustomerPwdAction extends Action {
 			customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 
 			// Success
-			successes.add("Customer's password updated!");
+			successes.add("Customer's password updated Successfully!");
 			return "employee-resetcustomerpswd.jsp";
 		} catch (MyDAOException e) {
 			errors.add(e.toString());

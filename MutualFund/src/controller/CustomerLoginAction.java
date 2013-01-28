@@ -1,5 +1,7 @@
 package controller;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +48,7 @@ public class CustomerLoginAction extends Action {
     	
     	// If customer is already logged in, redirect to customer-mainpanel.jsp
         if (session.getAttribute("customerId") != null) {
-        	return "customer-mainpanel.jsp";
+        	return "customer-mainpanel.do";
         }
         
         // If employee is already logged in, redirect to employee-mainpanel.jsp
@@ -76,14 +78,14 @@ public class CustomerLoginAction extends Action {
 	        CustomerBean customer = customerDAO.read(form.getUserName());
 	        
 	        if (customer == null) {
-	            errors.add("Customer's userName not found");
+	            errors.add("Incorrect/Invalid Customer Username");
 	            return "index.jsp";
 	        }
 	        
 	        //System.out.println(customer.checkPassword(form.getPassword()));
 	        //System.out.println(customer.getSalt());
 	        if (!customer.checkPassword(form.getPassword())) {
-	            errors.add("Customer's password is incorrect");
+	            errors.add("Incorrect/Invalid Password");
 	            return "index.jsp";
 	        }
 	        
@@ -92,14 +94,11 @@ public class CustomerLoginAction extends Action {
 	        session.setAttribute("customerId", customerId);
 	        Date lastTradeDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			customer.setLastTradeDate(lastTradeDate);
+			session.setAttribute("firstname", customer.getFirstName());
+			session.setAttribute("lastname", customer.getLastName());
 			
-			request.setAttribute("customer", customer);
-			
-			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
-			request.setAttribute("positionList", positionList);
-	        
 	        // If redirectTo is null, redirect to the action
-			return "customer-viewaccount.jsp";
+			return "customer-mainpanel.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
