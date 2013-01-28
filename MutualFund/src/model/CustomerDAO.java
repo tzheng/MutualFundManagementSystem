@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import databean.CustomerBean;
 
@@ -35,7 +37,9 @@ public class CustomerDAO extends BaseDAO {
         	pstmt.setString(1, customer.getPassword());
         	pstmt.setInt(2, customer.getSalt());
         	pstmt.setInt(3, customerId);
-        	int rs = pstmt.executeUpdate();
+        	int count = pstmt.executeUpdate();
+        	if (count != 1)
+				throw new SQLException("Updated " + count + " rows in customer table when changing password.");
         	con.commit();
         	
         	pstmt.close();

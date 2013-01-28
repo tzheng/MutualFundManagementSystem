@@ -52,10 +52,9 @@ public class EmployeeTransitionDayAction extends Action {
 	public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
-        System.out.println("123");
+        
         try {
         	Date lastDate = fundPriceHistoryDAO.getLastTradingDateOfALLFunds();
-<<<<<<< HEAD
         	
         	DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         	if (lastDate == null) {
@@ -64,10 +63,6 @@ public class EmployeeTransitionDayAction extends Action {
         	} else {
         		request.setAttribute("lastDate", df.format(lastDate));
         	}
-=======
-            request.setAttribute("lastDate", lastDate);
-            System.out.println("abc");
->>>>>>> branch 'master' of https://github.com/tzheng/A-Web-Project.git
             
         	//get full fund list, allows customer to choose
 			FundBean[] fundlist = fundDAO.readAllFunds();
