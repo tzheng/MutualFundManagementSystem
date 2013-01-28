@@ -61,11 +61,19 @@ public class EmployeeViewAccountAction extends Action {
 				
 				CustomerIdForm form = formBeanFactory.create(request);
 				request.setAttribute("form", form);
+				//get all customer lists, in case of user not found
+				CustomerBean[] customerlist = customerDAO.getAllCustomers();
+				if (customerlist != null) {
+					request.setAttribute("customerlist", customerlist);
+				}
+				else {
+					request.setAttribute("customerlist", null);
+				}
 				
 				if (!form.isPresent()) {
 		            return "employee-viewcustomer.jsp";
 		        }
-				
+				// add error validation
 				errors.addAll(form.getValidationErrors());
 				if (errors.size() != 0) {
 					return "employee-viewcustomer.jsp";
@@ -77,6 +85,8 @@ public class EmployeeViewAccountAction extends Action {
 					return "employee-viewcustomer.jsp";
 				}
 				
+				//if user found, set customer list empty, show detail info of specified customer
+				request.setAttribute("customerlist", null);
 				
 				int customerId = customer.getCustomerId();
 
@@ -123,17 +133,13 @@ public class EmployeeViewAccountAction extends Action {
 			}
 			else {
 				CustomerBean[] customerlist = customerDAO.getAllCustomers();
-				
 				if (customerlist != null) {
 					request.setAttribute("customerlist", customerlist);
 				}
 				else {
 					request.setAttribute("customerlist", null);
 				}
-				
-				
 			}
-			
 			
 			return "employee-viewcustomer.jsp";		
 		}catch (MyDAOException e) {
