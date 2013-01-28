@@ -27,10 +27,10 @@
 			<thead>
 				<tr class="info" style="text-align: center;">
 					<th>Fund Name</th>
-					<th>Shares</th>
-					<th>Last Trading Price</th>
-					<th>Last Trading Date</th>
-					<th>Value</th>
+					<th style="text-align: right;">Shares</th>
+					<th style="text-align: right;">Last Trading Price</th>
+					<th style="text-align: right;">Last Trading Date</th>
+					<th style="text-align: right;">Value</th>
 
 				</tr>
 			</thead>
@@ -38,12 +38,12 @@
 
 
 				<c:forEach var="value" items="${fundvalue}">
-						<tr class="info">
+						<tr>
 						<td>${value.fundName} </td>
-						<td>${value.shares} </td>
-						<td>${value.lastTradingPrice}</td>
-						<td>${value.lastTradingDate} </td> 
-						<td>${value.value}</td>
+						<td style="text-align: right;">${value.shares} </td>
+						<td style="text-align: right;">${value.lastTradingPrice}</td>
+						<td style="text-align: right;">${value.lastTradingDate} </td> 
+						<td style="text-align: right;">${value.value}</td>
 						
 					</tr>
 				
