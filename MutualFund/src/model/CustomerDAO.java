@@ -10,11 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import databean.CustomerBean;
-
-import model.MyDAOException;
 
 public class CustomerDAO extends BaseDAO {
 	int count;
@@ -71,8 +70,9 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		
-        		customer.setCash(rs.getLong("cash")/100.00);//CHANGE
+        		long cashL = rs.getLong("cash");
+        		double cash = cashL / 100.00;
+        		customer.setCash(cash);//CHANGE
 
         		customer.setSalt(rs.getInt("salt"));
         		
@@ -181,47 +181,36 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-//	public CustomerBean[] getCustomer(int customerId) throws Exception {
-//		Connection con = null;
-//        try {
-//        	con = getConnection();
-//
-//        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
-//        	ResultSet rs = pstmt.executeQuery();
-//        	
-//        	
-//        	CustomerBean [] customer = null;
-//       	if(count != 0) {
-//      		customer = new CustomerBean[count];
-//       	}
-//        	if(rs.first()) {
-//        		for(int i=0;i<count;i++) {
-//        			customer[i] = new CustomerBean();
-//        			customer[i].setCustomerId(rs.getInt("customerId"));
-//        			customer[i].setUserName(rs.getString("userName"));
-//        			customer[i].setFirstName(rs.getString("firstName"));
-//        			customer[i].setLastName(rs.getString("lastName"));
-//        			customer[i].setPassword(rs.getString("password"));
-//        			customer[i].setAddrLine1(rs.getString("addrLine1"));
-//        			customer[i].setAddrLine2(rs.getString("addrLine2"));
-//        			customer[i].setCity(rs.getString("city"));
-//        			customer[i].setState(rs.getString("state"));
-//        			customer[i].setZip(rs.getInt("zip"));
-//            		rs.next();
-//            	}
-//        	}
-//        	
-//        	rs.close();
-//        	pstmt.close();
-//        	releaseConnection(con);
-//            return customer;
-//            
-//        } catch (Exception e) {
-//            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-//        	throw new Exception(e);
-//        }
-//	}
-//	
+	public CustomerBean[] getAllCustomers() throws Exception {
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	List<CustomerBean> list = new ArrayList<CustomerBean>();
+
+        	while (rs.next()) {
+        		CustomerBean customer = new CustomerBean();
+        		customer.setUserName(rs.getString("userName"));
+        		customer.setCustomerId(rs.getInt("customerId"));
+        		customer.setFirstName(rs.getString("firstName"));
+        		customer.setLastName(rs.getString("lastName"));
+        		list.add(customer);
+        	}
+	       	
+	        	rs.close();
+	        	pstmt.close();
+	        	releaseConnection(con);
+	            return list.toArray(new CustomerBean[list.size()]);
+	            
+	        } catch (Exception e) {
+	            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+	        	throw new Exception(e);
+	        }
+	}
+	
 	// Method to Create New Table if Table Doesn't exist
 		protected void createTable() throws MyDAOException {
 			Connection con = null;

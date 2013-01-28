@@ -55,7 +55,8 @@ public class ViewAccountAction extends Action {
 
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			CustomerBean customer = customerDAO.read(customerId);
-
+			DecimalFormat formatter = new DecimalFormat("#,##0.00");
+			request.setAttribute("cashBalance",formatter.format(customer.getCash()));
 
 
 			request.setAttribute("customer", customer);
@@ -64,7 +65,6 @@ public class ViewAccountAction extends Action {
 			
 			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customer.getCustomerId());
 			
-			
 			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
 //			FundPriceHistoryBean[] fundHistory = fundPriceHistoryDAO.getFundPriceHistory(fundValue.)
 			for (int i = 0; i< userPosition.length; i++){
@@ -72,7 +72,10 @@ public class ViewAccountAction extends Action {
 				
 				fundValue[i] = new FundValueBean();
 				fundValue[i].setFundId(userPosition[i].getFundId());
-				fundValue[i].setShares(userPosition[i].getShares());
+				double shares = userPosition[i].getShares();
+				DecimalFormat formatter1 = new DecimalFormat("#,##0.000");
+				fundValue[i].setShares(formatter1.format(shares));
+//				fundValue[i].setShares(userPosition[i].getShares());
 				//double price = pricehistoryDAO.getLastTradingPrice(userPosition[i].getFundId());
 				FundBean fundBean = fundDAO.read(temp.getFundName());
 				fundValue[i].setFundName(fundBean.getName());
@@ -84,35 +87,17 @@ public class ViewAccountAction extends Action {
 					
 					fundValue[i].setLastTradingDate(history.getPrice_date());
 					double price = history.getPrice();
-					DecimalFormat formatter = new DecimalFormat("#0.00");
+					formatter = new DecimalFormat("#,##0.00");
 					fundValue[i].setLastTradingPrice(formatter.format(price));
 					double value = userPosition[i].getShares()*price;
 					fundValue[i].setValue(formatter.format(value));
 				}
-				//FundPriceHistoryBean [] fundpriceHistory = pricehistoryDAO.getFundPriceHistory(temp.getFundId());
-						
-			
-//				fundValue[i].setLastTradingDate(fundpriceHistory[i].getPrice_date());
-//				fundValue[i].setLastTradingPrice(fundpriceHistory[i].getPrice());
-				//DecimalFormat formatter = new DecimalFormat("#0.00");
-				//fundValue[i].setLastTradingPrice(formatter.format(price));
-				//fundValue[i].setValue(price*temp.getShares());
-				
-//				FundPriceHistoryBean price = pricehistoryDAO.getLastTradingPrice(temp.getFundId());
-//				fundValue[i].setLastTradingPrice(price.getPrice());
-				
-			
-
 		
 			}
 
-
-
 			request.setAttribute("fundvalue",fundValue);
-			
 
 			return "customer-viewaccount.jsp";
-
 		} catch (MyDAOException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
