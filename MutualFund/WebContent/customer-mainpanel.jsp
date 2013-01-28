@@ -13,7 +13,7 @@
 		 -->
 		
 		<div class="span11">
-				<h4>Your current account balance is:  ${currentBalance} </h4>
+				<h4>Your current account balance is: $  ${currentBalance} </h4>
 				<p>Maybe some more general Information  </p>
 				
 				<hr>

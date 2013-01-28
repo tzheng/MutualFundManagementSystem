@@ -106,7 +106,7 @@ public class CustomerBuyFundAction extends Action {
 			
 			//insert new transaction to database
 			transactionDAO.buyFund(customerId, fund.getFundId(), amount);
-			request.setAttribute("message","Thank you! Your request to buy " + "<b>" + form.getAmount() + "</b> "
+			request.setAttribute("message","Thank you! Your request to buy " + "<b>" + form.getFundName() + "</b> "
 							+" has been queued as a pending transaction");	
 			return "customer-confirmation.jsp";
 			

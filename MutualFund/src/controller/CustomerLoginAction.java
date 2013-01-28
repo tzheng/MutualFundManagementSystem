@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +95,8 @@ public class CustomerLoginAction extends Action {
 			customer.setLastTradeDate(lastTradeDate);
 			session.setAttribute("firstname", customer.getFirstName());
 			session.setAttribute("lastname", customer.getLastName());
+			DecimalFormat format = new DecimalFormat("#,##0.00");
+			request.setAttribute("currentBalance", format.format(customer.getCash()));
 			
 			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
 			request.setAttribute("positionList", positionList);
