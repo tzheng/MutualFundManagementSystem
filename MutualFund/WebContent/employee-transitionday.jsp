@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-<label>You should set closing prices to ${ fundListLength } funds.</label>
+<h5>Please set closing prices to <b style="color: blue;">${ fundListLength } funds</b>.</h5>
 
 <table class="table table-striped">
 	<thead>
@@ -57,7 +57,7 @@
 	</tbody>
 </table>
 <input type="hidden" name="fundListLength" value="${ fundListLength }" />
-<input type="submit" class="btn" name="button" value="Submit" />
+<input type="submit" class="btn btn-large" name="button" value="Submit" />
 </form>
 
 
