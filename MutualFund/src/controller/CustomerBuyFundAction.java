@@ -1,5 +1,5 @@
-package controller;
 
+package controller;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -50,21 +50,7 @@ public class CustomerBuyFundAction extends Action {
 			if (getFundName != null) request.setAttribute("getFundName", getFundName);
 			
 			//get full fund list, allows customer to choose
-			FundBean[] fundlist = fundDAO.readAllFunds();
-			FundGeneralInfoBean[] fundGeneralList = new FundGeneralInfoBean[fundlist.length];
-			for (int i = 0; i<fundlist.length; i++) {
-				fundGeneralList[i] = new FundGeneralInfoBean();
-				fundGeneralList[i].setFundId(fundlist[i].getFundId());
-				fundGeneralList[i].setName(fundlist[i].getName());
-				fundGeneralList[i].setSymbol(fundlist[i].getSymbol());
-				if (fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId())!= null) {
-					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
-					fundGeneralList[i].setLastTradingDate(history.getPrice_date());
-					double price = history.getPrice();
-					DecimalFormat formatter = new DecimalFormat("#0.00");
-					fundGeneralList[i].setLastTradingPrice(formatter.format(price));
-				}
-			}
+			FundGeneralInfoBean[] fundGeneralList = fundPriceHistoryDAO.getAllFundsGeneralInfo();
 			request.setAttribute("fundGeneralList", fundGeneralList);
 			
 			// get customer id from session, and read customer information

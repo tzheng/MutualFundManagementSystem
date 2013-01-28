@@ -5,7 +5,7 @@
 	   <!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li><a href="employee-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
 						<li class="active">Create Customer Account</li>  
 				</ul>
 		</div>	 

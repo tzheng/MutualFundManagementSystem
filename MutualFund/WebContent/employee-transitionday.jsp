@@ -5,6 +5,13 @@
 <!--include header -->
 <jsp:include page="header-employee-panel.jsp" />
 
+	<div>
+				<ul class="breadcrumb">
+						<li><a href="employee-mainpanel.jsp"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Transition Day</li>
+				</ul>
+		</div> 
+		
 <!--put your page content here 
 		  ============================================
 		 -->
@@ -14,24 +21,24 @@
 <div class="row-fluid">
 	<!-- customer name -->
 	<h4>Transition Day</h4>
-	<div class="span2">
-		<label>Last Trading Day: ${ lastDate }</label>
+	<div >
+		<label>Last Trading Day: <b>${ lastDate }</b></label>
 	</div>
-	<div class="span2">
-		<label>Specify a date:</label>
+	<div>
+		<label style="float: left; margin-right: 10px; padding-top: 5px;">Specify a date:</label>
 		<c:choose>
 			<c:when test="${ empty specifiedDate }">
-				<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ lastDate }" />
+				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ lastDate }" />
 			</c:when>
 			<c:otherwise>
-				<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ specifiedDate }" />
+				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ specifiedDate }" />
 			</c:otherwise>
 		</c:choose>
 		
 	</div>
 </div>
 
-<label>You should set closing prices to ${ fundListLength } funds.</label>
+<h5>Please set closing prices to <b style="color: blue;">${ fundListLength } funds</b>.</h5>
 
 <table class="table table-striped">
 	<thead>
@@ -57,7 +64,7 @@
 	</tbody>
 </table>
 <input type="hidden" name="fundListLength" value="${ fundListLength }" />
-<input type="submit" class="btn" name="button" value="Submit" />
+<input type="submit" class="btn btn-large" name="button" value="Submit" />
 </form>
 
 
