@@ -7,7 +7,7 @@
 	   	<!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a></li>
+						<li><a href="customer-mainpanel.do"> <i class="icon-home"></i> Home</a></li>
 				</ul>
 		</div>	 
 		
@@ -25,8 +25,8 @@
 						</c:when>
 						<c:otherwise>
 							<p>Your Last trading date is: <b>${lastTradingDate }</b>
-							<p>During the last trading date:
-							<p><b>${processedNumber}</b> of your transactions have been processed. </p>
+							<p>During the last trading day:
+							<p><b >${processedNumber}</b> of your transactions have been processed. </p>
 							<p><b>${rejectedNumber}</b> of your transactions have been rejected. </p>
 							<a href="customerhistory.do" >View Transaction History</a>
 						</c:otherwise>

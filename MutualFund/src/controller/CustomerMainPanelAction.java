@@ -53,8 +53,6 @@ public class CustomerMainPanelAction extends Action {
 				request.setAttribute("rejectedNumber", null);
 			}
 			
-			
-
 			return "customer-mainpanel.jsp";
 		} catch (MyDAOException e) {
 			errors.add(e.getMessage());
