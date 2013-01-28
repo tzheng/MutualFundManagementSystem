@@ -21,6 +21,37 @@ public class TransactionDAO extends BaseDAO{
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
+	public Date getLastTradingDateOfALLTransactions() throws MyDAOException {
+		Connection con = null;
+		
+		try {
+			con = getConnection();
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT MAX(executeDate) AS lastDate FROM " + tableName);
+			ResultSet rs = pstmt.executeQuery();
+			
+			Date date;
+			if (!rs.next()) {
+				date = null;
+			} else {
+				date = rs.getDate("lastDate");
+			}
+			
+			rs.close();
+			pstmt.close();
+			releaseConnection(con);
+			return date;
+		} catch (SQLException e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public Date getCustomerLastTradeDate(int customerId) throws MyDAOException {
 		Connection con = null;
         try {

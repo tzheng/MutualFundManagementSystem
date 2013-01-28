@@ -22,12 +22,9 @@ public class TransitionDayForm {
 	
 	public TransitionDayForm(HttpServletRequest request) {
 		date = request.getParameter("specifiedDate");
-		button = request.getParameter("button");
-		
-		if (isPresent()) {
-			fundId = request.getParameterValues("fundId");
-			closingPrice = request.getParameterValues("price");
-		}
+		button = request.getParameter("button");		
+		fundId = request.getParameterValues("fundId");
+		closingPrice = request.getParameterValues("price");
 	}
 	
 	public String getDate() {
@@ -45,6 +42,10 @@ public class TransitionDayForm {
 	
 	public boolean isPresent() {
 		return button != null && button.equals("Submit");
+	}
+	
+	public boolean isFundListEmpty() {
+		return fundId == null || closingPrice == null;
 	}
 	
 	public Date getSpecifiedDate() {
@@ -86,6 +87,8 @@ public class TransitionDayForm {
 		} catch (ParseException e) {
 			errors.add("Date input should follow the format \"MM-dd-yyyy\".");
 		}
+        
+        if (isFundListEmpty()) return errors;
         
         for (int i = 0; i < fundId.length; i++) {
         	try {
