@@ -40,8 +40,9 @@ public class CustomerMainPanelAction extends Action {
 			// get the last trading date of this customer
 			Date lastTradingDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			if (lastTradingDate != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy");
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 				request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
+				//System.out.println(sdf.format(lastTradingDate));
 				//get customer's Rejected transactions of his/her Last Trading Day
 				request.setAttribute("processedNumber", transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate));
 				//get customer's Processed transactions of his/her Last Trading Day

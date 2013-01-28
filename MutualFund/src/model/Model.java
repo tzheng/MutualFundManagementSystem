@@ -33,6 +33,8 @@ public class Model {
 			transactionDAO = new TransactionDAO(jdbcDriver, jdbcURL, "transaction");
 			
 			transactionHistoryDAO = new TransactionHistoryDAO(jdbcDriver, jdbcURL, ""); //don't need to create any table. 
+			
+			
 		} catch (MyDAOException e) {
 			throw new ServletException(e);
 		}

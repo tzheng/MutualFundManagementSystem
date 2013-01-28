@@ -71,7 +71,7 @@ public class CustomerResearchFundAction extends Action {
 			request.setAttribute("fundGeneralList", fundGeneralList);
 			
 			if(fundId != null){
-				System.out.println("1");
+				//System.out.println("1");
 				FundPriceHistoryBean[] fundPriceList = fundPriceHistoryDAO.getFundPriceHistory(fundId.intValue());
 				request.setAttribute("fundPriceList", fundPriceList);
 			}
