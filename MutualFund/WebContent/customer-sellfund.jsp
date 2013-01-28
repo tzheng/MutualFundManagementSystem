@@ -91,7 +91,7 @@
 	   										<th>Fund Name</th>
 	   										<th>Fund Symbol</th>
     										<th>Shares you own</th>
-    										<th>Available Shares</th>
+    										<!-- <th>Available Shares</th> -->
     										<th></th>
   									</tr>
   						</thead>
@@ -101,7 +101,7 @@
   							   			<td>${fund.fundName} </td>
   							   			<td>${fund.fundSymbol} </td>
   							   			<td>${fund.shares} </td>
-  							   			<td>${fund.availableShares}</td>
+  							   			<!-- <td>${fund.availableShares}</td> -->
   							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fund.fundName}';">Sell Fund</a>
   							   		</tr>
   							   </c:forEach>

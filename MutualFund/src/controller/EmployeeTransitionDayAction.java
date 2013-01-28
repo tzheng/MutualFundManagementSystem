@@ -7,7 +7,6 @@ package controller;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +15,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import databean.CustomerBean;
-import databean.FundBean;
 import databean.FundGeneralInfoBean;
 import databean.FundPriceHistoryBean;
 import databean.PendingTransactionBean;
@@ -25,7 +23,6 @@ import databean.TransactionBean;
 import formbean.TransitionDayForm;
 
 import model.CustomerDAO;
-import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
 import model.MyDAOException;
@@ -34,14 +31,12 @@ import model.TransactionDAO;
 
 public class EmployeeTransitionDayAction extends Action {
 	private CustomerDAO customerDAO;
-	private FundDAO fundDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private PositionDAO positionDAO;
 	private TransactionDAO transactionDAO;
 	
 	public EmployeeTransitionDayAction(Model model) {
 		customerDAO = model.getCustomerDAO();
-		fundDAO = model.getFundDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		positionDAO = model.getPositionDAO();
 		transactionDAO = model.getTransactionDAO();
@@ -54,7 +49,7 @@ public class EmployeeTransitionDayAction extends Action {
         request.setAttribute("errors",errors);
         
         try {
-        	Date lastDate = fundPriceHistoryDAO.getLastTradingDateOfALLFunds();
+        	Date lastDate = transactionDAO.getLastTradingDateOfALLTransactions();
         	
         	DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         	if (lastDate == null) {
@@ -65,24 +60,10 @@ public class EmployeeTransitionDayAction extends Action {
         	}
             
         	//get full fund list, allows customer to choose
-			FundBean[] fundlist = fundDAO.readAllFunds();
-			request.setAttribute("fundListLength", fundlist.length);
-			FundGeneralInfoBean[] fundGeneralList = new FundGeneralInfoBean[fundlist.length];
-			for (int i = 0; i<fundlist.length; i++) {
-				fundGeneralList[i] = new FundGeneralInfoBean();
-				fundGeneralList[i].setFundId(fundlist[i].getFundId());
-				fundGeneralList[i].setName(fundlist[i].getName());
-				fundGeneralList[i].setSymbol(fundlist[i].getSymbol());
-				if (fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId())!= null) {
-					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
-					fundGeneralList[i].setLastTradingDate(history.getPrice_date());
-					double price = history.getPrice();
-					DecimalFormat formatter = new DecimalFormat("#0.00");
-					fundGeneralList[i].setLastTradingPrice(formatter.format(price));
-				}
-			}
-			
+        	FundGeneralInfoBean[] fundGeneralList = fundPriceHistoryDAO.getAllFundsGeneralInfo();
 			request.setAttribute("fundGeneralList", fundGeneralList);
+			int len = fundGeneralList == null ? 0: fundGeneralList.length;
+			request.setAttribute("fundListLength", len);
         	
 	    	TransitionDayForm form = new TransitionDayForm(request);
 	        request.setAttribute("form",form);
@@ -107,18 +88,21 @@ public class EmployeeTransitionDayAction extends Action {
 	        	errors.add("Can only choose the date after last trading date.");
 	        	return "employee-transitionday.jsp";
 	        }
-
-	        // Get fund ids and closing prices from fund list grid.
-	        int[] fundIds = form.getFundIdsAsInteger();
-	        double[] closingPrices = form.getClosingPricesAsDouble();
 	        
-	        // Insert new prices into price history table
-	        for (int i = 0; i < fundGeneralList.length; i++) {
-	        	FundPriceHistoryBean bean = new FundPriceHistoryBean();
-	        	bean.setFund_id(fundIds[i]);
-	        	bean.setPrice(closingPrices[i]);
-	        	bean.setPrice_date(specifiedDate);
-	        	fundPriceHistoryDAO.create(bean);
+	        // Chech whether fund list is empty, if not, update prices.
+	        if (!form.isFundListEmpty()) {
+	        	// Get fund ids and closing prices from fund list grid.
+	        	int[] fundIds = form.getFundIdsAsInteger();
+		        double[] closingPrices = form.getClosingPricesAsDouble();
+		        
+		        // Insert new prices into price history table
+		        for (int i = 0; i < len; i++) {
+		        	FundPriceHistoryBean bean = new FundPriceHistoryBean();
+		        	bean.setFund_id(fundIds[i]);
+		        	bean.setPrice(closingPrices[i]);
+		        	bean.setPrice_date(specifiedDate);
+		        	fundPriceHistoryDAO.create(bean);
+		        }
 	        }
 	        
 	        // Process all pending transactions

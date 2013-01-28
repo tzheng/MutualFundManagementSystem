@@ -99,8 +99,7 @@ public class PositionDAO extends BaseDAO {
         	if (!rs.next()) {
         		shares = 0;
         	} else {
-        		long sharesLong = rs.getLong("shares");
-        		shares = Math.round(sharesLong / 1000.00);
+        		shares = rs.getLong("shares") / 1000.00;
         	}
         	
         	rs.close();
@@ -173,11 +172,8 @@ public class PositionDAO extends BaseDAO {
 							" SET shares = ? WHERE customerId = ? and fundId = ?");
 
 			long sharesLong = Math.round(bean.getShares() * 1000.00);
-			System.out.println("share: " + sharesLong);
 			pstmt.setLong(1, sharesLong);
-			System.out.println("customerId: " + bean.getCustomerId());
 			pstmt.setInt(2, bean.getCustomerId());
-			System.out.println("fundId: " + bean.getFundId());
 			pstmt.setInt(3, bean.getFundId());
 			int count = pstmt.executeUpdate();
 			if (count != 1)
