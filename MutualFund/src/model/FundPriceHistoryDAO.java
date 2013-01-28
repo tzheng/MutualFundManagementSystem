@@ -80,7 +80,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName +" WHERE fundId=?");
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName +" WHERE fundId=?" + " ORDER BY priceDate DESC");
 			pstmt.setInt(1, fund_id);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -88,9 +88,9 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			List<FundPriceHistoryBean> list = new ArrayList<FundPriceHistoryBean>();
 			while (rs.next()) {
 				FundPriceHistoryBean price = new FundPriceHistoryBean();
-				price.setFund_id(rs.getInt("fundid"));
+				price.setFund_id(rs.getInt("fundId"));
 				price.setPrice(rs.getDouble("price")); //change
-				price.setPrice_date(rs.getDate("pricedate"));
+				price.setPrice_date(rs.getDate("priceDate"));
 				list.add(price);
 			}
 			

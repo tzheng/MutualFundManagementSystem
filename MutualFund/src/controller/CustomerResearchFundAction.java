@@ -39,6 +39,17 @@ public class CustomerResearchFundAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		
+		String temp = request.getParameter("fundId");
+		
+		Integer fundId = null;
+		if(temp != null){
+			 fundId = Integer.parseInt(temp);
+		}
+		
+		
+		
+		
+		
 		try{
 			//get full fund list, allows customer to choose
 			FundBean[] fundlist = fundDAO.readAllFunds();
@@ -58,6 +69,12 @@ public class CustomerResearchFundAction extends Action {
 			}
 			
 			request.setAttribute("fundGeneralList", fundGeneralList);
+			
+			if(fundId != null){
+				System.out.println("1");
+				FundPriceHistoryBean[] fundPriceList = fundPriceHistoryDAO.getFundPriceHistory(fundId.intValue());
+				request.setAttribute("fundPriceList", fundPriceList);
+			}
 			
 			return "customer-researchfund.jsp";
 		} catch (MyDAOException e) {
