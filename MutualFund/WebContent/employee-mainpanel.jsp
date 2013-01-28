@@ -51,7 +51,7 @@
 									</li>
 								</a>
 								
-								<a href="employee-transactionday.jsp">
+								<a href="employee-transitionday.do">
 									<li class="span3">
 										<div class="menu-title">
 										<span class="ca-icon">J</span> 
