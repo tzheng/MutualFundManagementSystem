@@ -20,9 +20,41 @@
 		  ============================================
 		 -->
 
-	<h4>Personal Information For: ${customer.firstName} &nbsp;
-		${customer.lastName}</h4>
+	<h4>Personal Information For: ${customer.firstName}&nbsp;${customer.lastName}</h4>
+		<hr>
+		<h4>Your Fund Portfolio</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr class="info" style="text-align: center;">
+					<th>Fund Name</th>
+					<th>Shares</th>
+					<th>Last Trading Price</th>
+					<th>Last Trading Date</th>
+					<th>Value</th>
+
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<c:forEach var="value" items="${fundvalue}">
+						<tr class="info">
+						<td>${value.fundName} </td>
+						<td>${value.shares} </td>
+						<td>${value.lastTradingPrice}</td>
+						<td>${value.lastTradingDate} </td> 
+						<td>${value.value}</td>
+						
+					</tr>
+				
+				</c:forEach>
+			</tbody>
+		</table>
 	
+	
+
+	<hr>
+	<h4>Account Detail Information</h4>
 		<table class="table table-striped">
 			<thead>
 				<tr class="info" style="text-align: right;">
@@ -38,52 +70,9 @@
 					${customer.addrLine2}</br> ${customer.city} &nbsp;,${customer.state}
 					&nbsp;,&nbsp;Zipcode:${customer.zip} <br/>
 				</td>
-				<td>${customer.cash}</td>
-				
-				
-
-
-	<hr>
-
-	
-	</tbody>
-	</table>
-	<h4>Fund Portfolio:</h4>
-		<table class="table table-striped">
-			<thead>
-				<tr class="info" style="text-align: center;">
-					<th>#</th>
-					<th>Fund Name</th>
-					<th>Shares</th>
-					<th>Last Trading Price</th>
-					<th>Last Trading Date</th>
-					<th>Value</th>
-
-				</tr>
-			</thead>
-			<tbody>
-
-
-				<c:forEach var="value" items="${fundvalue}">
-						<tr class="info">
-						<td>${value.fundId}</td>
-						<td>${value.fundName} </td>
-						<td>${value.shares} </td>
-						<td>${value.lastTradingPrice}</td>
-						<td>${value.lastTradingDate} </td> 
-						<td>${value.value}</td>
-						
-					</tr>
-				
-				</c:forEach>
-			</tbody>
+				<td>${cashBalance}</td>
+		</tbody>
 		</table>
-	
-
-
-
-
-
 
 
 	<!--end of page content 
