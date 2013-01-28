@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.mybeans.form.FormBeanException;
 
+import basic.FormatNormalization;
+
 import databean.FundBean;
 import databean.FundGeneralInfoBean;
 import databean.FundPriceHistoryBean;
@@ -50,8 +52,8 @@ public class CustomerResearchFundAction extends Action {
 					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
 					fundGeneralList[i].setLastTradingDate(history.getPrice_date());
 					double price = history.getPrice();
-					DecimalFormat formatter = new DecimalFormat("#0.00");
-					fundGeneralList[i].setLastTradingPrice(formatter.format(price));
+					//DecimalFormat formatter = new DecimalFormat("#0.00");
+					fundGeneralList[i].setLastTradingPrice(FormatNormalization.formatterForFundPrice.format(price));
 				}
 			}
 			
