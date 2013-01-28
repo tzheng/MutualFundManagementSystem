@@ -5,8 +5,6 @@
 
 package databean;
 
-import java.text.DecimalFormat;
-
 public class PositionBean {
 	private int customerId;
 	private int fundId;
