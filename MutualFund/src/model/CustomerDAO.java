@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import databean.CustomerBean;
+
+import model.MyDAOException;
 
 public class CustomerDAO extends BaseDAO {
 	int count;
@@ -70,9 +70,8 @@ public class CustomerDAO extends BaseDAO {
         		customer.setCity(rs.getString("city"));
         		customer.setState(rs.getString("state"));
         		customer.setZip(rs.getInt("zip"));
-        		long cashL = rs.getLong("cash");
-        		double cash = cashL / 100.00;
-        		customer.setCash(cash);//CHANGE
+        		
+        		customer.setCash(rs.getLong("cash")/100.00);//CHANGE
 
         		customer.setSalt(rs.getInt("salt"));
         		
@@ -181,7 +180,57 @@ public class CustomerDAO extends BaseDAO {
         }
 	}
 	
-	public CustomerBean[] getAllCustomers() throws Exception {
+	public void updateCash(CustomerBean bean) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+			con.setAutoCommit(false);
+
+			PreparedStatement pstmt = con
+					.prepareStatement(
+							"UPDATE " + tableName + 
+							" SET cash = ?" +
+							" WHERE customerId = ?");
+
+			long cashLong = Math.round(bean.getCash() * 100.00);
+			pstmt.setLong(1, cashLong);
+			pstmt.setInt(2, bean.getCustomerId());
+			int count = pstmt.executeUpdate();
+			if (count != 1)
+				throw new SQLException("Updated " + count + " rows in customer table");
+
+			pstmt.close();
+
+			con.commit();
+			con.setAutoCommit(true);
+			releaseConnection(con);
+
+		} catch (SQLException e) {
+			// If this exception is caused by database-related problem, roll
+			// back and close this connection.
+			try {
+				if (con != null) {
+					con.rollback();
+					con.close();
+				}
+			} catch (SQLException e2) { /* ignore */
+			}
+			throw new MyDAOException(e);
+		} finally {
+			// If this exception is caused by illegal update action, roll back
+			// but don't close this connection.
+			try {
+				if (con != null) {
+					con.rollback();
+					con.setAutoCommit(true);
+					releaseConnection(con);
+				}
+			} catch (SQLException e2) { /* ignore */
+			}
+		}
+	}
+	
+		public CustomerBean[] getAllCustomers() throws Exception {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -210,6 +259,7 @@ public class CustomerDAO extends BaseDAO {
 	        	throw new Exception(e);
 	        }
 	}
+	
 	
 	// Method to Create New Table if Table Doesn't exist
 		protected void createTable() throws MyDAOException {

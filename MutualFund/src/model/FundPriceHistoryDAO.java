@@ -52,7 +52,8 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			// convert java.utl.date to java.sql.date so that can insert date to ...
 			Date sqlDate = new Date(priceHistory.getPrice_date().getTime());
 			pstmt.setDate(2, sqlDate);
-			pstmt.setDouble(3, priceHistory.getPrice()); //CHANGE
+			long priceL = Math.round(priceHistory.getPrice() * 100.00);
+			pstmt.setLong(3, priceL); //CHANGE
 			
 			int count = pstmt.executeUpdate();
 			if (count != 1) throw new SQLException("insert updated " + count + "rows");
@@ -152,7 +153,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		try {
 			con = getConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("SELECT MAX(priceDate) FROM " + tableName);
+			PreparedStatement pstmt = con.prepareStatement("SELECT MAX(priceDate) AS priceDate FROM " + tableName);
 			ResultSet rs = pstmt.executeQuery();
 			
 			Date date;

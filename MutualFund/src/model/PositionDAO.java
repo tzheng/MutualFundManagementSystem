@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import databean.FundValueBean;
 import databean.PositionBean;
 
 public class PositionDAO extends BaseDAO {
@@ -16,7 +15,104 @@ public class PositionDAO extends BaseDAO {
 			throws MyDAOException {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
+	
+	public PositionBean read(int customerId, int fundId) throws MyDAOException {
+		Connection con = null;
+        try {
+        	con = getConnection();
 
+        	PreparedStatement pstmt = con.prepareStatement("SELECT * FROM " + tableName + " WHERE customerId = ? AND fundId = ?");
+        	pstmt.setInt(1, customerId);
+        	pstmt.setInt(2, fundId);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	PositionBean bean;
+        	if (!rs.next()) {
+        		bean = null;
+        	} else {
+        		bean = new PositionBean();
+        		bean.setCustomerId(rs.getInt("customerId"));
+        		bean.setFundId(rs.getInt("fundId"));
+        		bean.setShares(rs.getLong("shares") / 1000.00);
+        		bean.setAvailableShares(rs.getLong("AvailableShares") / 1000.00);
+        	}
+        	
+        	rs.close();
+        	pstmt.close();
+        	releaseConnection(con);
+            return bean;
+            
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
+	}
+	
+	public void create(PositionBean bean) throws MyDAOException {
+		Connection con = null;
+    	try {
+        	con = getConnection();
+        	con.setAutoCommit(false);
+
+            PreparedStatement pstmt = con.prepareStatement(
+            		"INSERT INTO " + tableName + " (customerId, fundId, shares, availableShares) VALUES (?, ?, ?, ?)");
+            pstmt.setInt(1, bean.getCustomerId());
+            pstmt.setInt(2, bean.getFundId());
+            
+            long sharesLong = Math.round(bean.getShares() * 1000.00);
+            pstmt.setLong(3, sharesLong);
+            pstmt.setLong(4, sharesLong);
+            
+            int count = pstmt.executeUpdate();
+            if (count != 1) throw new SQLException("Insert updated "+count+" rows");
+            
+            pstmt.close();
+            
+            con.commit();
+            con.setAutoCommit(true);
+            releaseConnection(con);
+         
+    	} catch (SQLException e) {
+            try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
+	public double getSinglePosition(int customerId, int fundId) throws MyDAOException {
+		Connection con = null;
+        try {
+        	con = getConnection();
+
+        	PreparedStatement pstmt = con.prepareStatement(
+        			"SELECT shares FROM " + tableName + 
+        			" WHERE customerId = ? AND fundId = ?");
+        	pstmt.setInt(1, customerId);
+        	pstmt.setInt(2, fundId);
+        	ResultSet rs = pstmt.executeQuery();
+        	
+        	double shares;
+        	if (!rs.next()) {
+        		shares = 0;
+        	} else {
+        		long sharesLong = rs.getLong("shares");
+        		shares = Math.round(sharesLong / 1000.00);
+        	}
+        	
+        	rs.close();
+        	pstmt.close();
+        	releaseConnection(con);
+            return shares;
+            
+        } catch (Exception e) {
+            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+        }
+	}
 
 	public PositionBean[] getCustomerPortfolio(int customerId)
 			throws MyDAOException {
@@ -72,18 +168,21 @@ public class PositionDAO extends BaseDAO {
 			con.setAutoCommit(false);
 
 			PreparedStatement pstmt = con
-					.prepareStatement("UPDATE "
-							+ tableName
-							+ " SET availableShares = ? WHERE customerId = ? and fundId = ?");
+					.prepareStatement(
+							"UPDATE " + tableName + 
+							" SET shares = ? WHERE customerId = ? and fundId = ?");
 
-			long sharesLong = Math.round(bean.getAvailableShares() * 1000.00);
+			long sharesLong = Math.round(bean.getShares() * 1000.00);
+			System.out.println("share: " + sharesLong);
 			pstmt.setLong(1, sharesLong);
+			System.out.println("customerId: " + bean.getCustomerId());
 			pstmt.setInt(2, bean.getCustomerId());
+			System.out.println("fundId: " + bean.getFundId());
 			pstmt.setInt(3, bean.getFundId());
 			int count = pstmt.executeUpdate();
 			if (count != 1)
-				throw new SQLException("Updated " + count + " rows");
-
+				throw new SQLException("Updated " + count + " rows in position table");
+			
 			pstmt.close();
 
 			con.commit();

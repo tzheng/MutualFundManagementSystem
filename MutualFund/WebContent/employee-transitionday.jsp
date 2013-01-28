@@ -8,17 +8,26 @@
 <!--put your page content here 
 		  ============================================
 		 -->
+		 <jsp:include page="error-list.jsp"></jsp:include>
+		 
 <form method="post" action="employee-transitionday.do">
 <div class="row-fluid">
 	<!-- customer name -->
-	<div class="span2">
-		<label>Transition Day</label>
-	</div>
+	<h4>Transition Day</h4>
 	<div class="span2">
 		<label>Last Trading Day: ${ lastDate }</label>
 	</div>
 	<div class="span2">
-		<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ specifiedDate }" />
+		<label>Specify a date:</label>
+		<c:choose>
+			<c:when test="${ empty specifiedDate }">
+				<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ lastDate }" />
+			</c:when>
+			<c:otherwise>
+				<input type="text"  class="dp span10" name = "specifiedDate" value=" ${ specifiedDate }" />
+			</c:otherwise>
+		</c:choose>
+		
 	</div>
 </div>
 
@@ -34,23 +43,21 @@
 			<th>Closing Price</th>
 		</tr>
 	</thead>
-	<c:set var="count" value="0" />
 	<tbody>
 		<c:forEach var="fund" items="${ fundGeneralList }">
-			<input type="hidden" name="fundId${count}" value="${fund.fundId}" />
+			<input type="hidden" name="fundId" value="${fund.fundId}" />
 			<tr>
 				<td>${ fund.fundId }</td>
 				<td>${ fund.name }</td>
 				<td>${ fund.symbol }</td>
 				<td>${ fund.lastTradingPrice }</td>
-				<td><input type="text" name="price${count}" value="${ fund.lastTradingPrice }" /></td>
+				<td><input type="text" name="price" value="${ fund.lastTradingPrice }" /></td>
 			</tr>
-			<c:set var="count" value="${ count+1 }" />
 		</c:forEach>
 	</tbody>
 </table>
 <input type="hidden" name="fundListLength" value="${ fundListLength }" />
-<button type="submit" class="btn">Submit</button>
+<input type="submit" class="btn" name="button" value="Submit" />
 </form>
 
 
