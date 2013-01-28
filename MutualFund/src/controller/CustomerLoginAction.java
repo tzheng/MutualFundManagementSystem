@@ -1,6 +1,7 @@
 package controller;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +48,7 @@ public class CustomerLoginAction extends Action {
     	
     	// If customer is already logged in, redirect to customer-mainpanel.jsp
         if (session.getAttribute("customerId") != null) {
-        	return "customer-mainpanel.jsp";
+        	return "customer-mainpanel.do";
         }
         
         // If employee is already logged in, redirect to employee-mainpanel.jsp
@@ -95,14 +96,9 @@ public class CustomerLoginAction extends Action {
 			customer.setLastTradeDate(lastTradeDate);
 			session.setAttribute("firstname", customer.getFirstName());
 			session.setAttribute("lastname", customer.getLastName());
-			DecimalFormat format = new DecimalFormat("#,##0.00");
-			request.setAttribute("currentBalance", format.format(customer.getCash()));
 			
-			PositionBean[] positionList = positionDAO.getCustomerPortfolio(customerId);
-			request.setAttribute("positionList", positionList);
-	        
 	        // If redirectTo is null, redirect to the action
-			return "customer-mainpanel.jsp";
+			return "customer-mainpanel.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

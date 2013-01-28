@@ -46,6 +46,45 @@ public class TransactionDAO extends BaseDAO{
         }
 	}
 	
+	// @parameter  status: -1 = rejected;  0 = pending; 1 = processed;
+	public int getCustomerTransactionNum(int customerId, int status, Date tradingDate) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+        	con.setAutoCommit(false);
+        	
+			// you might need to change this query, i didn't finish it.
+			PreparedStatement pstmt = con.prepareStatement("SELECT count(transactionId) as count FROM " + tableName  
+														+ " WHERE customerId=?"
+														+ " AND transactionStatus=?"
+														+ " AND executeDate=?");
+			// add the value to prepare statement.
+			pstmt.setInt(1, customerId);
+			pstmt.setInt(2, status);
+			java.sql.Date sqlDate = new java.sql.Date(tradingDate.getTime());
+			pstmt.setDate(3, sqlDate);
+			
+			ResultSet rs = pstmt.executeQuery();
+			int count = 0;
+			if (!rs.next()) {
+				return count;
+			} else {
+				count = rs.getInt("count");
+			}
+			
+			rs.close();
+        	pstmt.close();
+        	con.commit();
+            con.setAutoCommit(true);
+        	releaseConnection(con);
+        	return count;
+			
+		} catch (SQLException e) {
+			try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
+	
 	public void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
 		Connection con = null;
 		try {
