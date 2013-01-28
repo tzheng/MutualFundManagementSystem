@@ -5,7 +5,10 @@
 	   
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
-
+		<ul class="breadcrumb">
+						<li><a href="customer-mainpanel.do"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li class="active">Buy Fund</li>  
+				</ul>
 
 		<script type="text/javascript">
 				$(document).ready(function(){

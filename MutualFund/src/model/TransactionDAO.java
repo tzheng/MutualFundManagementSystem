@@ -5,11 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import databean.PositionBean;
 
 import model.MyDAOException;
 
@@ -50,40 +46,44 @@ public class TransactionDAO extends BaseDAO{
         }
 	}
 	
-//	public PositionBean[] getCustomerPendingSells(int customerId) throws MyDAOException {
-//		Connection con = null;
-//        try {
-//        	con = getConnection();
-//
-//        	PreparedStatement pstmt = con.prepareStatement(
-//        			"SELECT fundId, SUM(shares) FROM" + tableName +
-//        			"WHERE customerId = ? AND transactionType = ? AND transactionStatus = ?" +
-//        			"GROUP BY fundId" +
-//        			"ORDER BY fundId ASC");
-//        	pstmt.setInt(1, customerId);
-//        	pstmt.setInt(2, 2);
-//        	pstmt.setInt(3, 0);
-//        	ResultSet rs = pstmt.executeQuery();
-//        	
-//        	List<PositionBean> list = new ArrayList<PositionBean>();
-//            while (rs.next()) {
-//            	PositionBean bean = new PositionBean();
-//            	bean.setCustomerId(rs.getInt("customerId"));
-//            	bean.setFundId(rs.getInt("fundId"));
-//            	bean.setShares(rs.getInt("shares")); // CHANGE
-//            	list.add(bean);
-//            }
-//        	
-//        	rs.close();
-//        	pstmt.close();
-//        	releaseConnection(con);
-//            return list.toArray(new PositionBean[list.size()]);
-//            
-//        } catch (Exception e) {
-//            try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
-//        	throw new MyDAOException(e);
-//        }
-//	}
+	// @parameter  status: -1 = rejected;  0 = pending; 1 = processed;
+	public int getCustomerTransactionNum(int customerId, int status, Date tradingDate) throws MyDAOException {
+		Connection con = null;
+		try {
+			con = getConnection();
+        	con.setAutoCommit(false);
+        	
+			// you might need to change this query, i didn't finish it.
+			PreparedStatement pstmt = con.prepareStatement("SELECT count(transactionId) as count FROM " + tableName  
+														+ " WHERE customerId=?"
+														+ " AND transactionStatus=?"
+														+ " AND executeDate=?");
+			// add the value to prepare statement.
+			pstmt.setInt(1, customerId);
+			pstmt.setInt(2, status);
+			java.sql.Date sqlDate = new java.sql.Date(tradingDate.getTime());
+			pstmt.setDate(3, sqlDate);
+			
+			ResultSet rs = pstmt.executeQuery();
+			int count = 0;
+			if (!rs.next()) {
+				return count;
+			} else {
+				count = rs.getInt("count");
+			}
+			
+			rs.close();
+        	pstmt.close();
+        	con.commit();
+            con.setAutoCommit(true);
+        	releaseConnection(con);
+        	return count;
+			
+		} catch (SQLException e) {
+			try { if (con != null) con.close(); } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		}
+	}
 	
 	public void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
 		Connection con = null;
@@ -95,7 +95,7 @@ public class TransactionDAO extends BaseDAO{
 			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName  
 														+ " (customerId, fundId, transactionType, transactionStatus, amount) "
 														+ " VALUES (?,?,?,?,?)");
-			// add the vaule to prepare statement.
+			// add the value to prepare statement.
 			pstmt.setInt(1, customerId);
 			pstmt.setInt(2, fundId);
 			pstmt.setInt(3, 1);

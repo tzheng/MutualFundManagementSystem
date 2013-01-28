@@ -8,8 +8,6 @@ package model;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
-import databean.EmployeeBean;
-
 import model.MyDAOException;
 
 public class Model {
@@ -31,7 +29,6 @@ public class Model {
 			employeeDAO = new EmployeeDAO(jdbcDriver, jdbcURL, "employee");
 			fundDAO = new FundDAO(jdbcDriver, jdbcURL, "fund");
 			fundPriceHistoryDAO = new FundPriceHistoryDAO(jdbcDriver, jdbcURL, "pricehistory");
-			customerDAO = new CustomerDAO(jdbcDriver, jdbcURL, "customer");
 			positionDAO = new PositionDAO(jdbcDriver, jdbcURL, "position");
 			transactionDAO = new TransactionDAO(jdbcDriver, jdbcURL, "transaction");
 			

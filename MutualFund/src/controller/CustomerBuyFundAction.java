@@ -44,9 +44,6 @@ public class CustomerBuyFundAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		
-		List<String> successes = new ArrayList<String>();
-		request.setAttribute("successes", successes);
-		
 		try {
 			//user can reach this page from other page, for example, user can click "BUY MORE FUND" in mainpanel
 			String getFundName = request.getParameter("getFundName");
@@ -109,8 +106,9 @@ public class CustomerBuyFundAction extends Action {
 			
 			//insert new transaction to database
 			transactionDAO.buyFund(customerId, fund.getFundId(), amount);
-			successes.add("Thank you! Transacion will be processed after transaction day!");
-			return "customer-buyfund.jsp";
+			request.setAttribute("message","Thank you! Your request to buy " + "<b>" + form.getFundName() + "</b> "
+							+" has been queued as a pending transaction");	
+			return "customer-confirmation.jsp";
 			
 		} catch (MyDAOException e) {
 			errors.add(e.getMessage());

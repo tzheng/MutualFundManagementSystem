@@ -13,9 +13,16 @@
 		 -->
 		
 		<div class="span11">
-				<h4>Your current account balance is: $10,000.00 </h4>
-				<p>Maybe some more general Information  </p>
 				
+				<p>Your current account balance is: <b>$  ${currentBalance} </b> </p>
+				
+				<p>Your Last trading date is: <b>${lastTradingDate }</b>
+				<p>During the last trading date:
+				<p><b>${processedNumber}</b> of your transactions have been processed. </p>
+				<p><b>${rejectedNumber}</b> of your transactions have been rejected. </p>
+				<a href="customerhistory.do" >View Transaction History</a>
+				
+				<!-- 
 				<hr>
 				
 				<h4>Your funds: </h4>
@@ -79,6 +86,7 @@
 								</tr>
 						</tbody>
 				</table>
+				-->
 		</div>
 		
 		
