@@ -33,6 +33,10 @@ public class ChangePasswordForm extends FormBean{
 			errors.add("Passwords do not match! Please re-enter");
 		}
 
+		if (oldPassword.equals(newPassword))  {
+			errors.add("New password cannot be as same as the current password");
+		}
+			
 		return errors;
 	}
 	
