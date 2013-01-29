@@ -61,6 +61,9 @@ public class CreateEmployeeAccountForm extends FormBean{
         if (userName.trim().length() > 30) {
         	errors.add("Username should be less then 30 characters");
         }
+        if (!userName.matches("^[a-zA-Z][0-9a-zA-Z_@-]*$")) 
+			errors.add("Username should only contain characters and numbers and start with character");
+        
         Pattern pattern = Pattern.compile("\\s");
         Matcher matcher = pattern.matcher(userName.trim());
         boolean found = matcher.find();
