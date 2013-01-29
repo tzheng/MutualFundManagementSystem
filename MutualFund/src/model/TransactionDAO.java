@@ -129,54 +129,6 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-//	public PendingTransactionBean[] getAllPendingTransactions() throws MyDAOException {
-//		Connection con = null;
-//    	try {
-//        	con = getConnection();
-//        	con.setAutoCommit(false);
-//        	
-//        	PreparedStatement pstmt = con.prepareStatement(
-//        			"SELECT a.transactionId, a.customerId, a.fundId, a.shares AS toSellShares, a.amount, b.price, c.shares AS ownedShares, d.cash, a.transactionType" +
-//        			" FROM ((transaction a INNER JOIN pricehistory b ON a.fundId=b.fundId)" +
-//        			" INNER JOIN position c ON a.fundId = c.fundId AND a.customerId = c.customerId)" +
-//        			" INNER JOIN customer d ON a.customerId = d.customerId" +
-//        			" WHERE a.executedate IS NULL AND b.pricedate IN (SELECT MAX(pricedate) FROM pricehistory)" +
-//        			" ORDER BY a.transactionId ASC");
-//            ResultSet rs = pstmt.executeQuery();
-//            
-//            List<PendingTransactionBean> list = new ArrayList<PendingTransactionBean>();
-//            while (rs.next()) {
-//            	PendingTransactionBean bean = new PendingTransactionBean();
-//            	bean.setTransactionId(rs.getInt("transactionId"));
-//            	bean.setCustomerId(rs.getInt("customerId"));
-//            	bean.setFundId(rs.getInt("fundId"));
-//            	bean.setToSellShares(rs.getLong("toSellShares") / 1000.00);
-//            	bean.setOwnedShares(rs.getLong("ownedShares") / 1000.00);
-//            	bean.setPrice(rs.getLong("price") / 100.00);
-//				bean.setAmount(rs.getLong("amount") / 100.00);
-//				bean.setCash(rs.getLong("cash") / 100.00);
-//				bean.setTransactionType(rs.getInt("transactionType"));
-//				list.add(bean);
-//            }
-//            rs.close();
-//            pstmt.close();
-//            
-//            con.commit();
-//            con.setAutoCommit(true);
-//            releaseConnection(con);
-//            
-//            return list.toArray(new PendingTransactionBean[list.size()]);        
-//    	} catch (SQLException e) {
-//            try {
-//            	if (con != null) {
-//            		con.rollback();
-//            		con.close();
-//            	}
-//            } catch (SQLException e2) { /* ignore */ }
-//        	throw new MyDAOException(e);
-//		}
-//	}
-	
 	// @parameter  status: -1 = rejected;  0 = pending; 1 = processed;
 	public int getCustomerTransactionNum(int customerId, int status, Date tradingDate) throws MyDAOException {
 		Connection con = null;
@@ -184,7 +136,7 @@ public class TransactionDAO extends BaseDAO{
 			con = getConnection();
         	con.setAutoCommit(false);
         	
-			// you might need to change this query, i didn't finish it.
+			// 
 			PreparedStatement pstmt = con.prepareStatement("SELECT count(transactionId) as count FROM " + tableName  
 														+ " WHERE customerId=?"
 														+ " AND transactionStatus=?"
@@ -222,7 +174,6 @@ public class TransactionDAO extends BaseDAO{
 			con = getConnection();
         	con.setAutoCommit(false);
         	
-			// you might need to change this query, i didn't finish it.
 			PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + tableName  
 														+ " (customerId, fundId, transactionType, transactionStatus, amount) "
 														+ " VALUES (?,?,?,?,?)");

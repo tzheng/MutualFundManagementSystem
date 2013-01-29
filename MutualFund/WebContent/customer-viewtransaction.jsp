@@ -1,5 +1,6 @@
 	    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	   
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
@@ -174,7 +175,9 @@
   							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td style="text-align: right; padding-right: 50px;">${history.shareNumber} </td>
+  							   					<td style="text-align: right; padding-right: 40px;">
+  							   						<fmt:formatNumber type="number"  pattern="#,##0.000" value="${history.shareNumber} " />
+  							   					</td>
   							   				</c:otherwise>
   							   			</c:choose>
   							   			
@@ -185,7 +188,9 @@
   							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td style="text-align: right; padding-right: 50px;">${history.sharePrice} </td>
+  							   					<td style="text-align: right; padding-right: 40px;">
+  							   						<fmt:formatNumber type="number" pattern="#,##0.00" value="${history.sharePrice} " ></fmt:formatNumber>
+  							   					</td>
   							   				</c:otherwise>
   							   			</c:choose>
   							   			
@@ -195,7 +200,9 @@
   							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td style="text-align: right; padding-right: 50px;">${history.dollarAmount} </td>
+  							   					<td style="text-align: right; padding-right: 40px;"> 
+  							   						<fmt:formatNumber type="number" pattern="#,##0.00" value="${history.dollarAmount}" ></fmt:formatNumber>  
+  							   					</td>
   							   				</c:otherwise>
   							   			</c:choose>
   							   			<td>${history.transactionStatus} </td>

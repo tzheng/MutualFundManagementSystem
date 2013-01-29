@@ -41,7 +41,7 @@
 							      						</c:otherwise>
 							      				</c:choose>
 							      				<br>
-							      				<a href="#fundlist">View Funds</a>
+							      				<a href="#fundlist">View All Funds</a>
 							      			</div>
 							      			
 							      			<!-- 
@@ -97,9 +97,9 @@
 		 				<thead>
 	   								<tr class="info">
 	   									<th>Fund Name</th>
-                                          <th>Symbol</th>
-    										<th>Last Trading Date</th>
-    										<th>Last Trading Price</th>
+                                          <th >Symbol</th>
+    										<th style="text-align: right">Last Trading Date</th>
+    										<th style="text-align: right">Last Trading Price</th>
     										<th></th>
   									</tr>
   						</thead>
@@ -109,9 +109,9 @@
   							 
   							   			<td>${fundlist.name} </td>
   							   			<td>${fundlist.symbol} </td>
-  							   			<td>${fundlist.lastTradingDate} </td>
-  							   			<td>${fundlist.lastTradingPrice}</td>
-  							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</a>
+  							   			<td style="text-align: right">${fundlist.lastTradingDate} </td>
+  							   			<td style="text-align: right">${fundlist.lastTradingPrice}</td>
+  							   			<td style="text-align: center"> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</a>
   							   		</tr>
   							   </c:forEach>
   						</tbody>

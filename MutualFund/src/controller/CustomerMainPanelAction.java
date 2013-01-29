@@ -40,12 +40,20 @@ public class CustomerMainPanelAction extends Action {
 			// get the last trading date of this customer
 			Date lastTradingDate = transactionDAO.getCustomerLastTradeDate(customerId);
 			if (lastTradingDate != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy");
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 				request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
+				//System.out.println(sdf.format(lastTradingDate));
 				//get customer's Rejected transactions of his/her Last Trading Day
-				request.setAttribute("processedNumber", transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate));
+				int processed = transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate);
+				request.setAttribute("processedNumber", processed);
 				//get customer's Processed transactions of his/her Last Trading Day
-				request.setAttribute("rejectedNumber", transactionDAO.getCustomerTransactionNum(customerId, -1, lastTradingDate));
+				int rejected = transactionDAO.getCustomerTransactionNum(customerId, -1, lastTradingDate);
+				request.setAttribute("rejectedNumber", rejected);
+				
+				double processedPercent = (double) processed / (processed + rejected);
+				double rejectedPercent = 1 - processedPercent;
+				request.setAttribute("pPercent", Math.round(processedPercent * 100));
+				request.setAttribute("rPercent", Math.round(rejectedPercent * 100));
 			} else {
 				request.setAttribute("lastTradingDate", null);
 				request.setAttribute("processedNumber", null);
@@ -53,8 +61,6 @@ public class CustomerMainPanelAction extends Action {
 				request.setAttribute("rejectedNumber", null);
 			}
 			
-			
-
 			return "customer-mainpanel.jsp";
 		} catch (MyDAOException e) {
 			errors.add(e.getMessage());
