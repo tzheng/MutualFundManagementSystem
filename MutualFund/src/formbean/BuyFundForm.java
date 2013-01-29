@@ -65,7 +65,7 @@ public class BuyFundForm extends FormBean {
 		}
 		
 		if (amountD > 1000000000 || amountD < 1) {
-			errors.add("Amount should between $1 (one) dollar to 10,000,000,000 (one billion) dollars");
+			errors.add("Amount should between 1 (one) dollar to 10,000,000,000 (one billion) dollars");
 		}
 		
 		return errors;

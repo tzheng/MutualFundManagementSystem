@@ -48,7 +48,7 @@ public class CustomerLoginAction extends Action {
     	
     	// If customer is already logged in, redirect to customer-mainpanel.jsp
         if (session.getAttribute("customerId") != null) {
-        	return "customer-mainpanel.do";
+        	return "view-account.do";
         }
         
         // If employee is already logged in, redirect to employee-mainpanel.jsp

@@ -146,7 +146,9 @@ public class CreateAccountForm extends FormBean {
 		if (userName.trim().length() > 30) {
 			errors.add("Username should be less then 30 characters");
 		}
-
+		if (!userName.matches("^[0-9a-zA-Z_-@]+$")) 
+			errors.add("Fund Name should not contain non-word characters");
+		
 		if (firstName.matches(".*\\W.*"))
 			errors.add("First Name should not contain non-word characters");
 
