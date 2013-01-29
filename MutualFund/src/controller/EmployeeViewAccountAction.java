@@ -95,7 +95,7 @@ public class EmployeeViewAccountAction extends Action {
 				
 				Date lastTradingDate = transactionDAO.getCustomerLastTradeDate(customerId);
 				if (lastTradingDate != null) {
-					SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy");
+					SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 					request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
 				} else {
 					request.setAttribute("lastTradingDate", null);
@@ -104,7 +104,7 @@ public class EmployeeViewAccountAction extends Action {
 				// get user's fund list and position
 				PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customerId);
 				
-				FundValueBean [] fundValue = new FundValueBean[userPosition.length];
+				FundValueBean[] fundValue = new FundValueBean[userPosition.length];
 				for (int i = 0; i< userPosition.length; i++){
 					PositionBean temp = userPosition[i];
 					

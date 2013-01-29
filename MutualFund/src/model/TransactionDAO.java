@@ -457,7 +457,7 @@ public class TransactionDAO extends BaseDAO{
 			stmt.executeUpdate("CREATE TABLE "
 					+ tableName
 					+ " (transactionId INT NOT NULL AUTO_INCREMENT, customerId INT NOT NULL, fundId INT, "
-					+ " executeDate DATE, shares BIGINT(32), sharePrice BIGINT(32),transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(32),"
+					+ " executeDate DATE, shares BIGINT(32), sharePrice BIGINT(32),transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(64),"
 					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Customer (customerId))");
 			stmt.close();
 			releaseConnection(con);

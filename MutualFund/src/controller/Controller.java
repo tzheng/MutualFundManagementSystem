@@ -63,8 +63,6 @@ public class Controller extends HttpServlet {
         String      urlName = request.getRequestURL().toString();
         urlName = getURLName(urlName);
         
-        
-        
         // start the website
         if (action.equals("start")) {
         	if (session.getAttribute("customerId") != null){
