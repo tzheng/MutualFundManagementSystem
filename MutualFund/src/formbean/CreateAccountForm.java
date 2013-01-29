@@ -21,7 +21,6 @@ public class CreateAccountForm extends FormBean {
 	private String city;
 	private String state;
 	private String zip;
-	
 
 	public String getUserName() {
 		return userName;
@@ -46,7 +45,7 @@ public class CreateAccountForm extends FormBean {
 	public String getAddrLine1() {
 		return addrLine1;
 	}
-	
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -62,95 +61,108 @@ public class CreateAccountForm extends FormBean {
 	public String getState() {
 		return state;
 	}
-	
+
 	public String getZip() {
 		return zip;
 	}
-	
+
 	public int getZipAsInt() {
 		return Integer.parseInt(zip);
 	}
-	
-	
-	
+
 	public void setUserName(String s) {
-		this.userName = trimAndConvert(s,"<>\"");
+		this.userName = trimAndConvert(s, "<>\"");
 	}
 
 	public void setPassword(String s) {
 		this.password = s.trim();
 	}
-	
+
 	public void setConfirmPassword(String s) {
 		this.confirmPassword = s.trim();
 	}
 
 	public void setFirstName(String s) {
-		this.firstName = trimAndConvert(s,"<>\"");
+		this.firstName = trimAndConvert(s, "<>\"");
 	}
 
 	public void setAddrLine1(String s) {
-		this.addrLine1 = trimAndConvert(s,"<>\"");
+		this.addrLine1 = trimAndConvert(s, "<>\"");
 	}
-	
+
 	public void setAddrLine2(String s) {
-		this.addrLine2 = trimAndConvert(s,"<>\"");
+		this.addrLine2 = trimAndConvert(s, "<>\"");
 	}
-	
+
 	public void setCity(String s) {
-		this.city = trimAndConvert(s,"<>\"");
+		this.city = trimAndConvert(s, "<>\"");
 	}
-	
+
 	public void setState(String s) {
-		this.state = trimAndConvert(s,"<>\"");
+		this.state = trimAndConvert(s, "<>\"");
 	}
-	
+
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
 	public List<String> getValidationErrors() {
-        List<String> errors = new ArrayList<String>();
+		List<String> errors = new ArrayList<String>();
 
-        if (userName == null || userName.trim().length() == 0) errors.add("Username is required");
-        if (firstName == null || firstName.trim().length() == 0) errors.add("First name is required");
-        if (lastName == null || lastName.trim().length() == 0) errors.add("Last name is required");
-        if (password == null || password.trim().length() == 0) errors.add("Password is required");
-        if (confirmPassword == null || confirmPassword.trim().length() == 0) errors.add("Confirm password is required");
-        if (addrLine1 == null || addrLine1.trim().length() == 0) errors.add("Address Line 1 is required");
-        if (city == null || city.trim().length() == 0) errors.add("City is required");
-        if (state == null || state.trim().length() == 0) errors.add("State is required");
-        if (zip == null || zip.trim().length() == 0) errors.add("Zipcode is required");
-        
-        if (errors.size() > 0) return errors;
-        
-        try {
-        	int zipI = Integer.parseInt(zip);
-        } catch (NumberFormatException e) {
-        	errors.add("Zipcode should be a number"); 
-        }
-        
-        Pattern pattern = Pattern.compile("\\s");
-        Matcher matcher = pattern.matcher(userName.trim());
-        boolean found = matcher.find();
-        if (found) {
-        	errors.add("Username should not contain space(' ')");
-        }
-        if (userName.trim().length() > 30) {
-        	errors.add("Username should be less then 30 characters");
-        }
-        
-        if (firstName.matches(".*\\d.*") || lastName.matches(".*\\d.*")) {
-        	errors.add("First Name/ Last Name should not contain number");
-        }
-        
-        if (firstName.trim().length() > 30 || lastName.trim().length() > 30) {
-        	errors.add("Firstname/Lastname should be less then 30 characters");
-        }
-        
-        if(!password.equals(confirmPassword)) errors.add("Passwords do not match! Please re-enter");
-		
-        return errors;
-    }
-	
+		if (userName == null || userName.trim().length() == 0)
+			errors.add("Username is required");
+		if (firstName == null || firstName.trim().length() == 0)
+			errors.add("First name is required");
+		if (lastName == null || lastName.trim().length() == 0)
+			errors.add("Last name is required");
+		if (password == null || password.trim().length() == 0)
+			errors.add("Password is required");
+		if (confirmPassword == null || confirmPassword.trim().length() == 0)
+			errors.add("Confirm password is required");
+		if (addrLine1 == null || addrLine1.trim().length() == 0)
+			errors.add("Address Line 1 is required");
+		if (city == null || city.trim().length() == 0)
+			errors.add("City is required");
+		if (state == null || state.trim().length() == 0)
+			errors.add("State is required");
+		if (zip == null || zip.trim().length() == 0)
+			errors.add("Zipcode is required");
+
+		if (errors.size() > 0)
+			return errors;
+
+		try {
+			int zipI = Integer.parseInt(zip);
+		} catch (NumberFormatException e) {
+			errors.add("Zipcode should be a number");
+		}
+
+		Pattern pattern = Pattern.compile("\\s");
+		Matcher matcher = pattern.matcher(userName.trim());
+		boolean found = matcher.find();
+		if (found) {
+			errors.add("Username should not contain space(' ')");
+		}
+		if (userName.trim().length() > 30) {
+			errors.add("Username should be less then 30 characters");
+		}
+
+		if (firstName.matches(".*\\W.*"))
+			errors.add("First Name should not contain non-word characters");
+
+		if (firstName.trim().length() > 30 || lastName.trim().length() > 30) {
+			errors.add("Firstname/Lastname should be less then 30 characters");
+		}
+
+		if (!zip.trim().matches("^\\d{5}(-\\d{4})?$"))
+			errors.add("Zip code is not in the correct format");
+
+		if (!password.equals(confirmPassword))
+			errors.add("Passwords do not match! Please re-enter");
+		if (lastName.matches(".*\\W.*"))
+			errors.add("Last Name should not contain non-word characters");
+
+		return errors;
+	}
+
 }
