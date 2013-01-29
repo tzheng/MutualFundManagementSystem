@@ -28,18 +28,18 @@
 	<div>
 		<label style="float: left; margin-right: 10px; padding-top: 5px;">Specify a date:</label>
 		<c:choose>
-			<c:when test="${ empty specifiedDate }">
-				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ lastDate }" />
+			<c:when test="${ empty form.date }">
+				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ defaultDate }" />
 			</c:when>
 			<c:otherwise>
-				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ specifiedDate }" />
+				<input type="text"  class="dp span3" name = "specifiedDate"  style="float: left;" value=" ${ form.date }" />
 			</c:otherwise>
 		</c:choose>
-		
 	</div>
 </div>
 
 <h5>Please set closing prices to <b style="color: blue;">${ fundListLength } funds</b>.</h5>
+<p><i>(Closing Price should be a value between 0.01 and 1,000,000,000.00.  The system has a precision to two decimal places)</i></p>
 
 <table class="table table-striped">
 	<thead>
@@ -59,10 +59,10 @@
 				<td>${ fund.name }</td>
 				<td>${ fund.symbol }</td>
 				<td style="text-align: right">
-					${ fund.lastTradingPrice }
+					<fmt:formatNumber type="number" pattern="#,##0.00" value="${ fund.lastTradingPrice }" />
 				</td>
 				<td style="text-align: center;  padding-left: 20px;">
-					<input type="text" name="price" value="<fmt:formatNumber type="number" pattern="#0.00" value="${ fund.lastTradingPriceInDouble }" />" />
+					<input type="text" name="price" value="${ fund.specifiedPrice }" />
 				</td>
 			</tr>
 		</c:forEach>

@@ -89,7 +89,8 @@ public class FundPriceHistoryDAO extends BaseDAO {
 			while (rs.next()) {
 				FundPriceHistoryBean price = new FundPriceHistoryBean();
 				price.setFund_id(rs.getInt("fundId"));
-				price.setPrice(rs.getDouble("price")); //change
+				long priceL = rs.getLong("price");
+				price.setPrice(priceL / 100.00);
 				price.setPrice_date(rs.getDate("priceDate"));
 				list.add(price);
 			}
@@ -111,7 +112,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 	
 	public FundGeneralInfoBean[] getAllFundsGeneralInfo() throws MyDAOException {
 		Connection con = null;
-		DecimalFormat formatter = new DecimalFormat("#,##0.00");
+		DecimalFormat formatter = new DecimalFormat("#0.00");
 		
 		try {
 			con = getConnection();
@@ -139,9 +140,9 @@ public class FundPriceHistoryDAO extends BaseDAO {
 					bean.setLastTradingDate(rs.getDate("priceDate"));
 					
 					long priceL = rs.getLong("price");
-					double priceD = Math.round(priceL / 100.00);
-					bean.setLastTradingPriceInDouble(priceD);
-					bean.setLastTradingPrice(formatter.format(priceD));
+					double priceD = priceL / 100.00;
+					bean.setLastTradingPrice(priceD);
+					bean.setSpecifiedPrice(formatter.format(priceD));
 				}
 				
 				list.add(bean);

@@ -6,8 +6,8 @@ public class FundGeneralInfoBean {
 	private int fundId;
 	private String name;
 	private String symbol;
-	private double lastTradingPriceInDouble;
-	private String lastTradingPrice;
+	private double lastTradingPrice;
+	private String specifiedPrice;
 	private Date lastTradingDate;
 	
 	public int getFundId() {
@@ -19,30 +19,30 @@ public class FundGeneralInfoBean {
 	public String getSymbol() {
 		return symbol;
 	}
-	public double getLastTradingPriceInDouble() {
-		return lastTradingPriceInDouble;
-	}
-	public String getLastTradingPrice() {
+	public double getLastTradingPrice() {
 		return lastTradingPrice;
+	}
+	public String getSpecifiedPrice() {
+		return specifiedPrice;
 	}
 	public Date getLastTradingDate() {
 		return lastTradingDate;
 	}
-	
 	public void setFundId(int fundId) {
 		this.fundId = fundId;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	public void setLastTradingPriceInDouble(double lastTradingPriceInDouble) {
-		this.lastTradingPriceInDouble = lastTradingPriceInDouble;
-	}
-	public void setLastTradingPrice(String lastTradingPrice) {
+	public void setLastTradingPrice(double lastTradingPrice) {
 		this.lastTradingPrice = lastTradingPrice;
+	}
+	public void setSpecifiedPrice(String specifiedPrice) {
+		this.specifiedPrice = specifiedPrice;
 	}
 	public void setLastTradingDate(Date lastTradingDate) {
 		this.lastTradingDate = lastTradingDate;
