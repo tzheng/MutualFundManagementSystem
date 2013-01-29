@@ -41,7 +41,7 @@
 							      						</c:otherwise>
 							      				</c:choose>
 							      				<br>
-							      				<a href="#fundlist">View Funds</a>
+							      				<a href="#fundlist">View All Funds</a>
 							      			</div>
 							      			
 							      			<!-- 
