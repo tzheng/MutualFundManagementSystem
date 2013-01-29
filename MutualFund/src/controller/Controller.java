@@ -38,7 +38,6 @@ public class Controller extends HttpServlet {
         Action.add(new LogoutAction(model));
         Action.add(new RequestCheckAction(model));
         Action.add(new ViewAccountAction(model));
-        Action.add(new CustomerMainPanelAction(model));
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,16 +90,6 @@ public class Controller extends HttpServlet {
         	}
         	
         }
-        
-        /*
-        if(urlName.endsWith(".jsp")){
-        	return Action.perform("logout.do", request);
-        }
-        */
-        
-        
-     
-        
       	// Let the logged in user run his chosen action
 		return Action.perform(action, request);
     }
