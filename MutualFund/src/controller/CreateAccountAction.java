@@ -31,7 +31,6 @@ public class CreateAccountAction extends Action {
 
 	@Override
 	public String perform(HttpServletRequest request) {
-		HttpSession session = request.getSession();
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
@@ -69,11 +68,6 @@ public class CreateAccountAction extends Action {
 //	       	customer.setCash(0.0);
 	       	customerDAO.create(customer);
         
-//	        HttpSession session = request.getSession(false);
-	      // set session is unnecessary!!!
-	      // 	session.setAttribute("customer",customer);
-	        
-	        
 	        //set success message, and return to confirmation page!
 	        request.setAttribute("message","Account successfully created for " + "<b>" + form.getUserName() + "</b>" + "</b>!");
 

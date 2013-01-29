@@ -42,9 +42,9 @@ public class FundForm extends FormBean {
 		if (fundName.trim().length() > 30) {
 			errors.add("Fund Name should be less then 30 characters");
 		}
-
-        if (fundName.matches(".*[<>\"].*")) errors.add("Fund Name may not contain angle brackets or quotes");
-        if (symbol.matches(".*[<>\"].*")) errors.add("Symbol may not contain angle brackets or quotes");
+		
+		if (symbol.matches(".*\\W.*")) errors.add("Symbol should not contain non-word characters");
+		if (fundName.matches(".*\\W.*")) errors.add("Fund Name should not contain non-word characters");
 		return errors;
 	}
 
