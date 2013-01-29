@@ -1,5 +1,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="databean.FundGeneralInfoBean" %>
+<%@ page import="databean.FundPriceHistoryBean" %>
+
 <!--include header -->
 <jsp:include page="header-customer-panel.jsp" />
 
@@ -20,96 +23,111 @@
 	});
 
 	// Set a callback to run when the Google Visualization API is loaded.
-	google.setOnLoadCallback(drawChart);
+	google.setOnLoadCallback(drawColumnChart);
+	google.setOnLoadCallback(drawLineChart);
 
 	var fundList = new Array();
-	fundList = '${requestScope.fundGeneralList}';
-	for ( var i = 0; i < fundList.length; i++) {
-		console.log(fundList[i]);
-	}
+	var title = new Array();
+	var dataList = new Array();
+	
+	<% 
+	FundGeneralInfoBean[] fundGeneralList = (FundGeneralInfoBean[]) request.getAttribute("fundGeneralList");
+	for (int i=0; i< fundGeneralList.length; i++) { 
+	%>
+	
+	fundList[<%= i %>] = "<%= fundGeneralList[i] %>"; 
+	title[<%= i %>] = "<%= fundGeneralList[i].getName() %>";
+	dataList[<%= i %>] = "<%= fundGeneralList[i].getLastTradingPrice() %>";
 
-	var title = [ 'Date' ];
-	var data = [ fundList[0].lastTradingDate ];
-	for ( var i = 0; i < fundList.length; i++) {
-		title[i + 1] = fundList[i].name;
-		data[i + 1] = fundList[i].lastTradingPrice;
-	}
+	<%  } %>	
+	
+	<% 
+	FundPriceHistoryBean[] fundPriceHistoryList = (FundPriceHistoryBean[]) request.getAttribute("fundPriceList");
+	if (fundPriceHistoryList != null){
+	%>
+		var title_lineChart = new Array();
+		var dataList_lineChart = new Array();	
+	<%
+		for (int i=0; i< fundPriceHistoryList.length; i++) { 
+	%>
+	
+		title_lineChart[<%= i %>] = "<%= fundPriceHistoryList[i].getPrice_date() %>";
+		dataList_lineChart[<%= i %>] = "<%= fundPriceHistoryList[i].getPrice() %>";
+
+	<%	}
+	} %>	
+	
 
 	// Callback that creates and populates a data table,
-	// instantiates the pie chart, passes in the data and
+	// instantiates the column chart, passes in the data and
 	// draws it.
-	function drawChart() {
+	function drawColumnChart() {
 
 		// Create the data table.
 		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Topping');
-		data.addColumn('number', 'Slices');
-		data.addRows([ [ 'Mushrooms', 3 ], [ 'Onions', 1 ], [ 'Olives', 1 ],
-				[ 'Zucchini', 1 ], [ 'Pepperoni', 2 ] ]);
-		//for (var i = 0; i < fundList.length; i++){
-		//	data.addRow([title[i], data[i]]);	
-		//}
+		data.addColumn('string', 'Fund Name');
+		data.addColumn('number', 'Current Price');
+		
+		for (var i = 0; i < title.length; i++){
+			if(dataList[i] != "null"){
+				data.addRow([title[i], parseFloat(dataList[i])]);	
+			}
+		}
+		//console.log(data.getNumberOfRows());
 
 		// Set chart options
 		var options = {
-			'title' : 'How Much Pizza I Ate Last Night',
-			'width' : 400,
-			'height' : 300
+			'title' : 'Current Fund Performance',
+			'width' : 640,
+			'height' : 480
 		};
 
 		// Instantiate and draw our chart, passing in some options.
-		var chart = new google.visualization.PieChart(document
-				.getElementById('chart_div'));
-		chart.draw(data, options);
-	}
-</script>
-
-<!--  
-<script type="text/javascript">
-	google.load("visualization", "1", {
-		packages : [ "corechart" ]
-	});
-	google.setOnLoadCallback(drawChart);
-
-	var fundList = new Array();
-	fundList = '${fundGeneralList}';
-	console.log(fundList);
-	var title = [ 'Date' ];
-	var data = [ fundList[0].lastTradingDate ];
-	for ( var i = 0; i < fundList.length; i++) {
-		title[i + 1] = fundList[i].name;
-		data[i + 1] = fundList[i].lastTradingPrice;
-	}
-
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([ title, data ]);
-
-		var options = {
-			title : 'Fund Performance',
-			hAxis : {
-				title : 'Fund',
-				titleTextStyle : {
-					color : 'blue'
-				}
-			},
-			width : 400,
-			height : 300
-		};
-
 		var chart = new google.visualization.ColumnChart(document
 				.getElementById('chart_div'));
 		chart.draw(data, options);
 	}
-</script>
--->
+	
+	function drawLineChart() {
 
-<!-- For chart -->
-<div id="chart_div"></div>
+		// Create the data table.
+		var data = new google.visualization.DataTable();
+		data.addColumn('date', 'Date');
+		data.addColumn('number', 'Current Price');
+		for (var i = 0; i < title_lineChart.length; i++){
+			if(dataList_lineChart[i] != "null"){
+				var tmp = title_lineChart[i].split("-");
+				
+				var year = parseInt(tmp[0]);
+				var month = parseInt(tmp[1]);
+				var day = parseInt(tmp[2]);
+				
+				data.addRow([new Date(year,month,day), parseFloat(dataList_lineChart[i])]);	
+				console.log(new Date(year,month,day));
+			}
+		}
+		
+
+		// Set chart options
+		var options = {
+			'title' : 'Performance History',
+			'width' : 800,
+			'height' : 600
+		};
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.LineChart(document
+				.getElementById('linechart_div'));
+		chart.draw(data, options);
+	}
+</script>
 
 <c:choose>
 	<c:when test="${ empty fundPriceList }">
 	</c:when>
 	<c:otherwise>
+	<a href="#chart_div">See Current Fund Prices</a>
+	<div id="linechart_div"></div>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -135,6 +153,9 @@
 		</table>
 	</c:otherwise>
 </c:choose>
+
+<!-- For Fund chart -->
+<div id="chart_div"></div>
 
 <table class="table table-striped">
 	<thead>
