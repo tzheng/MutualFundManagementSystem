@@ -62,28 +62,37 @@
 		<hr>
 		
 		<h4>Your Fund Portfolio</h4>
-		<table class="table table-striped">
-			<thead>
-				<tr class="info" style="text-align: center;">
-					<th>Fund Name</th>
-					<th style="text-align: right;">Shares</th>
-					<th style="text-align: right;">Last Trading Price</th>
-					<th style="text-align: right;">Last Trading Date</th>
-					<th style="text-align: right;">Value</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="value" items="${fundvalue}">
-					<tr>
-						<td>${value.fundName} </td>
-						<td style="text-align: right;">${value.shares} </td>
-						<td style="text-align: right;">${value.lastTradingPrice}</td>
-						<td style="text-align: right;">${value.lastTradingDate} </td> 
-						<td style="text-align: right;">${value.value}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<c:choose>
+					<c:when test="${empty fundvalue}">
+						<p>You don't have any fund currently.</p>
+					</c:when>
+					
+					<c:otherwise>
+						<table class="table table-striped">
+							<thead>
+								<tr class="info" style="text-align: center;">
+									<th>Fund Name</th>
+									<th style="text-align: right;">Shares</th>
+									<th style="text-align: right;">Last Trading Price</th>
+									<th style="text-align: right;">Last Trading Date</th>
+									<th style="text-align: right;">Value</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="value" items="${fundvalue}">
+									<tr>
+										<td>${value.fundName} </td>
+										<td style="text-align: right;">${value.shares} </td>
+										<td style="text-align: right;">${value.lastTradingPrice}</td>
+										<td style="text-align: right;">${value.lastTradingDate} </td> 
+										<td style="text-align: right;">${value.value}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:otherwise>
+			</c:choose>
+		
 		<a href="customer-buyfund.do" class="btn"  style="margin-top: 10px; width: 100px;">Buy Fund</a>
 		<a href="customer-sellfund.do" class="btn"  style="margin-top: 10px; width: 100px;">Sell Fund</a>
 

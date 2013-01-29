@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.FundDAO;
+import model.FundPriceHistoryDAO;
 import model.Model;
 import model.MyDAOException;
 
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 import databean.FundBean;
+import databean.FundGeneralInfoBean;
 
 import formbean.FundForm;
 
@@ -22,8 +24,10 @@ public class CreateFundAction extends Action {
 			.getInstance(FundForm.class);
 
 	private FundDAO fundDAO;
+	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	public CreateFundAction(Model model) {
 		fundDAO = model.getFundDAO();
+		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 	}
 
 	public String getName() {
@@ -33,17 +37,15 @@ public class CreateFundAction extends Action {
 	public String perform(HttpServletRequest request) {
 		// Set up the errors list
 		List<String> errors = new ArrayList<String>();
-		HttpSession session = request.getSession();
 		request.setAttribute("errors", errors);
 
-		List<String> successes = new ArrayList<String>();
-		request.setAttribute("successes", successes);
-		
 		try {
-			
-		
 			FundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
+			
+			//get a full fund list
+			FundGeneralInfoBean[] fundGeneralList = fundPriceHistoryDAO.getAllFundsGeneralInfo();
+			request.setAttribute("fundGeneralList", fundGeneralList);
 			
 			if (!form.isPresent()) {
 	            return "employee-createfund.jsp";
@@ -54,7 +56,6 @@ public class CreateFundAction extends Action {
 	            return "employee-createfund.jsp";
 	        } 
 	        //test whether fundname and symbol are existed.
-	        
 	        FundBean fund = fundDAO.read(form.getFundName());
 	        FundBean symbol = fundDAO.readSymbol(form.getSymbol());
 	        
