@@ -20,7 +20,7 @@ public class CreateEmployeeAccountForm extends FormBean{
 		return userName;
 	}
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = trimAndConvert(userName, "<>\"");
 	}
 	public String getFirstName() {
 		return firstName;
@@ -38,14 +38,14 @@ public class CreateEmployeeAccountForm extends FormBean{
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password.trim();
+		this.password = trimAndConvert(password.trim(), "<>\"");
 	}
 	
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
 	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword.trim();
+		this.confirmPassword = trimAndConvert(confirmPassword.trim(), "<>\"");
 	}
 	
 	public List<String> getValidationErrors() {
