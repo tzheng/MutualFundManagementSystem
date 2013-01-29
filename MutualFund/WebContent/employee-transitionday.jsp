@@ -58,15 +58,10 @@
 				<td>${ fund.fundId }</td>
 				<td>${ fund.name }</td>
 				<td>${ fund.symbol }</td>
-<<<<<<< HEAD
-				<td>${ fund.lastTradingPrice }</td>
-				<td><input type="text" name="price" value="${ fund.lastTradingPriceDouble }" /></td>
-=======
 				<td style="text-align: right">
 					${ fund.lastTradingPrice }
 				</td>
-				<td style="text-align: center;  padding-left: 20px;"><input type="text" name="price" value="${ fund.lastTradingPrice }" /></td>
->>>>>>> refs/remotes/origin/master
+				<td style="text-align: center;  padding-left: 20px;"><input type="text" name="price" value="${ fund.lastTradingPriceDouble }" /></td>
 			</tr>
 		</c:forEach>
 	</tbody>
