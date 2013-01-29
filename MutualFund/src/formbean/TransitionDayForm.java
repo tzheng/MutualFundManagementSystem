@@ -21,10 +21,22 @@ public class TransitionDayForm {
 	private String[] closingPrice;
 	
 	public TransitionDayForm(HttpServletRequest request) {
-		date = request.getParameter("specifiedDate");
-		button = request.getParameter("button");		
+		date = trimAndConvert(request.getParameter("specifiedDate"), "<>\"");
+		button = trimAndConvert(request.getParameter("button"), "<>\"");
+		
 		fundId = request.getParameterValues("fundId");
+		if (fundId != null) {
+			for (int i = 0; i < fundId.length; i++) {
+				fundId[i] = trimAndConvert(fundId[i], "<>\"");
+			}
+		}
+		
 		closingPrice = request.getParameterValues("price");
+		if (closingPrice != null) {
+			for (int i = 0; i < closingPrice.length; i++) {
+				closingPrice[i] = trimAndConvert(closingPrice[i], "<>\"");
+			}
+		}
 	}
 	
 	public String getDate() {
@@ -91,16 +103,18 @@ public class TransitionDayForm {
         if (isFundListEmpty()) return errors;
         
         for (int i = 0; i < fundId.length; i++) {
+        	int count = i + 1;
         	try {
     			Integer.parseInt(fundId[i]);
     		} catch (NumberFormatException e) {
-    			errors.add("The " + i + 1 + "th Fund Id is not an integer");
+    			errors.add("The " + count + "th Fund Id is not an integer");
     		}
         	
         	try {
-    			if (Double.parseDouble(closingPrice[i]) <= 0) throw new IllegalArgumentException("The " + i + 1 + "th closing price is not an positive number.");
+        		double temp = Double.parseDouble(closingPrice[i]);
+    			if (temp < 0.01 || temp > 1000000000) throw new IllegalArgumentException("The " + count + "th closing price is not an number between 0.01 to 1,000,000,000.00");
     		} catch (NumberFormatException e) {
-    			errors.add("The " + i + "th closing price is not an valid number.");
+    			errors.add("The " + count + "th closing price is not an valid number.");
     		} catch (IllegalArgumentException e2) {
     			errors.add(e2.getMessage());
     		}
@@ -108,4 +122,53 @@ public class TransitionDayForm {
 		
         return errors;
     }
+	
+	public String trimAndConvert(String s, String charsToConvert) {
+		if (s == null) return null;
+		if (!s.matches(".*["+charsToConvert+"].*")) {
+			return s.trim();
+		}
+		
+		StringBuffer b = new StringBuffer();
+		for (char c : s.trim().toCharArray()) {
+			switch (c) {
+				case '<':
+					if (charsToConvert.indexOf('<') != -1) {
+						b.append("&lt;");
+					} else {
+						b.append(c);
+					}
+					break;
+				case '>':
+					if (charsToConvert.indexOf('>') != -1) {
+						b.append("&gt;");
+					} else {
+						b.append(c);
+					}
+					break;
+				case '&':
+					if (charsToConvert.indexOf('&') != -1) {
+						b.append("&amp;");
+					} else {
+						b.append(c);
+					}
+					break;
+				case '"':
+					if (charsToConvert.indexOf('"') != -1) {
+						b.append("&quot;");
+					} else {
+						b.append(c);
+					}
+					break;
+				default:
+					if (charsToConvert.indexOf(c) != -1) {
+						b.append("&#"+c+";");
+					} else {
+						b.append(c);
+					}
+			}
+		}
+		
+		return b.toString();
+	}
 }
