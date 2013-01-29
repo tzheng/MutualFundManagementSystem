@@ -19,7 +19,7 @@
 <jsp:include page="success-status.jsp" />
 <form class="form-horizontal" method="POST" action="customer-change-pwd.do">
   <div class="control-group">
-    <label class="control-label" for="inputOldPassword">Old Password</label>
+    <label class="control-label" for="inputOldPassword">Current Password</label>
     <div class="controls">
       <input type="password" id="inputOldPassword" placeholder="Old Password" name="oldPassword">
     </div>
