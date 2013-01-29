@@ -128,7 +128,7 @@
 	<div class="control-group">
 		<label class="control-label" for="inputZip">Zip</label>
 		<div class="controls">
-			<input type="text" name="zip" id="inputZip" placeholder="Zip"
+			<input type="text" name="zip" id="inputZip" placeholder="Zip" maxlength=10
 				value="${ form.zip }"> <span style="color: red">*</span>
 		</div>
 	</div>

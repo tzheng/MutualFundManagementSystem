@@ -26,11 +26,11 @@ public class BuyFundForm extends FormBean {
 	}
 
 	public void setAmount(String amount) {
-		this.amount = amount;
+		this.amount = trimAndConvert(amount, "<>\"");
 	}
 
 	public void setFundName(String fundName) {
-		this.fundName = fundName;
+		this.fundName = trimAndConvert(fundName, "<>\"");
 	}
 	
 	public List<String> getValidationErrors() {

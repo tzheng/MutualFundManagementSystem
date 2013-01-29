@@ -82,8 +82,6 @@ public class CustomerLoginAction extends Action {
 	            return "index.jsp";
 	        }
 	        
-	        //System.out.println(customer.checkPassword(form.getPassword()));
-	        //System.out.println(customer.getSalt());
 	        if (!customer.checkPassword(form.getPassword())) {
 	            errors.add("Incorrect/Invalid Password");
 	            return "index.jsp";
@@ -98,7 +96,6 @@ public class CustomerLoginAction extends Action {
 			session.setAttribute("lastname", customer.getLastName());
 			
 	        // If redirectTo is null, redirect to the action
-			//return "customer-mainpanel.do";
 			return "view-account.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());

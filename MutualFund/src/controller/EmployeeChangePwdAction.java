@@ -40,10 +40,6 @@ public class EmployeeChangePwdAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 
-		// Set up success list
-		//List<String> successes = new ArrayList<String>();
-		//request.setAttribute("successes", successes);
-
 		try {
 			ChangePasswordForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
@@ -73,7 +69,6 @@ public class EmployeeChangePwdAction extends Action {
 			employeeDAO.changePassword(employee.getUserName(), form.getNewPassword());
 
 			// Success
-			//successes.add("Password changed successfully!");
 			request.setAttribute("message", "Password changed successfully!");
 			return "employee-confirmation.jsp";
 		} catch (MyDAOException e) {

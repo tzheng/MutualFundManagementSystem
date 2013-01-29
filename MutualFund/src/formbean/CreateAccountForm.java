@@ -47,7 +47,7 @@ public class CreateAccountForm extends FormBean {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = trimAndConvert(lastName, "<>\"");
 	}
 
 	public String getAddrLine2() {
@@ -75,11 +75,11 @@ public class CreateAccountForm extends FormBean {
 	}
 
 	public void setPassword(String s) {
-		this.password = s.trim();
+		this.password = trimAndConvert(s.trim(), "<>\"");
 	}
 
 	public void setConfirmPassword(String s) {
-		this.confirmPassword = s.trim();
+		this.confirmPassword = trimAndConvert(s.trim(), "<>\"");
 	}
 
 	public void setFirstName(String s) {
@@ -103,7 +103,7 @@ public class CreateAccountForm extends FormBean {
 	}
 
 	public void setZip(String zip) {
-		this.zip = zip;
+		this.zip = trimAndConvert(zip, "<>\"");
 	}
 
 	public List<String> getValidationErrors() {

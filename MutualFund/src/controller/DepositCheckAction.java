@@ -24,7 +24,6 @@ public class DepositCheckAction extends Action{
 	private FormBeanFactory<DepositCheckFormBean> formBeanFactory = FormBeanFactory.getInstance(DepositCheckFormBean.class);
 	private final String actionPage = "employee-depositcheck.jsp";
 	private final String successPage = "employee-confirmation.jsp";
-	//private final String errorPage = "employee-error.jsp";
 
 	private CustomerDAO customerDAO;
 	private TransactionDAO transactionDAO;
@@ -45,13 +44,14 @@ public class DepositCheckAction extends Action{
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 
-		//EmployeeBean employee = (EmployeeBean) request.getSession().getAttribute("employee");
-		//String customerName = request.getParameter("custName");
-		
 		try {
             DepositCheckFormBean form = formBeanFactory.create(request);
             request.setAttribute("form", form);
             
+            if (!form.isPresent()) {
+	            return actionPage;
+	        }
+	
             errors.addAll(form.getValidationErrors());
             if (errors.size() != 0) {
                 return actionPage;

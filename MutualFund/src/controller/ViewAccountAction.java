@@ -67,10 +67,11 @@ public class ViewAccountAction extends Action {
 			if (lastTradingDate != null) {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 				request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
-				//System.out.println(sdf.format(lastTradingDate));
+
 				//get customer's Rejected transactions of his/her Last Trading Day
 				int processed = transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate);
 				request.setAttribute("processedNumber", processed);
+				
 				//get customer's Processed transactions of his/her Last Trading Day
 				int rejected = transactionDAO.getCustomerTransactionNum(customerId, -1, lastTradingDate);
 				request.setAttribute("rejectedNumber", rejected);
@@ -82,7 +83,6 @@ public class ViewAccountAction extends Action {
 			} else {
 				request.setAttribute("lastTradingDate", null);
 				request.setAttribute("processedNumber", null);
-				//get customer's Processed transactions of his/her Last Trading Day
 				request.setAttribute("rejectedNumber", null);
 			}
 			

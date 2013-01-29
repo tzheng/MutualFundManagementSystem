@@ -53,14 +53,12 @@ public class EmployeeViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		
-//			FundValueBean [] employeeFundValue =  null;
-
 		try {
-//			PositionBean[] userPosition;
 			if (request.getParameter("username") != null) {
 				
 				CustomerIdForm form = formBeanFactory.create(request);
 				request.setAttribute("form", form);
+				
 				//get all customer lists, in case of user not found
 				CustomerBean[] customerlist = customerDAO.getAllCustomers();
 				if (customerlist != null) {
@@ -73,6 +71,7 @@ public class EmployeeViewAccountAction extends Action {
 				if (!form.isPresent()) {
 		            return "employee-viewcustomer.jsp";
 		        }
+				
 				// add error validation
 				errors.addAll(form.getValidationErrors());
 				if (errors.size() != 0) {

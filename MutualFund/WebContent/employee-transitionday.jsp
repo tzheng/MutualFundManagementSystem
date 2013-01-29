@@ -69,7 +69,9 @@
 	</tbody>
 </table>
 <input type="hidden" name="fundListLength" value="${ fundListLength }" />
-<input type="submit" class="btn btn-large" name="button" value="Submit" />
+<div style="text-align: right; margin-right: 20px;">
+	<input type="submit" class="btn btn-large"  name="button" value="Submit" />
+</div>
 </form>
 
 

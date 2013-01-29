@@ -30,7 +30,6 @@ public class RequestCheckAction extends Action{
 	private FormBeanFactory<RequestCheckFormBean> formBeanFactory = FormBeanFactory.getInstance(RequestCheckFormBean.class);
 	private final String actionPage = "customer-requestcheck.jsp";
 	private final String successPage = "customer-confirmation.jsp";
-	//private final String errorPage = "employee-error.jsp";
 
 	private CustomerDAO customerDAO;
 	private TransactionDAO transactionDAO;
@@ -52,8 +51,6 @@ public class RequestCheckAction extends Action{
 		request.setAttribute("errors", errors);
 
 		try {
-           // CustomerBean customer = (CustomerBean) request.getSession().getAttribute("Customer");
-            //int customerId = customer.getCustomerId();
 			int customerId = (Integer) request.getSession(false).getAttribute("customerId");
 			  
 			RequestCheckFormBean form = formBeanFactory.create(request);
@@ -77,12 +74,6 @@ public class RequestCheckAction extends Action{
             }
             
             double amount = form.getAmountAsDouble();
-            /**
-            if (availableBalance < amount || availableBalance <= 0) {
-                errors.add("You have Insufficient balance");
-                return actionPage;
-            }
-			**/
 			transactionDAO.requestCheck(customerId, amount);
 			formatter = new DecimalFormat("#,##0.00");
 			request.setAttribute("message","Your request for check for $ " 
