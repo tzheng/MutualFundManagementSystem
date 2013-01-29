@@ -1,12 +1,10 @@
 package model;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +120,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 														+ " FROM transaction"
 														+ " LEFT JOIN fund" 
 														+ " ON transaction.fundid = fund.fundid"
-														+ " ORDER BY customerid, transactionId DESC");
+														+ " ORDER BY transactionId DESC");
 			
 			ResultSet rs = pstmt.executeQuery();
 			

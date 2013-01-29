@@ -38,13 +38,10 @@ public class EmployeeResetCustomerPwdAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 
-		// Set up success list
-		List<String> successes = new ArrayList<String>();
-		request.setAttribute("successes", successes);
 
 		try {
 			ResetCustomerPwdForm form = formBeanFactory.create(request);
-
+			request.setAttribute("form", form);
 			// If no params were passed, return with no errors so that the form
 			// will be
 			// presented (we assume for the first time).
@@ -68,8 +65,8 @@ public class EmployeeResetCustomerPwdAction extends Action {
 			customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 
 			// Success
-			successes.add("Customer's password updated Successfully!");
-			return "employee-resetcustomerpswd.jsp";
+			request.setAttribute("message", "Customer's password updated Successfully!");
+			return "employee-confirmation.jsp";
 		} catch (MyDAOException e) {
 			errors.add(e.toString());
 			return "error.jsp";

@@ -72,7 +72,7 @@
 		 	</c:when>
 		 		
 		 	<c:otherwise>
-		 		<a href="employeeviewaccount.do" class="btn btn-primary">See full customer list</a>
+		 		<a href="employeeviewaccount.do" class="btn"> <i class="icon-chevron-left" ></i> See full customer list</a>
 		 		<hr>
 		 		<h4>Customer Information</h4> 
 		 <div>  <!--  Here list the Transactions -->

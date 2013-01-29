@@ -40,7 +40,7 @@
 							    <div class="controls">
 							      	<div class="input-prepend">
 									  	<span class="add-on">$</span>
-									  	<input type="text" class="span10" name="withdrawamount" placeholder="Max: ${availableBalance}" value="${form.withdrawamount}"/>
+									  	<input type="text" class="span10" name="withdrawamount" placeholder="0.00" value="${form.withdrawamount}"/>
 									</div>
 							    </div>
 						  </div>

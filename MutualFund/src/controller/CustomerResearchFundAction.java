@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.mybeans.form.FormBeanException;
 
+import basic.FormatNormalization;
+
 import databean.FundBean;
 import databean.FundGeneralInfoBean;
 import databean.FundPriceHistoryBean;
@@ -37,6 +39,17 @@ public class CustomerResearchFundAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		
+		String temp = request.getParameter("fundId");
+		
+		Integer fundId = null;
+		if(temp != null){
+			 fundId = Integer.parseInt(temp);
+		}
+		
+		
+		
+		
+		
 		try{
 			//get full fund list, allows customer to choose
 			FundBean[] fundlist = fundDAO.readAllFunds();
@@ -50,12 +63,18 @@ public class CustomerResearchFundAction extends Action {
 					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
 					fundGeneralList[i].setLastTradingDate(history.getPrice_date());
 					double price = history.getPrice();
-					DecimalFormat formatter = new DecimalFormat("#0.00");
-					fundGeneralList[i].setLastTradingPrice(formatter.format(price));
+					//DecimalFormat formatter = new DecimalFormat("#0.00");
+					fundGeneralList[i].setLastTradingPrice(FormatNormalization.formatterForFundPrice.format(price));
 				}
 			}
 			
 			request.setAttribute("fundGeneralList", fundGeneralList);
+			
+			if(fundId != null){
+				//System.out.println("1");
+				FundPriceHistoryBean[] fundPriceList = fundPriceHistoryDAO.getFundPriceHistory(fundId.intValue());
+				request.setAttribute("fundPriceList", fundPriceList);
+			}
 			
 			return "customer-researchfund.jsp";
 		} catch (MyDAOException e) {

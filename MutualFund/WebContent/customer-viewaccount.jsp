@@ -66,9 +66,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<td style="text-align: left;">${customer.addrLine1}</br>
-					${customer.addrLine2}</br> ${customer.city} &nbsp;,${customer.state}
-					&nbsp;,&nbsp;Zipcode:${customer.zip} <br/>
+				<td style="text-align: left;">
+					${customer.addrLine1}</br>
+					${customer.addrLine2}</br> 
+					${customer.city} &nbsp;,${customer.state},&nbsp;${customer.zip} <br/>
 				</td>
 				<td>${cashBalance}</td>
 		</tbody>

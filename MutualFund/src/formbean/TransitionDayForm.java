@@ -16,44 +16,36 @@ import javax.servlet.http.HttpServletRequest;
 
 public class TransitionDayForm {
 	private String date;
-	private int fundListLength;
 	private String button;
 	private String[] fundId;
 	private String[] closingPrice;
 	
+	public TransitionDayForm(HttpServletRequest request) {
+		date = request.getParameter("specifiedDate");
+		button = request.getParameter("button");		
+		fundId = request.getParameterValues("fundId");
+		closingPrice = request.getParameterValues("price");
+	}
+	
 	public String getDate() {
 		return date;
 	}
-
-	public int getFundListLength() {
-		return fundListLength;
-	}
-
 	public String getButton() {
 		return button;
 	}
-
 	public String[] getFundId() {
 		return fundId;
 	}
-
 	public String[] getClosingPrice() {
 		return closingPrice;
-	}
-
-	public TransitionDayForm(HttpServletRequest request) {
-		date = request.getParameter("specifiedDate");
-		fundListLength = Integer.parseInt(request.getParameter("fundListLength"));
-		button = request.getParameter("button");
-		
-		for (int i = 0; i < fundListLength; i++) {
-			fundId[i] = request.getParameter("fundId" + i);
-			closingPrice[i] = request.getParameter("price" + i);
-		}
-	}
+	}	
 	
 	public boolean isPresent() {
 		return button != null && button.equals("Submit");
+	}
+	
+	public boolean isFundListEmpty() {
+		return fundId == null || closingPrice == null;
 	}
 	
 	public Date getSpecifiedDate() {
@@ -65,16 +57,16 @@ public class TransitionDayForm {
 	}
 	
 	public int[] getFundIdsAsInteger() {
-		int[] fundIdInt = new int[fundListLength];
-		for (int i = 0; i < fundListLength; i++) {
+		int[] fundIdInt = new int[fundId.length];
+		for (int i = 0; i < fundId.length; i++) {
 			fundIdInt[i] = Integer.parseInt(fundId[i]);
 		}
 		return fundIdInt;
 	}
 	
 	public double[] getClosingPricesAsDouble() {
-		double[] price = new double[fundListLength];
-		for (int i = 0; i < fundListLength; i++) {
+		double[] price = new double[closingPrice.length];
+		for (int i = 0; i < closingPrice.length; i++) {
 			price[i] = Double.parseDouble(closingPrice[i]);
 		}
 		return price;
@@ -84,7 +76,6 @@ public class TransitionDayForm {
         List<String> errors = new ArrayList<String>();
 
         if (date == null || date.length() == 0) errors.add("Date is required");
-        if (fundListLength < 0) errors.add("Fund List Length cannot be negative");
         if (button == null) errors.add("Button is required");
 
         if (errors.size() > 0) return errors;
@@ -97,15 +88,17 @@ public class TransitionDayForm {
 			errors.add("Date input should follow the format \"MM-dd-yyyy\".");
 		}
         
-        for (int i = 0; i < fundListLength; i++) {
+        if (isFundListEmpty()) return errors;
+        
+        for (int i = 0; i < fundId.length; i++) {
         	try {
     			Integer.parseInt(fundId[i]);
     		} catch (NumberFormatException e) {
-    			errors.add("The " + i + "th Fund Id is not an integer");
+    			errors.add("The " + i + 1 + "th Fund Id is not an integer");
     		}
         	
         	try {
-    			if (Double.parseDouble(closingPrice[i]) <= 0) throw new IllegalArgumentException("The " + i + "th closing price is not an positive number.");
+    			if (Double.parseDouble(closingPrice[i]) <= 0) throw new IllegalArgumentException("The " + i + 1 + "th closing price is not an positive number.");
     		} catch (NumberFormatException e) {
     			errors.add("The " + i + "th closing price is not an valid number.");
     		} catch (IllegalArgumentException e2) {

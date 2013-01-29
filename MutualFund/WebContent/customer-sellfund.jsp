@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
@@ -88,10 +89,10 @@
 			<table class="table table-striped">
 		 				<thead>
 	   								<tr class="info">
-	   										<th>Fund Name</th>
-	   										<th>Fund Symbol</th>
-    										<th>Shares you own</th>
-    										<th>Available Shares</th>
+	   										<th style="width: 200px;">Fund Name</th>
+	   										<th style="width: 120px;">Fund Symbol</th>
+    											<th  style="text-align:right; padding-right: 20px; width: 150px;" >Shares you own</th>
+    										<!-- <th>Available Shares</th> -->
     										<th></th>
   									</tr>
   						</thead>
@@ -100,8 +101,10 @@
 	  							   	<tr>
   							   			<td>${fund.fundName} </td>
   							   			<td>${fund.fundSymbol} </td>
-  							   			<td>${fund.shares} </td>
-  							   			<td>${fund.availableShares}</td>
+  							   			<td style="text-align:right; padding-right: 20px;">
+  							   				<fmt:formatNumber type="number"  pattern="#,##0.000" value="${fund.shares}" />
+  							   			</td>
+  							   			<!-- <td>${fund.availableShares}</td> -->
   							   			<td> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fund.fundName}';">Sell Fund</a>
   							   		</tr>
   							   </c:forEach>

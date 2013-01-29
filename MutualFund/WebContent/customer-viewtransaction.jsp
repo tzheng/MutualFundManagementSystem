@@ -1,5 +1,6 @@
 	    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	   
 	   <!--include header -->
 	   <jsp:include page="header-customer-panel.jsp" />
@@ -12,107 +13,7 @@
 				</ul>
 		</div>	 
 		
-	   	
-	   	<!--put your page content here 
-		  ============================================
-		 -->
-		 
-		 <!-- 
-		  <h4>Transaction History Filter</h4> <hr>
-		 <div>  
-		 		 <form class="form-horizontal">
-				 		 <div class="control-group">
-							    <label class="control-label" for="dateRange">Date Range</label>
-							    <div class="controls">
-							    		<div class="row-fluid">
-							          		<div class="span5">From: <input type="text"  class="dp span6" value="02-16-2012" ></div>
-							          		 <div class="span5">To: <input type="text"  class="dp span6" value="02-16-2012" > </div>
-							    		</div>
-							    </div>
-						  </div>
-						  
-						  <div class="control-group">
-							    <label class="control-label" for="dateRange">Amount Range</label>
-							    <div class="controls">
-							    		<div class="row-fluid">
-							          		<div class="span5">From:<div class="input-prepend">
-									  	<span class="add-on">$</span>
-									  	<input class="span6" id="appendedPrependedInput" type="text" placeholder="0.00">
-									</div></div>
-							          		 <div class="span4">To: <div class="input-prepend">
-									  	<span class="add-on">$</span>
-									  	<input class="span6" id="appendedPrependedInput" type="text" placeholder="0.00">
-									</div> </div>
-							    		</div>
-							    </div>
-						  </div>
-					
-					<script type="text/javascript">
-							function changeFilter(obj){
-								txt = obj.options[obj.selectedIndex].text;
-								
-								document.getElementById('cashOperation').style.display = 'none'; 
-								document.getElementById('fundOperation').style.display = 'none'; 
-								
-								if ( txt.match('Cash')) {
-									document.getElementById('cashOperation').style.display='block';
-								}
-								if ( txt.match('Fund')) {
-									document.getElementById('fundOperation').style.display='block';
-								}
-							}
-					</script>	  
-						  
-					<div class="control-group">
-					          
-					          <label class="control-label">Transaction Type</label>
-					          <div class="controls">
-					            <select class="input-xlarge" id="transactionType" onchange="changeFilter(this)">
-								      <option>Cash</option>
-								      <option>Fund</option>
-								</select>
-					          </div>
-					        </div>	  
-					        
-					 <div class="control-group" id="cashOperation">
-					          <label class="control-label">Cash Operation</label>
-					          <div class="controls">
-					            <select class="input-xlarge">
-					      <option>Check</option>
-					      <option>Deposit</option></select>
-					          </div>
-					        </div>
-					
-					    <div class="control-group" id="fundOperation" style="display: none;">
-					          <label class="control-label">Fund Operation</label>
-					          <div class="controls">
-					            <select class="input-xlarge">
-					      <option>Buy</option>
-					      <option>Sell</option></select>
-					          </div>
-					        </div>
-					
-					    <div class="control-group">
-					          <label class="control-label">Status</label>
-					          <div class="controls">
-					            <select class="input-xlarge">
-					      <option>Processed</option>
-					      <option>Pending</option></select>
-					          </div>
-					        </div>
-
-					 	 <div class="control-group" style="margin-top: -10px;">
-							    <div class="controls">
-							      <button type="submit" class="btn">Search</button>
-							    </div>
-						  </div> 	
-						  
-
-		 		 </form>
-		 </div>
-		 
-		 <hr>
-		  -->
+	 
 		  <h4>Transaction History</h4>  <hr>
 		 <div>  <!--  Here list the Transactions -->
 		 		<table class="table table-striped" >
@@ -174,7 +75,9 @@
   							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td style="text-align: right; padding-right: 50px;">${history.shareNumber} </td>
+  							   					<td style="text-align: right; padding-right: 40px;">
+  							   						<fmt:formatNumber type="number"  pattern="#,##0.000" value="${history.shareNumber} " />
+  							   					</td>
   							   				</c:otherwise>
   							   			</c:choose>
   							   			
@@ -185,7 +88,9 @@
   							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td style="text-align: right; padding-right: 50px;">${history.sharePrice} </td>
+  							   					<td style="text-align: right; padding-right: 40px;">
+  							   						<fmt:formatNumber type="number" pattern="#,##0.00" value="${history.sharePrice} " ></fmt:formatNumber>
+  							   					</td>
   							   				</c:otherwise>
   							   			</c:choose>
   							   			
@@ -195,7 +100,9 @@
   							   						<td style="text-align: center">-</td>
   							   				</c:when>
   							   				<c:otherwise>
-  							   					<td style="text-align: right; padding-right: 50px;">${history.dollarAmount} </td>
+  							   					<td style="text-align: right; padding-right: 40px;"> 
+  							   						<fmt:formatNumber type="number" pattern="#,##0.00" value="${history.dollarAmount}" ></fmt:formatNumber>  
+  							   					</td>
   							   				</c:otherwise>
   							   			</c:choose>
   							   			<td>${history.transactionStatus} </td>

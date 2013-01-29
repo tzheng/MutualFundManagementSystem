@@ -5,7 +5,7 @@
 <!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li><a href="employee-mainpanel.jsp"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
 						<li class="active">Change Password</li>  
 				</ul>
 		</div>	 
@@ -19,9 +19,9 @@
 <jsp:include page="success-status.jsp" />
 <form class="form-horizontal" method="POST" action="employee-change-pwd.do">
   <div class="control-group">
-    <label class="control-label" for="inputOldPassword">Old Password</label>
+    <label class="control-label" for="inputOldPassword">Current Password</label>
     <div class="controls">
-      <input type="text" id="inputOldPassword" placeholder="Old Password" name="oldPassword">
+      <input type="password" id="inputOldPassword" placeholder="Current Password" name="oldPassword">
     </div>
   </div>
   <div class="control-group">

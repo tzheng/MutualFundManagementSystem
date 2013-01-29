@@ -2,6 +2,8 @@ package formbean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.mybeans.form.FormBean;
 
@@ -56,7 +58,21 @@ public class CreateEmployeeAccountForm extends FormBean{
         
         if(errors.size()>0) return errors;
         
-        if(!password.equals(confirmPassword)) errors.add("Mismatching passwords");
+        if (userName.trim().length() > 30) {
+        	errors.add("Username should be less then 30 characters");
+        }
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(userName.trim());
+        boolean found = matcher.find();
+        if (found) {
+        	errors.add("Username should not contain space(' ')");
+        }
+        
+        if (firstName.trim().length() > 30 || lastName.trim().length() > 30) {
+        	errors.add("Firstname/Lastname should be less then 30 characters");
+        }
+        
+        if(!password.equals(confirmPassword)) errors.add("Passwords do not match! Please re-enter");
         
 		return errors;
 		

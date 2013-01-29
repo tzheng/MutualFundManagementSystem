@@ -25,15 +25,22 @@ public class FundForm extends FormBean {
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 
-		if (fundName == null || fundName.length() == 0) {
+		if (fundName == null || fundName.trim().length() == 0) {
 			errors.add("Fund Name is required");
 		}
-		if (symbol == null || symbol.length() == 0) {
+		if (symbol == null || symbol.trim().length() == 0) {
 			errors.add("Ticker Symbol is required");
 		}
 		
 		if (errors.size() > 0) {
 			return errors;
+		}
+		
+		if (symbol.trim().length() < 1 || symbol.trim().length() > 5) {
+			errors.add("Symbol should be one to five characters");
+		}
+		if (fundName.trim().length() > 30) {
+			errors.add("Fund Name should be less then 30 characters");
 		}
 
         if (fundName.matches(".*[<>\"].*")) errors.add("Fund Name may not contain angle brackets or quotes");

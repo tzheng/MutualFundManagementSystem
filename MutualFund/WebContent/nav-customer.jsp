@@ -1,7 +1,7 @@
 			
 	   		 		<div class="span3">
 	   		 			<div class="well sidebar-nav">
-	   		 				<p style="text-align:center">Welcome ${firstname}&nbsp;${lastname} <a href="logout.do" >Logout</a> </p>
+	   		 				<p style="text-align:center">Welcome <b>${firstname}&nbsp;${lastname}</b> <br> <a href="logout.do" >Logout</a> </p>
 	   		 				<hr>
 	   		 				<ul class="nav nav-list">
 	   		 					<li class="nav-header">Account Management</li>
