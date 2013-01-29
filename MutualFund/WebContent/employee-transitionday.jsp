@@ -61,7 +61,7 @@
 				<td style="text-align: right">
 					${ fund.lastTradingPrice }
 				</td>
-				<td style="text-align: center;  padding-left: 20px;"><input type="text" name="price" value="${ fund.lastTradingPrice }" /></td>
+				<td style="text-align: center;  padding-left: 20px;"><input type="text" name="price" value="${ fund.lastTradingPriceDouble }" /></td>
 			</tr>
 		</c:forEach>
 	</tbody>
