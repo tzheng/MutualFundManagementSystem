@@ -1,12 +1,16 @@
 
 	   <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
+	   <script src="js/jquery.js"></script>
 	   <script src="js/bootstrap-typeahead.js"></script>
       <script type="text/javascript">
-      $(document).ready(function(){
-      		var states = ["Alabama","Alaska","Arizona"];
-      		$('#inputState').typeahead({source:states });
-      });
+	      $(document).ready(function(){
+	    	  	var subject1 = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho',
+	    	  	                'Illinois','Indiana','Iowa','Kansas','Kentucky','Louislana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana',
+	    	  	                'Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania',
+	    	  	                'Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','Washington, D.C','West Virginia','Wisconsin','Wyoming'];
+	      	$('#inputState').typeahead({source: subject1});
+	      });
       </script>
       
 	   <!--display path  -->	   		 		
