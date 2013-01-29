@@ -58,7 +58,7 @@
 				<td>${ fund.name }</td>
 				<td>${ fund.symbol }</td>
 				<td>${ fund.lastTradingPrice }</td>
-				<td><input type="text" name="price" value="${ fund.lastTradingPrice }" /></td>
+				<td><input type="text" name="price" value="${ fund.lastTradingPriceDouble }" /></td>
 			</tr>
 		</c:forEach>
 	</tbody>
