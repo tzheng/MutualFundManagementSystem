@@ -120,7 +120,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 														+ " FROM transaction"
 														+ " LEFT JOIN fund" 
 														+ " ON transaction.fundid = fund.fundid"
-														+ " ORDER BY customerid, transactionId DESC");
+														+ " ORDER BY transactionId DESC");
 			
 			ResultSet rs = pstmt.executeQuery();
 			

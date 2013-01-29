@@ -140,6 +140,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 					
 					long priceL = rs.getLong("price");
 					double priceD = Math.round(priceL / 100.00);
+					bean.setLastTradingPriceInDouble(priceD);
 					bean.setLastTradingPrice(formatter.format(priceD));
 				}
 				
