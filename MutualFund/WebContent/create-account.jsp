@@ -4,14 +4,26 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap-typeahead.js"></script>
 <script type="text/javascript">
-	      $(document).ready(function(){
-	    	  	var subject1 = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho',
-	    	  	                'Illinois','Indiana','Iowa','Kansas','Kentucky','Louislana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana',
-	    	  	                'Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania',
-	    	  	                'Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','Washington, D.C','West Virginia','Wisconsin','Wyoming'];
-	      	$('#inputState').typeahead({source: subject1});
-	      });
-      </script>
+	$(document).ready(
+			function() {
+				var subject1 = [ 'Alabama', 'Alaska', 'Arizona', 'Arkansas',
+						'California', 'Colorado', 'Connecticut', 'Delaware',
+						'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois',
+						'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louislana',
+						'Maine', 'Maryland', 'Massachusetts', 'Michigan',
+						'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+						'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+						'New Mexico', 'New York', 'North Carolina',
+						'North Dakota', 'Ohio', 'Oklahoma', 'Oregon',
+						'Pennsylvania', 'Rhode Island', 'South Carolina',
+						'South Dakota', 'Tennessee', 'Texas', 'Utah',
+						'Vermont', 'Virginia', 'Washington', 'Washington, D.C',
+						'West Virginia', 'Wisconsin', 'Wyoming' ];
+				$('#inputState').typeahead({
+					source : subject1
+				});
+			});
+</script>
 
 <!--display path  -->
 <div>
@@ -34,6 +46,10 @@
 		 -->
 
 <h4>Create Customer Account</h4>
+<h5>
+	Note:&nbsp;<span style="color: red">*</span>&nbsp;stands for required
+	field
+</h5>
 <hr />
 <jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="create-account.do">
