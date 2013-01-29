@@ -80,19 +80,6 @@ public class EmployeeViewTransactionAction extends Action {
 			return "employee-viewtransaction.jsp";
 		}
 		
-/**
-		try {
-			TransactionHistoryBean[] historyList = transactionHistoryDAO.getTransactions();
-			request.setAttribute("transactionHistory", historyList);
-			return "employee-viewtransaction.jsp";
-			
-		} catch (MyDAOException e) {
-			errors.add(e.getMessage());
-			return "error.jsp";
-		}
-		**/
-
-
 	}
 	
 }
