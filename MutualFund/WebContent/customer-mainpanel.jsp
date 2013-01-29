@@ -24,13 +24,13 @@
 							<h5>You don't have any transactions currently. </h5>
 						</c:when>
 						<c:otherwise>
-							<p>Your Last trading date is: <b>${lastTradingDate }</b>
-							<p>During the last trading day: </p>
+							<p>Your last trading date is: <b>${lastTradingDate }</b>
+							<h5>During the last trading day: </h5>
 							<div class="span12" style="margin-top: 10px;">
 								<div class="span8">
 									<div class="progress" style="height: 30px;">
-											<div class="bar bar-success" style="width: ${pPercent}%"> <b>${processedNumber}</b> processed</div>
-											<div class="bar bar-danger"  style="width: ${rPercent}%"> <b>${rejectedNumber}</b> rejected</div>
+											<div class="bar bar-success" style="width: ${pPercent}%; font-size: 1em;"> <b>${processedNumber}</b> processed</div>
+											<div class="bar bar-danger"  style="width: ${rPercent}%; font-size: 1em;"> <b>${rejectedNumber}</b> rejected</div>
 									</div> 
 								</div>
 							</div>

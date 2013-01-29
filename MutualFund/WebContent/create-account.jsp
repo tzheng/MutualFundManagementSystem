@@ -1,7 +1,14 @@
 
 	   <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
-	   
+	   <script src="js/bootstrap-typeahead.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function(){
+      		var states = ["Alabama","Alaska","Arizona"];
+      		$('#inputState').typeahead({source:states });
+      });
+      </script>
+      
 	   <!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
