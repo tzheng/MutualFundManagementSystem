@@ -8,7 +8,7 @@
 <!--display path  -->
 <div>
 	<ul class="breadcrumb">
-		<li><a href="customer-mainpanel.do"> <i class="icon-home"></i>
+		<li><a href="view-account.do"> <i class="icon-home"></i>
 				Home
 		</a> <span class="divider">/</span></li>
 		<li class="active">View Account</li>
@@ -22,6 +22,45 @@
 
 	<h4>Personal Information For: ${customer.firstName}&nbsp;${customer.lastName}</h4>
 		<hr>
+				<div class="row-fluid">
+				<div class="span8" style="border-right: 1px solid #F5F5F5;">
+				<p>Your current account balance is: <b>$  ${currentBalance} </b> </p>
+				
+				<c:choose>
+						<c:when test ="${ empty lastTradingDate }">
+							<h5>You don't have any transactions currently. </h5>
+						</c:when>
+						<c:otherwise>
+							<p>Your last trading date is: <b>${lastTradingDate }</b>
+							<h5>During the last trading day: </h5>
+							<div class="span12" style="margin-top: 10px;">
+								<div style="width: 80%">
+									<div class="progress" style="height: 30px;">
+											<div class="bar bar-success" style="width: ${pPercent}%; font-size: 1em;"> <b>${processedNumber}</b> processed</div>
+											<div class="bar bar-danger"  style="width: ${rPercent}%; font-size: 1em;"> <b>${rejectedNumber}</b> rejected</div>
+									</div> 
+								</div>
+							</div>
+							
+							<p><b style="color: rgb(83,170,60); font-size: 1.2em; margin-left: 20px;">${processedNumber}</b> of your transactions have been processed. </p>
+							<p><b style="color: rgb(209,63,59); font-size: 1.2em; margin-left: 20px;" >${rejectedNumber}</b> of your transactions have been rejected. </p>
+							<a href="customerhistory.do" class="btn"  style="margin-top: 10px;">View Transaction History</a>
+						</c:otherwise>
+				</c:choose>
+				</div>
+				
+				<div class="span4">
+				<h4>Address Information</h4>
+						<p>
+							${customer.addrLine1}</br>
+							${customer.addrLine2}</br> 
+							${customer.city}, &nbsp;${customer.state},&nbsp;${customer.zip} <br/>
+						</p>
+				</div>
+		</div>
+		
+		<hr>
+		
 		<h4>Your Fund Portfolio</h4>
 		<table class="table table-striped">
 			<thead>
@@ -31,49 +70,25 @@
 					<th style="text-align: right;">Last Trading Price</th>
 					<th style="text-align: right;">Last Trading Date</th>
 					<th style="text-align: right;">Value</th>
-
 				</tr>
 			</thead>
 			<tbody>
-
-
 				<c:forEach var="value" items="${fundvalue}">
-						<tr>
+					<tr>
 						<td>${value.fundName} </td>
 						<td style="text-align: right;">${value.shares} </td>
 						<td style="text-align: right;">${value.lastTradingPrice}</td>
 						<td style="text-align: right;">${value.lastTradingDate} </td> 
 						<td style="text-align: right;">${value.value}</td>
-						
 					</tr>
-				
 				</c:forEach>
 			</tbody>
 		</table>
-	
-	
+		<a href="customer-buyfund.do" class="btn"  style="margin-top: 10px; width: 100px;">Buy Fund</a>
+		<a href="customer-sellfund.do" class="btn"  style="margin-top: 10px; width: 100px;">Sell Fund</a>
 
 	<hr>
-	<h4>Account Detail Information</h4>
-		<table class="table table-striped">
-			<thead>
-				<tr class="info" style="text-align: right;">
-					<th style="text-align: left;">Address Information</th>
-					<th style="text-align: left;">Cash Balance</th>
-					<!-- <th style="text-align: left;">Last Trading Price</th> -->
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<td style="text-align: left;">
-					${customer.addrLine1}</br>
-					${customer.addrLine2}</br> 
-					${customer.city} &nbsp;,${customer.state},&nbsp;${customer.zip} <br/>
-				</td>
-				<td>${cashBalance}</td>
-		</tbody>
-		</table>
+	
 
 
 	<!--end of page content 

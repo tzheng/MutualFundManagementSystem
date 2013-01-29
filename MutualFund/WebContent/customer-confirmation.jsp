@@ -11,7 +11,7 @@
 		    ${message}
 		</div>
 		
-		<a class="btn btn-large btn-success" href="customer-mainpanel.do">Back to main panel</a>		
+		<a class="btn btn-large btn-success" href="view-account.do">Back to Home</a>		
 	
 		
 		

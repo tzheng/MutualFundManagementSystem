@@ -98,7 +98,8 @@ public class CustomerLoginAction extends Action {
 			session.setAttribute("lastname", customer.getLastName());
 			
 	        // If redirectTo is null, redirect to the action
-			return "customer-mainpanel.do";
+			//return "customer-mainpanel.do";
+			return "view-account.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

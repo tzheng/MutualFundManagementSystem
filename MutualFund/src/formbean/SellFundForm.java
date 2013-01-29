@@ -48,8 +48,8 @@ public class SellFundForm extends FormBean {
 		try {
 			Double temp = Double.parseDouble(shares);
 			if (temp <= 0) errors.add("Number of shares cannot be a negative value");
-			if (temp > 100000000 || temp < 0.01) 
-				errors.add("Share number should between 0.01 to 10,000,000,000 (one billion)");
+			if (temp > 100000000 || temp < 0.001) 
+				errors.add("Share number should between 0.001 to 10,000,000,000 (one billion)");
 		} catch (NumberFormatException e) {
 			errors.add("Number of shares is not a number!! Please enter a numerical value");
 		}

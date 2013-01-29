@@ -8,7 +8,7 @@
 	   	<!--display path  -->	   		 		
 		<div>
 				<ul class="breadcrumb">
-						<li><a href="customer-mainpanel.do"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
+						<li><a href="view-account.do"> <i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
 						<li class="active">Transaction History</li>  
 				</ul>
 		</div>	 

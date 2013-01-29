@@ -68,8 +68,12 @@ public class CreateEmployeeAccountForm extends FormBean{
         	errors.add("Username should not contain space(' ')");
         }
         
+        if (firstName.matches(".*\\d.*") || lastName.matches(".*\\d.*")) {
+        	errors.add("First Name/ Last Name should not contain number");
+        }
+        
         if (firstName.trim().length() > 30 || lastName.trim().length() > 30) {
-        	errors.add("Firstname/Lastname should be less then 30 characters");
+        	errors.add("First Name/ Last Name should be less then 30 characters");
         }
         
         if(!password.equals(confirmPassword)) errors.add("Passwords do not match! Please re-enter");
