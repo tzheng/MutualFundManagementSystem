@@ -13,7 +13,7 @@
 	   		 					<li><a href="employee-reset-customer-pwd.do">Reset Customer Password</a></li>
 	   		 					<li><a href="employeeviewaccount.do">View Customer Account</a></li>
 	   		 					<li><a href="employeehistory.do">Customer Transaction History</a></li>
-	   		 					<li><a href="employee-depositcheck.jsp">Deposit Check</a></li>
+	   		 					<li><a href="employee-depositcheck.do">Deposit Check</a></li>
 	   		 					
 	   		 					<li class="nav-header">Employee Account Management</li>
 	   		 					<li><a href="create-account-employee.jsp">Create Employee Account</a></li>

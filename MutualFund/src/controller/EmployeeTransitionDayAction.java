@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -49,16 +50,31 @@ public class EmployeeTransitionDayAction extends Action {
         request.setAttribute("errors",errors);
         
         try {
-        	Date lastDate = transactionDAO.getLastTradingDateOfALLTransactions();
-        	
         	DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        	
+        	// Get last dates of transaction and fund price history.  Set later one as last trading date.
+        	Date lastDateTransaction = transactionDAO.getLastTradingDateOfALLTransactions();
+        	Date lastDateFund = fundPriceHistoryDAO.getLastTradingDateOfALLFunds();        	
+        	
+        	Date lastDate;
+        	if (lastDateTransaction == null) {
+        		lastDate = lastDateFund;
+        	} else if (lastDateFund == null) {
+        		lastDate = lastDateTransaction;
+        	} else {
+        		lastDate = lastDateTransaction.after(lastDateFund) ? lastDateTransaction : lastDateFund;
+        	}
+        	
         	if (lastDate == null) {
         		request.setAttribute("lastDate", "No last trading day");
-        		lastDate = new Date(0);
         	} else {
         		request.setAttribute("lastDate", df.format(lastDate));
         	}
-            
+        	
+        	// Set default date as tomorrow if last date exists.  Otherwise, set today as default day.
+        	Date defaultDate = lastDate != null ? getTomorrow(lastDate) : new Date();
+        	request.setAttribute("defaultDate", df.format(defaultDate));
+        	
         	//get full fund list, allows customer to choose
         	FundGeneralInfoBean[] fundGeneralList = fundPriceHistoryDAO.getAllFundsGeneralInfo();
 			request.setAttribute("fundGeneralList", fundGeneralList);
@@ -73,7 +89,15 @@ public class EmployeeTransitionDayAction extends Action {
 	        if (!form.isPresent()) {
 	            return "employee-transitionday.jsp";
 	        }
-
+	        
+	        // Remain prices entered before
+	        String[] formPrice = form.getClosingPrice();
+	        if (formPrice != null) {
+	        	for (int i = 0; i < len; i++) {
+	        		fundGeneralList[i].setSpecifiedPrice(formPrice[i]);
+	        	}
+	        }
+	        
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
@@ -82,14 +106,13 @@ public class EmployeeTransitionDayAction extends Action {
 
 	        // Get specified date
 	        Date specifiedDate = form.getSpecifiedDate();
-	        request.setAttribute("specifiedDate", form.getDate());
 	        
 	        if (!specifiedDate.after(lastDate)) {
 	        	errors.add("Can only choose the date after last trading date.");
 	        	return "employee-transitionday.jsp";
 	        }
 	        
-	        // Chech whether fund list is empty, if not, update prices.
+	        // Check whether fund list is empty, if not, update prices.
 	        if (!form.isFundListEmpty()) {
 	        	// Get fund ids and closing prices from fund list grid.
 	        	int[] fundIds = form.getFundIdsAsInteger();
@@ -301,5 +324,13 @@ public class EmployeeTransitionDayAction extends Action {
 		BigDecimal b1 = new BigDecimal(Double.toString(v1));
 		BigDecimal b2 = new BigDecimal(Double.toString(v2));
 		return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+	}
+	
+	public Date getTomorrow(Date today) {
+		if (today == null) return new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(today);
+		cal.add(Calendar.DAY_OF_YEAR, 1);
+		return cal.getTime();
 	}
 }

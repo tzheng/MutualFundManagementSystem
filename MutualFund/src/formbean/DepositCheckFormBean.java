@@ -26,11 +26,11 @@ public class DepositCheckFormBean extends FormBean{
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = trimAndConvert(userName,"<>\"");
 	}
 
 	public void setAmount(String amount) {
-		this.amount = amount;
+		this.amount = trimAndConvert(amount,"<>\"");
 	}
 
 	public List<String> getValidationErrors() {

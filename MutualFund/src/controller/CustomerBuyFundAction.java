@@ -79,16 +79,6 @@ public class CustomerBuyFundAction extends Action {
 			
 			double amount = form.getAmountAsDouble();
 			double cash = customer.getCash();
-			//currently we implement a blind system, we won't check until transition day.
-			/**
-			 * now we have fund, we have amount, we need to check whether customer has enough money
-			
-			formatter = new DecimalFormat("#,##0.00");
-			if (amount > cash) {
-				errors.add("Amount is more than your cash! Please enter a number less than: " + formatter.format(cash));
-				return "customer-buyfund.jsp";
-			}
-			**/
 			
 			//insert new transaction to database
 			transactionDAO.buyFund(customerId, fund.getFundId(), amount);
