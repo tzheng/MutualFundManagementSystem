@@ -107,7 +107,7 @@ public class EmployeeTransitionDayAction extends Action {
 	        // Get specified date
 	        Date specifiedDate = form.getSpecifiedDate();
 	        
-	        if (specifiedDate != null && !specifiedDate.after(lastDate)) {
+	        if (lastDate != null && !specifiedDate.after(lastDate)) {
 	        	errors.add("Can only choose the date after last trading date.");
 	        	return "employee-transitionday.jsp";
 	        }
