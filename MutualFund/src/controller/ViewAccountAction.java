@@ -6,6 +6,7 @@
 package controller;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,15 +59,38 @@ public class ViewAccountAction extends Action {
 			DecimalFormat formatter = new DecimalFormat("#,##0.00");
 			request.setAttribute("cashBalance",formatter.format(customer.getCash()));
 
-
+			//set current balance for customer.
+			DecimalFormat format = new DecimalFormat("#,##0.00");
+			request.setAttribute("currentBalance", format.format(customer.getCash()));
+			// get the last trading date of this customer
+			Date lastTradingDate = transactionDAO.getCustomerLastTradeDate(customerId);
+			if (lastTradingDate != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+				request.setAttribute("lastTradingDate", sdf.format(lastTradingDate));
+				//System.out.println(sdf.format(lastTradingDate));
+				//get customer's Rejected transactions of his/her Last Trading Day
+				int processed = transactionDAO.getCustomerTransactionNum(customerId, 1, lastTradingDate);
+				request.setAttribute("processedNumber", processed);
+				//get customer's Processed transactions of his/her Last Trading Day
+				int rejected = transactionDAO.getCustomerTransactionNum(customerId, -1, lastTradingDate);
+				request.setAttribute("rejectedNumber", rejected);
+				
+				double processedPercent = (double) processed / (processed + rejected);
+				double rejectedPercent = 1 - processedPercent;
+				request.setAttribute("pPercent", Math.round(processedPercent * 100));
+				request.setAttribute("rPercent", Math.round(rejectedPercent * 100));
+			} else {
+				request.setAttribute("lastTradingDate", null);
+				request.setAttribute("processedNumber", null);
+				//get customer's Processed transactions of his/her Last Trading Day
+				request.setAttribute("rejectedNumber", null);
+			}
+			
 			request.setAttribute("customer", customer);
-
-
 			
 			PositionBean[] userPosition = positionDAO.getCustomerPortfolio(customer.getCustomerId());
 			
-			FundValueBean [] fundValue = new FundValueBean[userPosition.length];
-//			FundPriceHistoryBean[] fundHistory = fundPriceHistoryDAO.getFundPriceHistory(fundValue.)
+			FundValueBean[] fundValue = new FundValueBean[userPosition.length];
 			for (int i = 0; i< userPosition.length; i++){
 				PositionBean temp = userPosition[i];
 				
@@ -75,16 +99,10 @@ public class ViewAccountAction extends Action {
 				double shares = userPosition[i].getShares();
 				DecimalFormat formatter1 = new DecimalFormat("#,##0.000");
 				fundValue[i].setShares(formatter1.format(shares));
-//				fundValue[i].setShares(userPosition[i].getShares());
-				//double price = pricehistoryDAO.getLastTradingPrice(userPosition[i].getFundId());
 				FundBean fundBean = fundDAO.read(temp.getFundName());
 				fundValue[i].setFundName(fundBean.getName());
 				if(fundPriceHistoryDAO.getLastTrading(userPosition[i].getFundId())!= null){
-				
-				
-				
 					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(userPosition[i].getFundId());
-					
 					fundValue[i].setLastTradingDate(history.getPrice_date());
 					double price = history.getPrice();
 					formatter = new DecimalFormat("#,##0.00");

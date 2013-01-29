@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,8 +64,8 @@ public class DepositCheckAction extends Action{
             }
             
             transactionDAO.depositCheck(customer.getCustomerId(), form.getAmountAsDouble());
-			
-			request.setAttribute("message","Your request for Check Deposit of $ " + "<b>" + form.getAmount() + "</b> "+"has been queued as a pending transaction");			
+			DecimalFormat formatter = new DecimalFormat("#,##0.00");
+			request.setAttribute("message","Your request for Check Deposit of $ " + "<b>" + formatter.format(form.getAmountAsDouble()) + "</b> "+"has been queued as a pending transaction");			
             return successPage;
 
         } catch (FormBeanException e) {

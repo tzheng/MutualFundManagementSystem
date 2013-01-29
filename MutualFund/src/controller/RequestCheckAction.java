@@ -84,8 +84,10 @@ public class RequestCheckAction extends Action{
             }
 			**/
 			transactionDAO.requestCheck(customerId, amount);
-			
-			request.setAttribute("message","Your request for check for $ " + "<b>" + form.getwithdrawamount() + "</b>"+ " has been queued as a pending transaction");
+			formatter = new DecimalFormat("#,##0.00");
+			request.setAttribute("message","Your request for check for $ " 
+					+ "<b>" + formatter.format(form.getAmountAsDouble()) 
+					+ "</b>"+ " has been queued as a pending transaction");
 			
             return successPage;
         } catch (FormBeanException e) {
