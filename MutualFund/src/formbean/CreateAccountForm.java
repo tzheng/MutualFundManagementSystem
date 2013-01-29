@@ -140,22 +140,11 @@ public class CreateAccountForm extends FormBean {
         	errors.add("Username should be less then 30 characters");
         }
         
-        if (firstName.matches(".*\\d.*") || lastName.matches(".*\\d.*")) {
-        	errors.add("First Name/ Last Name should not contain number");
-        }
-        
         if (firstName.trim().length() > 30 || lastName.trim().length() > 30) {
         	errors.add("Firstname/Lastname should be less then 30 characters");
         }
         
-        //Check if zipcode matches
-        Pattern zipPattern = Pattern.compile("\\d{5}(-\\d{4})?");
-        Matcher zipMatcher = zipPattern.matcher(zip.trim());
-        boolean zipFound = zipMatcher.find();
-        
-        if(!zipFound){
-        	errors.add("Zip code is not in the correct format");
-        }
+        if(!zip.trim().matches("^\\d{5}(-\\d{4})?$")) errors.add("Zip code is not in the correct format");
         
         if(!password.equals(confirmPassword)) errors.add("Passwords do not match! Please re-enter");
 		
