@@ -5,7 +5,7 @@
 	   		 				<hr>
 	   		 				<ul class="nav nav-list">
 	   		 					<li class="nav-header">Fund Management</li>
-	   		 					<li><a href="employee-createfund.jsp">Create Fund</a></li>
+	   		 					<li><a href="createfund.do">Create Fund</a></li>
 	   		 					<li><a href="employee-transitionday.do">Transition Day</a></li>
 	   		 					
 	   		 					<li class="nav-header">Customer Account Management</li>

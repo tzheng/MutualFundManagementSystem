@@ -1,3 +1,6 @@
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
+	   
 	   <!--include header -->
 	   <jsp:include page="header-employee-panel.jsp" />
 			   		
@@ -35,7 +38,32 @@
 											</div>
 										</div>    	
 					            </form>
-	   						</div>
+					            
+					            <hr>
+					            
+					            <h4 id="fundlist">Fund List</h4>	
+								<hr>
+									<table class="table table-striped">
+								 				<thead>
+							   								<tr class="info">
+							   									<th>Fund Name</th>
+						                                          <th >Symbol</th>
+						    										<th style="text-align: right">Last Trading Date</th>
+						    										<th style="text-align: right">Last Trading Price</th>
+						  									</tr>
+						  						</thead>
+						  						<tbody>
+						  							   <c:forEach var="fundlist" items="${ fundGeneralList}">
+							  							   	<tr>
+						  							   			<td>${fundlist.name} </td>
+						  							   			<td>${fundlist.symbol} </td>
+						  							   			<td style="text-align: right">${fundlist.lastTradingDate} </td>
+						  							   			<td style="text-align: right">${fundlist.lastTradingPrice}</td>
+						  							   		</tr>
+						  							   </c:forEach>
+						  						</tbody>
+						  				</table>
+	   					</div>
 	   						
 		<!--end of page content 
 		  ============================================

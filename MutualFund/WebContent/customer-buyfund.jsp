@@ -64,7 +64,7 @@
 						  </div>
 						  
 						    <div class="control-group">
-							    <label class="control-label" for="mailadd"><b> Current Account Balance: </b></label>
+							    <label class="control-label" for="mailadd"><b> Account Balance: </b></label>
 							    <div class="controls controlwords">
 							      	<p id="FundInfo" >
 							      	 $ ${cash }
