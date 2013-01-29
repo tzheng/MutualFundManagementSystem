@@ -23,7 +23,7 @@
 								<input type="text" name="userName" value="${form.userName}">							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label"for="inputAmount">Amount $</label>
+							<label class="control-label"for="inputAmount">Amount</label>
 							<div class="controls">
 									<div class="input-prepend">
 									  	<span class="add-on">$</span>

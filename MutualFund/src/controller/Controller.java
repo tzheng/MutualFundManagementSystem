@@ -68,7 +68,7 @@ public class Controller extends HttpServlet {
         // start the website
         if (action.equals("start")) {
         	if (session.getAttribute("customerId") != null){
-        		return "customer-mainpanel.jsp";
+        		return "view-account.do";
             }
             
             if (session.getAttribute("employeeUserName") != null) {
