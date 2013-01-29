@@ -46,27 +46,10 @@ public class CustomerResearchFundAction extends Action {
 			 fundId = Integer.parseInt(temp);
 		}
 		
-		
-		
-		
-		
 		try{
 			//get full fund list, allows customer to choose
-			FundBean[] fundlist = fundDAO.readAllFunds();
-			FundGeneralInfoBean[] fundGeneralList = new FundGeneralInfoBean[fundlist.length];
-			for (int i = 0; i<fundlist.length; i++) {
-				fundGeneralList[i] = new FundGeneralInfoBean();
-				fundGeneralList[i].setFundId(fundlist[i].getFundId());
-				fundGeneralList[i].setName(fundlist[i].getName());
-				fundGeneralList[i].setSymbol(fundlist[i].getSymbol());
-				if (fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId())!= null) {
-					FundPriceHistoryBean history = fundPriceHistoryDAO.getLastTrading(fundlist[i].getFundId());
-					fundGeneralList[i].setLastTradingDate(history.getPrice_date());
-					double price = history.getPrice();
-					//DecimalFormat formatter = new DecimalFormat("#0.00");
-					fundGeneralList[i].setLastTradingPrice(FormatNormalization.formatterForFundPrice.format(price));
-				}
-			}
+			FundGeneralInfoBean[] fundGeneralList = fundPriceHistoryDAO.getAllFundsGeneralInfo();
+			request.setAttribute("fundGeneralList", fundGeneralList);
 			
 			request.setAttribute("fundGeneralList", fundGeneralList);
 			
