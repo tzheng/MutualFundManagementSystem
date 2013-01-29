@@ -57,7 +57,6 @@ public class ResetCustomerPwdForm extends FormBean {
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName.trim();
+		this.userName = trimAndConvert(userName, "<>\"");
 	}
-
 }

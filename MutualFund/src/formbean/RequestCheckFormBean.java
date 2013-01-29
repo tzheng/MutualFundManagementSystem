@@ -40,11 +40,9 @@ public class RequestCheckFormBean extends FormBean{
 
 		try {
 			double buywithdrawamount = Double.parseDouble(withdrawamount);
-			if (buywithdrawamount <= 0) {
-                errors.add("Withdraw amount value should be a positive value");
-			}
-			if (buywithdrawamount > 1000000000 || buywithdrawamount < 0.01) {
-                errors.add("Amount should between 0.01 dollar to 1,000,000,000 (one billion) dollars");
+			
+			if (buywithdrawamount > Math.pow(10, 9) || buywithdrawamount < 0.01) {
+                errors.add("Amount should between $0.01 dollar and $1,000,000,000.00 (one billion) dollars");
 			}
 		} catch (NumberFormatException e) {
 			errors.add("Amount is not a number!! Please enter a numerical value");
