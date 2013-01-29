@@ -52,6 +52,10 @@ public class DepositCheckAction extends Action{
             DepositCheckFormBean form = formBeanFactory.create(request);
             request.setAttribute("form", form);
             
+            if (!form.isPresent()) {
+	            return actionPage;
+	        }
+	
             errors.addAll(form.getValidationErrors());
             if (errors.size() != 0) {
                 return actionPage;
