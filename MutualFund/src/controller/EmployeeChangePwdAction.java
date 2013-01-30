@@ -55,18 +55,22 @@ public class EmployeeChangePwdAction extends Action {
 			if (errors.size() != 0) {
 				return "changepwd-employee.jsp";
 			}
-
-			EmployeeBean employee = employeeDAO.read((String) session
-					.getAttribute("employeeUserName"));
-
-			// check old password
-			if (!employee.checkPassword(form.getOldPassword())) {
-				errors.add("Incorrect Password!! Please re-enter your current password");
-				return "changepwd-customer.jsp";
-			}
 			
-			// change password
-			employeeDAO.changePassword(employee.getUserName(), form.getNewPassword());
+			synchronized(this){
+				EmployeeBean employee = employeeDAO.read((String) session
+						.getAttribute("employeeUserName"));
+
+				// check old password
+				if (!employee.checkPassword(form.getOldPassword())) {
+					errors.add("Incorrect Password!! Please re-enter your current password");
+					return "changepwd-customer.jsp";
+				}
+				
+				// change password
+				employeeDAO.changePassword(employee.getUserName(), form.getNewPassword());
+			}
+
+			
 
 			// Success
 			request.setAttribute("message", "Password changed successfully!");
