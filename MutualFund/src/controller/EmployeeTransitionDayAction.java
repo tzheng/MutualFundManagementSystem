@@ -45,7 +45,7 @@ public class EmployeeTransitionDayAction extends Action {
 	
 	public String getName() { return "employee-transitionday.do"; }
 	
-	public String perform(HttpServletRequest request) {
+	public synchronized String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
