@@ -1,5 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="databean.FundGeneralInfoBean" %>
 <%@ page import="databean.FundPriceHistoryBean" %>
 
@@ -126,7 +127,7 @@
 	<c:when test="${ empty fundPriceList }">
 	</c:when>
 	<c:otherwise>
-	<a href="#chart_div">See Current Fund Prices</a>
+	<a href="#chart_div" class="btn"><i class= "icon-th-list" ></i>View Fund List</a>
 	<div id="linechart_div"></div>
 		<table class="table table-striped">
 			<thead>
@@ -153,7 +154,10 @@
 		</table>
 	</c:otherwise>
 </c:choose>
+<a href="#chart_div" class="btn"><i class= "icon-th-list" ></i>View Fund List</a>
 
+<hr>
+<h4>Fund List</h4>
 <!-- For Fund chart -->
 <div id="chart_div"></div>
 
@@ -164,7 +168,7 @@
 			<th>Fund Id</th>
 			<th>Fund Name</th>
 			<th>Fund Symbol</th>
-			<th>Current Price</th>
+			<th  sytle="text-align: right;">Last Trading Price</th>
 			<th>Last Trading Day</th>
 			<th></th>
 		</tr>
@@ -178,7 +182,9 @@
 				<td>${fundlist.fundId}</td>
 				<td>${fundlist.name}</td>
 				<td>${fundlist.symbol}</td>
-				<td>${fundlist.lastTradingPrice}</td>
+				<td sytle="text-align: right;">
+					<fmt:formatNumber type="number"  pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+				</td>
 				<td>${fundlist.lastTradingDate}</td>
 				<td><form method="POST" action="customer-research-fund.do">
 						<input type="hidden" name="fundId" value="${fundlist.fundId}">
