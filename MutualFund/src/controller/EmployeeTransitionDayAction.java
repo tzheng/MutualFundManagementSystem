@@ -93,6 +93,10 @@ public class EmployeeTransitionDayAction extends Action {
 	        // Remain prices entered before
 	        String[] formPrice = form.getClosingPrice();
 	        if (formPrice != null) {
+	        	if (formPrice.length != len) {
+	        		errors.add("Your current fund list is not up to date. Please refresh the page.");
+	        		return "employee-transitionday.jsp";
+	        	}
 	        	for (int i = 0; i < len; i++) {
 	        		fundGeneralList[i].setSpecifiedPrice(formPrice[i]);
 	        	}
