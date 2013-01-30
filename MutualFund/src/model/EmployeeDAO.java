@@ -29,7 +29,10 @@ public class EmployeeDAO extends BaseDAO {
 			pstmt.setString(1, employee.getPassword());
 			pstmt.setInt(2, employee.getSalt());
 			pstmt.setString(3, username);
-			int rs = pstmt.executeUpdate();
+			int count = pstmt.executeUpdate();
+			if (count != 1)
+				throw new SQLException("Updated " + count + " rows in changing password of employee");
+
 			con.commit();
 
 			pstmt.close();
@@ -38,9 +41,7 @@ public class EmployeeDAO extends BaseDAO {
 			try {
 				if (con != null)
 					con.close();
-			} catch (SQLException e2) { /* ignore */
-			}
-			// throw new MyDAOException(e);
+			} catch (SQLException e2) { /* ignore */ }
 		}
 	}
 
@@ -121,7 +122,7 @@ public class EmployeeDAO extends BaseDAO {
 	}
 
 	// Method to create Employee
-	public void create(EmployeeBean employee) throws MyDAOException {
+	public synchronized void create(EmployeeBean employee) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();

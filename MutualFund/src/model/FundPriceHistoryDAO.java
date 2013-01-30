@@ -26,7 +26,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
         	con = getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName 
-					+ " (fundId INT NOT NULL, priceDate DATE NOT NULL, price BIGINT(32) NOT NULL, "
+					+ " (fundId INT NOT NULL, priceDate DATE NOT NULL, price BIGINT(64) UNSIGNED NOT NULL, "
 					+ "PRIMARY KEY (fundId, pricedate), FOREIGN KEY (fundId) REFERENCES fund (fundId))");
             
             stmt.close();
@@ -43,7 +43,7 @@ public class FundPriceHistoryDAO extends BaseDAO {
 		}
 	}
 	 
-	public void create(FundPriceHistoryBean priceHistory) throws MyDAOException {
+	public synchronized void create(FundPriceHistoryBean priceHistory) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();
