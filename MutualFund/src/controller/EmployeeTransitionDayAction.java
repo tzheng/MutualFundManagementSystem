@@ -186,7 +186,7 @@ public class EmployeeTransitionDayAction extends Action {
 	
 	public boolean buyFund(PendingTransactionBean bean, Date date) throws MyDAOException {
 		if (bean.getAmount() > bean.getCash()) {
-			transactionDAO.rejectTransaction(date, bean.getTransactionId());
+			transactionDAO.rejectFundTransaction(date, bean.getTransactionId(), bean.getPrice());
 			return false;
 		}
 		
@@ -195,6 +195,11 @@ public class EmployeeTransitionDayAction extends Action {
 		double totalShares = add(boughtShares, bean.getOwnedShares());
 		double cost = multiply(boughtShares, bean.getPrice());
 		double remainingCash = subtract(bean.getCash(), cost);
+		
+		if (boughtShares < 0.001 || cost < 0.01) {
+			transactionDAO.rejectFundTransaction(date, bean.getTransactionId(), bean.getPrice());
+			return false;
+		}
 		
 		// Update position table
 		PositionBean positionBean = new PositionBean();
@@ -227,7 +232,7 @@ public class EmployeeTransitionDayAction extends Action {
 	
 	public boolean sellFund(PendingTransactionBean bean, Date date) throws MyDAOException {
 		if (bean.getToSellShares() > bean.getOwnedShares()) {
-			transactionDAO.rejectTransaction(date, bean.getTransactionId());
+			transactionDAO.rejectFundTransaction(date, bean.getTransactionId(), bean.getPrice());
 			return false;
 		}
 		
@@ -235,6 +240,11 @@ public class EmployeeTransitionDayAction extends Action {
 		double remainingShares = subtract(bean.getOwnedShares(), bean.getToSellShares());
 		double revenue = multiply(bean.getToSellShares(), bean.getPrice());
 		double totalCash = add(bean.getCash(), revenue);
+		
+		if (revenue < 0.01) {
+			transactionDAO.rejectFundTransaction(date, bean.getTransactionId(), bean.getPrice());
+			return false;
+		}
 		
 		// Update position table
 		PositionBean positionBean = new PositionBean();
@@ -263,7 +273,7 @@ public class EmployeeTransitionDayAction extends Action {
 	
 	public boolean requestCheck(PendingTransactionBean bean, Date date) throws MyDAOException {
 		if (bean.getAmount() > bean.getCash()) {
-			transactionDAO.rejectTransaction(date, bean.getTransactionId());
+			transactionDAO.rejectCheckTransaction(date, bean.getTransactionId());
 			return false;
 		}
 		

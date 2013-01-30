@@ -304,7 +304,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public synchronized void rejectTransaction(Date date, int transactionId) throws MyDAOException {
+	public synchronized void rejectCheckTransaction(Date date, int transactionId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -319,7 +319,53 @@ public class TransactionDAO extends BaseDAO{
         	pstmt.setDate(1, sqlDate);
         	pstmt.setInt(2, transactionId);
         	int count = pstmt.executeUpdate();
-        	if (count != 1) throw new SQLException("Updated "+count+" rows when reject transaction");
+        	if (count != 1) throw new SQLException("Updated "+count+" rows when reject check transaction");
+        	
+        	pstmt.close();
+        	
+        	con.commit();
+            con.setAutoCommit(true);
+        	releaseConnection(con);
+        	
+        } catch (SQLException e) {
+    		// If this exception is caused by database-related problem, roll back and close this connection.
+    		try {
+            	if (con != null) {
+            		con.rollback();
+            		con.close();
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+        	throw new MyDAOException(e);
+		} finally {
+			// If this exception is caused by illegal update action, roll back but don't close this connection.
+			try {
+            	if (con != null) {
+            		con.rollback();
+            		con.setAutoCommit(true);
+            		releaseConnection(con);
+            	}
+            } catch (SQLException e2) { /* ignore */ }
+		}
+	}
+	
+	public synchronized void rejectFundTransaction(Date date, int transactionId, double price) throws MyDAOException {
+		Connection con = null;
+        try {
+        	con = getConnection();
+        	con.setAutoCommit(false);     	
+        	
+        	PreparedStatement pstmt = con.prepareStatement(
+        			"UPDATE " + tableName + 
+        			" SET executeDate = ?, sharePrice = ?, transactionStatus = -1" +
+        			" WHERE transactionId = ?");
+        	
+        	java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        	pstmt.setDate(1, sqlDate);
+        	long priceL = Math.round(price * 100.00);
+        	pstmt.setLong(2, priceL);
+        	pstmt.setInt(3, transactionId);
+        	int count = pstmt.executeUpdate();
+        	if (count != 1) throw new SQLException("Updated "+count+" rows when reject fund transaction");
         	
         	pstmt.close();
         	
