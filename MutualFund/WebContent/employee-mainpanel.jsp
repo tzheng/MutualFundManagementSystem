@@ -23,7 +23,7 @@
 				<div id="panel-nav" class="row-fluid">
 						<ul id="panel-nav-ul">
 								
-								<a href="employee-createfund.jsp">
+								<a href="createfund.do">
 								<li class="span3">
 										<div class="menu-title">
 											<span class="ca-icon">R</span> 
