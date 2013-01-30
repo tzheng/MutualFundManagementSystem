@@ -44,6 +44,7 @@ public class CustomerResearchFundAction extends Action {
 		Integer fundId = null;
 		if(temp != null){
 			 fundId = Integer.parseInt(temp);
+			 
 		}
 		
 		try{
@@ -56,6 +57,8 @@ public class CustomerResearchFundAction extends Action {
 			if(fundId != null){
 				FundPriceHistoryBean[] fundPriceList = fundPriceHistoryDAO.getFundPriceHistory(fundId.intValue());
 				request.setAttribute("fundPriceList", fundPriceList);
+				String curFund = request.getParameter("fundName");
+				request.setAttribute("curFund", curFund);
 			}
 			
 			return "customer-researchfund.jsp";
