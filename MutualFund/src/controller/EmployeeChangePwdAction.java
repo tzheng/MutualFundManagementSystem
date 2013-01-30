@@ -33,7 +33,7 @@ public class EmployeeChangePwdAction extends Action {
 	}
 
 	@Override
-	public String perform(HttpServletRequest request) {
+	public synchronized String perform(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 
 		// Set up error list

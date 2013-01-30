@@ -39,7 +39,7 @@ public class CustomerSellFundAction extends Action {
 	
 	public String getName() { return "customer-sellfund.do"; }
 	
-	public String perform(HttpServletRequest request) {
+	public synchronized String perform(HttpServletRequest request) {
         // Set up the errors list
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
@@ -69,18 +69,6 @@ public class CustomerSellFundAction extends Action {
 			FundBean fundBean = fundDAO.read(fundName);
 			if (fundBean == null) {
 				errors.add("Fund does not exist!");
-				return "customer-sellfund.jsp";
-			}
-			
-			int index = findByFundId(positionList, fundBean.getFundId());
-			
-			if (index == -1) {
-				errors.add("You don't have this fund in your portfolio.");
-				return "customer-sellfund.jsp";
-			}
-			
-			if (shares > positionList[index].getShares()) {
-				errors.add("Cannot sell fund shares more than your owned");
 				return "customer-sellfund.jsp";
 			}
 			
