@@ -93,7 +93,7 @@
 		// Create the data table.
 		var data = new google.visualization.DataTable();
 		data.addColumn('date', 'Date');
-		data.addColumn('number', 'Current Price');
+		data.addColumn('number', 'Price');
 		for (var i = 0; i < title_lineChart.length; i++){
 			if(dataList_lineChart[i] != "null"){
 				var tmp = title_lineChart[i].split("-");
