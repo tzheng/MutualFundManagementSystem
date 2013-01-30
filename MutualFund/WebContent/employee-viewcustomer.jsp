@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!--include header -->
 <jsp:include page="header-employee-panel.jsp" />
@@ -95,7 +96,10 @@
 										${customer.addrLine2 } <br />
 										${customer.city }, ${customer.state }, ${customer.zip }
 									</td>
-  									<td>${cash }</td>
+  									<td>
+  										<fmt:formatNumber type="number"  pattern="#,##0.00" value="${customer.cash}" />
+  									</td>
+  									
   									<td>${lastTradingDate}</td>
   								</tr>
   						</tbody>
@@ -123,7 +127,9 @@
 						<td style="text-align: right;">${value.shares} </td>
 						<td style="text-align: right;">${value.lastTradingPrice}</td>
 						<td style="text-align: right;">${value.lastTradingDate} </td> 
-						<td style="text-align: right;">${value.value}</td>
+						<td style="text-align: right;">
+							<fmt:formatNumber type="number"  pattern="#,##0.00" value="${value.value}" />
+						</td>
 						
 					</tr>
 				

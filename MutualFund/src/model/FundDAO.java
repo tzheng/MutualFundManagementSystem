@@ -22,7 +22,7 @@ public class FundDAO extends BaseDAO {
 		super(jdbcDriver, jdbcURL, tableName);
 	}
 	
-	public void create(FundBean fund) throws MyDAOException {
+	public synchronized void create(FundBean fund) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();

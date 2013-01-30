@@ -168,7 +168,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
+	public synchronized void buyFund(int customerId, int fundId, double amount) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();
@@ -200,7 +200,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public void sellFund(int customerId, int fundId, double shares) throws MyDAOException {
+	public synchronized void sellFund(int customerId, int fundId, double shares) throws MyDAOException {
 		Connection con = null;
     	try {
         	con = getConnection();
@@ -237,7 +237,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public void depositCheck(int customerId, double amount) throws MyDAOException {
+	public synchronized void depositCheck(int customerId, double amount) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();
@@ -271,7 +271,7 @@ public class TransactionDAO extends BaseDAO{
 			
 	}
 	
-	public void requestCheck(int customerId, double amount) throws MyDAOException {
+	public synchronized void requestCheck(int customerId, double amount) throws MyDAOException {
 		Connection con = null;
 		try {
 			con = getConnection();
@@ -304,7 +304,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public void rejectTransaction(Date date, int transactionId) throws MyDAOException {
+	public synchronized void rejectTransaction(Date date, int transactionId) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -348,7 +348,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public void processFundTransaction(TransactionBean bean) throws MyDAOException {
+	public synchronized void processFundTransaction(TransactionBean bean) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -402,7 +402,7 @@ public class TransactionDAO extends BaseDAO{
 		}
 	}
 	
-	public void processCheckTransaction(TransactionBean bean) throws MyDAOException {
+	public synchronized void processCheckTransaction(TransactionBean bean) throws MyDAOException {
 		Connection con = null;
         try {
         	con = getConnection();
@@ -457,7 +457,7 @@ public class TransactionDAO extends BaseDAO{
 			stmt.executeUpdate("CREATE TABLE "
 					+ tableName
 					+ " (transactionId INT NOT NULL AUTO_INCREMENT, customerId INT NOT NULL, fundId INT, "
-					+ " executeDate DATE, shares BIGINT(32), sharePrice BIGINT(32),transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(64),"
+					+ " executeDate DATE, shares BIGINT(64) UNSIGNED, sharePrice BIGINT(64) UNSIGNED,transactionType INT(1) NOT NULL,transactionStatus INT(1) NOT NULL,amount BIGINT(64) UNSIGNED,"
 					+ " PRIMARY KEY(transactionId), FOREIGN KEY (customerId) REFERENCES Customer (customerId))");
 			stmt.close();
 			releaseConnection(con);
