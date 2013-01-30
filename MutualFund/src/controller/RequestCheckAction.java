@@ -73,9 +73,12 @@ public class RequestCheckAction extends Action{
                 return actionPage;
             }
             
-            double amount = form.getAmountAsDouble();
-			transactionDAO.requestCheck(customerId, amount);
-			formatter = new DecimalFormat("#,##0.00");
+            //synchronized
+            synchronized (this) {
+	            double amount = form.getAmountAsDouble();
+				transactionDAO.requestCheck(customerId, amount);
+				formatter = new DecimalFormat("#,##0.00");
+            }
 			request.setAttribute("message","Your request for check for $ " 
 					+ "<b>" + formatter.format(form.getAmountAsDouble()) 
 					+ "</b>"+ " has been queued as a pending transaction");
