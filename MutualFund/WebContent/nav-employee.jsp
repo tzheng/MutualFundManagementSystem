@@ -16,7 +16,7 @@
 	   		 					<li><a href="employee-depositcheck.do">Deposit Check</a></li>
 	   		 					
 	   		 					<li class="nav-header">Employee Account Management</li>
-	   		 					<li><a href="create-account-employee.jsp">Create Employee Account</a></li>
+	   		 					<li><a href="create-employee-account.do">Create Employee Account</a></li>
 	   		 					<li><a href="employee-change-pwd.do">Change Password</a></li>
 	   		 				</ul>
 	   		 			</div>
