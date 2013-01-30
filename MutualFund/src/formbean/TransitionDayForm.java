@@ -112,8 +112,8 @@ public class TransitionDayForm {
         	
         	try {
         		double temp = Double.parseDouble(closingPrice[i]);
-    			if (temp < 0.01 || temp > Math.pow(10, 5)) 
-    				throw new IllegalArgumentException("The " + count + "th closing price is not an number between 0.01 dollar and 100,000.00 dollars");
+    			if (temp < 0.01 || temp > Math.pow(10, 4)) 
+    				throw new IllegalArgumentException("The " + count + "th closing price is not an number between 0.01 dollar and 10,000.00 dollars");
     		} catch (NumberFormatException e) {
     			errors.add("The " + count + "th closing price is not an valid number.");
     		} catch (IllegalArgumentException e2) {
