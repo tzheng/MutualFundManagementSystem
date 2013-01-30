@@ -1,6 +1,6 @@
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
-	   
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 	   
 	   
 	   <!--include header -->
@@ -110,7 +110,9 @@
   							   			<td>${fundlist.name} </td>
   							   			<td>${fundlist.symbol} </td>
   							   			<td style="text-align: right">${fundlist.lastTradingDate} </td>
-  							   			<td style="text-align: right">${fundlist.lastTradingPrice}</td>
+  							   			<td style="text-align: right">
+  							   				<fmt:formatNumber type="number" pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+  							   			</td>
   							   			<td style="text-align: center"> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</a>
   							   		</tr>
   							   </c:forEach>

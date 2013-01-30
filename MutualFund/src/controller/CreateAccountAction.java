@@ -47,26 +47,26 @@ public class CreateAccountAction extends Action {
 	            return "create-account.jsp";
 	        }
 	
-	        
-	        CustomerBean customer = customerDAO.read(form.getUserName());
-	        
-	       	if (customer != null) {
-	       		errors.add("Existing User Name");
-                return "create-account.jsp";
-	       	}
-	       	
-	       	customer = new CustomerBean();
-	       	customer.setUserName(form.getUserName());
-	       	customer.setFirstName(form.getFirstName());
-	       	customer.setLastName(form.getLastName());
-	       	customer.setPassword(form.getPassword());
-	       	customer.setAddrLine1(form.getAddrLine1());
-	       	customer.setAddrLine2(form.getAddrLine2());
-	       	customer.setCity(form.getCity());
-	       	customer.setState(form.getState());
-	       	customer.setZip(form.getZipAsInt());
-//	       	customer.setCash(0.0);
-	       	customerDAO.create(customer);
+	        synchronized (this) {
+	        	CustomerBean customer = customerDAO.read(form.getUserName());
+		        
+		       	if (customer != null) {
+		       		errors.add("Existing User Name");
+	                return "create-account.jsp";
+		       	}
+		       	
+		       	customer = new CustomerBean();
+		       	customer.setUserName(form.getUserName());
+		       	customer.setFirstName(form.getFirstName());
+		       	customer.setLastName(form.getLastName());
+		       	customer.setPassword(form.getPassword());
+		       	customer.setAddrLine1(form.getAddrLine1());
+		       	customer.setAddrLine2(form.getAddrLine2());
+		       	customer.setCity(form.getCity());
+		       	customer.setState(form.getState());
+		       	customer.setZip(form.getZipAsInt());
+		       	customerDAO.create(customer);
+	        }
         
 	        //set success message, and return to confirmation page!
 	        request.setAttribute("message","Account successfully created for " + "<b>" + form.getUserName() + "</b>" + "</b>!");

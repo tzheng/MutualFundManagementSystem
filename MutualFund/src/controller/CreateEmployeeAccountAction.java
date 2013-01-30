@@ -50,19 +50,21 @@ public class CreateEmployeeAccountAction extends Action{
 	        }
 	
 	        
-	        EmployeeBean employee = employeeDAO.lookup(form.getUserName());
-	       	if (employee != null) {
-	       		errors.add("Existing Username");
-                return "create-account-employee.jsp";
-	       	}
-	       	
-	       	employee = new EmployeeBean();
-	       	employee.setUserName(form.getUserName());
-	       	employee.setPassword(form.getPassword());
-	       	employee.setFirstName(form.getFirstName());
-	       	employee.setLastName(form.getLastName());
-	        
-	       	employeeDAO.create(employee);
+	        synchronized (this) {
+	        	EmployeeBean employee = employeeDAO.lookup(form.getUserName());
+		       	if (employee != null) {
+		       		errors.add("Existing Username");
+	                return "create-account-employee.jsp";
+		       	}
+		       	
+		       	employee = new EmployeeBean();
+		       	employee.setUserName(form.getUserName());
+		       	employee.setPassword(form.getPassword());
+		       	employee.setFirstName(form.getFirstName());
+		       	employee.setLastName(form.getLastName());
+		        
+		       	employeeDAO.create(employee);
+	        }
         
 	        request.setAttribute("message","Account successfully created for " + "<b>" + form.getUserName() + "</b>");
 	       	

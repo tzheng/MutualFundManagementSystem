@@ -57,13 +57,16 @@ public class DepositCheckAction extends Action{
                 return actionPage;
             }
             
-            CustomerBean customer = customerDAO.read(form.getUserName());
-            if (customer == null) {
-            	errors.add("Customer does not exist");
-            	return actionPage;
+            
+            synchronized (this) {
+            	CustomerBean customer = customerDAO.read(form.getUserName());
+                if (customer == null) {
+                	errors.add("Customer does not exist");
+                	return actionPage;
+                }
+            	transactionDAO.depositCheck(customer.getCustomerId(), form.getAmountAsDouble());
             }
             
-            transactionDAO.depositCheck(customer.getCustomerId(), form.getAmountAsDouble());
 			DecimalFormat formatter = new DecimalFormat("#,##0.00");
 			request.setAttribute("message","Your request for Check Deposit of $ " + "<b>" + formatter.format(form.getAmountAsDouble()) + "</b> "+"has been queued as a pending transaction");			
             return successPage;
