@@ -56,8 +56,9 @@ public class CreateFundAction extends Action {
 	            return "employee-createfund.jsp";
 	        } 
 	        
-	        synchronized (this) {
-	        	//test whether fundname and symbol are existed.
+
+	        synchronized(this){
+	        	 //test whether fundname and symbol are existed.
 		        FundBean fund = fundDAO.read(form.getFundName());
 		        FundBean symbol = fundDAO.readSymbol(form.getSymbol());
 		        
@@ -75,7 +76,9 @@ public class CreateFundAction extends Action {
 				fund.setName(form.getFundName());
 				fundDAO.create(fund);
 	        }
-	        request.setAttribute("message"," Fund Successfully Created. Fund: " + "<b>" + form.getFundName() 
+	       
+			
+			request.setAttribute("message"," Fund Successfully Created. Fund: " + "<b>" + form.getFundName() 
 					+ "</b>, Symbol: <b>" + form.getSymbol() + "</b>");
 			
 			return "employee-confirmation.jsp";

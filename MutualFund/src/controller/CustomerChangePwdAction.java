@@ -57,17 +57,19 @@ public class CustomerChangePwdAction extends Action {
 				return "changepwd-customer.jsp";
 			}
 			
-			
-			CustomerBean customer = customerDAO.read((Integer) session.getAttribute("customerId"));
-			
-			// check old password
-			if(!customer.checkPassword(form.getOldPassword())){
-				errors.add("Incorrect Password!! Please re-enter your current password.");
-				return "changepwd-customer.jsp";
+			synchronized(this){
+				CustomerBean customer = customerDAO.read((Integer) session.getAttribute("customerId"));
+				
+				// check old password
+				if(!customer.checkPassword(form.getOldPassword())){
+					errors.add("Incorrect Password!! Please re-enter your current password.");
+					return "changepwd-customer.jsp";
+				}
+				
+				// change password
+				customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 			}
 			
-			// change password
-			customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 			
 			// Success
 			request.setAttribute("message", "Password changed successfully!");

@@ -56,14 +56,16 @@ public class EmployeeResetCustomerPwdAction extends Action {
 				return "employee-resetcustomerpswd.jsp";
 			}
 			
-			CustomerBean customer = customerDAO.read(form.getUserName());
-			if (customer == null) {
-				errors.add("Customer does not exist");
-				return "employee-resetcustomerpswd.jsp";
+			synchronized (this) {
+				CustomerBean customer = customerDAO.read(form.getUserName());
+				if (customer == null) {
+					errors.add("Customer does not exist");
+					return "employee-resetcustomerpswd.jsp";
+				}
+				
+				customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
 			}
 			
-			customerDAO.changePassword(customer.getCustomerId(), form.getNewPassword());
-
 			// Success
 			request.setAttribute("message", "Customer's password updated Successfully!");
 			return "employee-confirmation.jsp";

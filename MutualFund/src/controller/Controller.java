@@ -107,6 +107,7 @@ public class Controller extends HttpServlet {
     	
     	if (nextPage.endsWith(".do")) {
 			response.sendRedirect(nextPage);
+			response.setHeader("Cache-Control","no-cache");
 			return;
     	}
     	
