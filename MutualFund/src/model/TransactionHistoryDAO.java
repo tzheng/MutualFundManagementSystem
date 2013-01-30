@@ -37,6 +37,7 @@ public class TransactionHistoryDAO extends BaseDAO {
 			
 			ResultSet rs = pstmt.executeQuery();
 			
+			
 			List<TransactionHistoryBean> list = new ArrayList<TransactionHistoryBean>();
 			while (rs.next()) {
 				TransactionHistoryBean history = new TransactionHistoryBean();
