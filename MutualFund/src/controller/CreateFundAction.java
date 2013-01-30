@@ -55,26 +55,29 @@ public class CreateFundAction extends Action {
 	        if (errors.size() != 0) {
 	            return "employee-createfund.jsp";
 	        } 
-	        //test whether fundname and symbol are existed.
-	        FundBean fund = fundDAO.read(form.getFundName());
-	        FundBean symbol = fundDAO.readSymbol(form.getSymbol());
 	        
-	       	if (fund!= null) {
-	       		errors.add("Existing Fund Name");
-	       		return "employee-createfund.jsp";
-	       	}
-	       	if (symbol!=null){
-	       		errors.add("Existing Symbol");
-	       		return "employee-createfund.jsp";
-	       	}
-	        
-	       	fund = new FundBean();
-			fund.setSymbol(form.getSymbol());
-			fund.setName(form.getFundName());
-			fundDAO.create(fund);
-			
-			request.setAttribute("message"," Fund Successfully Created. Fund: " + "<b>" + form.getFundName() 
+	        synchronized (this) {
+	        	//test whether fundname and symbol are existed.
+		        FundBean fund = fundDAO.read(form.getFundName());
+		        FundBean symbol = fundDAO.readSymbol(form.getSymbol());
+		        
+		       	if (fund!= null) {
+		       		errors.add("Existing Fund Name");
+		       		return "employee-createfund.jsp";
+		       	}
+		       	if (symbol!=null){
+		       		errors.add("Existing Symbol");
+		       		return "employee-createfund.jsp";
+		       	}
+		        
+		       	fund = new FundBean();
+				fund.setSymbol(form.getSymbol());
+				fund.setName(form.getFundName());
+				fundDAO.create(fund);
+	        }
+	        request.setAttribute("message"," Fund Successfully Created. Fund: " + "<b>" + form.getFundName() 
 					+ "</b>, Symbol: <b>" + form.getSymbol() + "</b>");
+			
 			return "employee-confirmation.jsp";
 			
 		} catch ( MyDAOException e) {
