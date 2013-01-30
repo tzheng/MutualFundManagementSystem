@@ -76,36 +76,36 @@
 		 		<a href="employeeviewaccount.do" class="btn"> <i class="icon-chevron-left" ></i> See full customer list</a>
 		 		<hr>
 		 		<h4>Customer Information</h4> 
-		 <div>  <!--  Here list the Transactions -->
-		 		<table class="table table-condensed">
-		 				<thead>
-	   							<tr class="info">
-    										<th>Name</th>
-    										<th>Address Information</th>
-    										<th>Cash Balance</th>
-    										<th>Last Trading Date</th>
-  								</tr>
-  						</thead>
-  						<tbody>
-  								<c:set var="value" value="${fundvalue}" ></c:set>
-  								<c:set var="customer" value="${customer }"></c:set>
-  								<tr>
-  									<td>${customer.firstName }&nbsp;${customer.lastName}</td>
-  									<td>
-										${customer.addrLine1 } <br />
-										${customer.addrLine2 } <br />
-										${customer.city }, ${customer.state }, ${customer.zip }
-									</td>
-  									<td>
-  										<fmt:formatNumber type="number"  pattern="#,##0.00" value="${customer.cash}" />
-  									</td>
-  									
-  									<td>${lastTradingDate}</td>
-  								</tr>
-  						</tbody>
-  				</table>
-  								
-		 </div>
+		 		
+				<div>  <!--  Here list the Transactions -->
+			 		<table class="table table-condensed">
+			 				<thead>
+		   							<tr class="info">
+	    										<th>Name</th>
+	    										<th>Address Information</th>
+	    										<th>Cash Balance</th>
+	    										<th>Last Transaction Date</th>
+	  								</tr>
+	  						</thead>
+	  						<tbody>
+	  								<c:set var="value" value="${fundvalue}" ></c:set>
+	  								<c:set var="customer" value="${customer }"></c:set>
+	  								<tr>
+	  									<td>${customer.firstName }&nbsp;${customer.lastName}</td>
+	  									<td>
+											${customer.addrLine1 } <br />
+											${customer.addrLine2 } <br />
+											${customer.city }, ${customer.state }, ${customer.zip }
+										</td>
+	  									<td>
+	  										<fmt:formatNumber type="number"  pattern="#,##0.00" value="${customer.cash}" />
+	  									</td>
+	  									
+	  									<td>${lastTradingDate}</td>
+	  								</tr>
+	  						</tbody>
+	  				</table>
+		 		</div>
 		 
 		 <hr>
 		<h4>Fund Portfolio</h4>
@@ -125,7 +125,9 @@
 						<tr>
 						<td>${value.fundName} </td>
 						<td style="text-align: right;">${value.shares} </td>
-						<td style="text-align: right;">${value.lastTradingPrice}</td>
+						<td style="text-align: right;">
+								<fmt:formatNumber type="number"  pattern="#,##0.00" value="${value.lastTradingPrice}" />
+						</td>
 						<td style="text-align: right;">${value.lastTradingDate} </td> 
 						<td style="text-align: right;">
 							<fmt:formatNumber type="number"  pattern="#,##0.00" value="${value.value}" />

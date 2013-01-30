@@ -23,7 +23,8 @@
 	   	<!--put your page content here 
 		  ============================================
 		 -->
-	 				<h4 id="chooseFund"> Buy Fund </h4> <hr>
+	 				<h4 id="chooseFund"> Buy Fund </h4>  <hr>
+	 				
 	 				<jsp:include page="success-status.jsp"></jsp:include>
 	 				<jsp:include page="error-list.jsp"></jsp:include>
 			   		 <form class="form-horizontal" method="post" action="customer-buyfund.do">
@@ -90,8 +91,7 @@
 						  </div>
 					  </form>
 		<hr>
-		
-		<h4 id="fundlist">Fund List</h4>	
+		<h4 id="fundlist">Fund List  &nbsp; &nbsp; &nbsp; <a href="customer-research-fund.do" class="btn">Research Fund</a> </h4>	
 		<hr>
 			<table class="table table-striped">
 		 				<thead>
@@ -109,11 +109,32 @@
   							 
   							   			<td>${fundlist.name} </td>
   							   			<td>${fundlist.symbol} </td>
-  							   			<td style="text-align: right">${fundlist.lastTradingDate} </td>
   							   			<td style="text-align: right">
-  							   				<fmt:formatNumber type="number" pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+  							   					<c:choose>
+							  					<c:when test="${ empty fundlist.lastTradingDate}" >
+							  							-
+							  					</c:when>
+							  					<c:otherwise>
+							  							${fundlist.lastTradingDate} 
+							  					</c:otherwise>
+							  				</c:choose>
   							   			</td>
-  							   			<td style="text-align: center"> <a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund</a>
+  							   			<td style="text-align: right">
+  							   				<c:set var="zero" value="0.00" />
+							  				<c:set var="ltp" value="${fundlist.lastTradingPrice}" />
+							  				<c:choose>
+							  					<c:when test="${ zero eq  ltp}" >
+							  							-
+							  					</c:when>
+							  					<c:otherwise>
+							  							<fmt:formatNumber type="number" pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+							  					</c:otherwise>
+							  				</c:choose>
+  							   			</td>
+  							   			<td style="text-align: center"> 
+  							   				<a href="#chooseFund" class="btn" class="fundBtn" onclick="javascript:document.getElementById('fundname').value='${fundlist.name}';">Buy Fund
+  							   				</a>
+  							   			</td>
   							   		</tr>
   							   </c:forEach>
   						</tbody>

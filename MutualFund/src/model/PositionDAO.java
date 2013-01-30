@@ -123,7 +123,7 @@ public class PositionDAO extends BaseDAO {
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT position.fundId, position.customerId, position.shares, position.availableShares, fund.name, fund.symbol "
 							+ " FROM position INNER JOIN fund on position.fundId = fund.fundId "
-							+ " WHERE customerId = ? ORDER BY position.fundId ASC");
+							+ " WHERE customerId = ? AND position.shares > 0 ORDER BY position.fundId ASC");
 			pstmt.setInt(1, customerId);
 
 			ResultSet rs = pstmt.executeQuery();

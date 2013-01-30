@@ -31,8 +31,8 @@
 							<h5>You don't have any transactions currently. </h5>
 						</c:when>
 						<c:otherwise>
-							<p>Your last trading date is: <b>${lastTradingDate }</b>
-							<h5>During the last trading day: </h5>
+							<p>Your last transaction date is: <b>${lastTradingDate }</b>
+							<h5>During the last transaction day: </h5>
 							<div class="span12" style="margin-top: 10px;">
 								<div style="width: 80%">
 									<div class="progress" style="height: 30px;">

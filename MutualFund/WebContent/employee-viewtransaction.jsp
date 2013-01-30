@@ -44,7 +44,7 @@
                                           <th>Date</th>
     										<th>Operation</th>
     										<th>Fund Name</th>
-    										<th>Share Number</th>
+    										<th style="text-align: right;">Share Number</th>
     										<th>Share Price</th>
     										<th>Dollar Amount</th>
     										<th>Status</th>
