@@ -103,7 +103,8 @@
 				var month = parseInt(tmp[1]);
 				var day = parseInt(tmp[2]);
 				
-				data.addRow([new Date(year,month,day), parseFloat(dataList_lineChart[i])]);	
+				data.addRow([new Date(year,month - 1,day), parseFloat(dataList_lineChart[i])]);	
+				console.log(year + "" + month + day);
 				console.log(new Date(year,month,day));
 			}
 		}
