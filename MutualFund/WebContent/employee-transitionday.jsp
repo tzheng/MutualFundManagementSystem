@@ -39,7 +39,7 @@
 </div>
 
 <h5>Please set closing prices to <b style="color: blue;">${ fundListLength } funds</b>.</h5>
-<p><i>(Closing Price should be a value between 0.01 and 1,000,000,000.00.  The system has a precision to two decimal places)</i></p>
+<p><i>(Closing Price should be a value between 0.01 and 10,000.00.  The system has a precision to two decimal places)</i></p>
 
 <table class="table table-striped">
 	<thead>
@@ -59,7 +59,17 @@
 				<td>${ fund.name }</td>
 				<td>${ fund.symbol }</td>
 				<td style="text-align: right">
-					<fmt:formatNumber type="number" pattern="#,##0.00" value="${ fund.lastTradingPrice }" />
+							<c:set var="zero" value="0.00" />
+							<c:set var="ltp" value="${fund.lastTradingPrice}" />
+							 <c:choose>
+							  		<c:when test="${ zero eq  ltp}" >
+							  			-
+							  		</c:when>
+							  		<c:otherwise>
+							  				<fmt:formatNumber type="number" pattern="#,##0.00" value="${ fund.lastTradingPrice }" />
+							  		</c:otherwise>
+							</c:choose>
+					
 				</td>
 				<td style="text-align: center;  padding-left: 20px;">
 					<input type="text" name="price" value="${ fund.specifiedPrice }" />

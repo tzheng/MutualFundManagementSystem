@@ -128,7 +128,8 @@
 	</c:when>
 	<c:otherwise>
 	<a href="#chart_div" class="btn"><i class= "icon-th-list" ></i>View Fund List</a>
-	<h4>Performance of ${curFund}</h4>
+	<h4>Recent Trends of <span style="color: blue">${curFund}</span> &nbsp; &nbsp;
+	<a href="customer-buyfund.do?getFundName=${curFund}" class="btn"><i class="icon-chevron-right"></i>Buy this fund</a> </h4>
 	<div id="linechart_div"></div>
 	<div class="span12">
 		<table class="table table-striped span12">
@@ -168,11 +169,11 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>Fund Id</th>
 			<th>Fund Name</th>
 			<th>Fund Symbol</th>
 			<th  style="text-align: right;">Last Trading Price</th>
-			<th>Last Trading Day</th>
+			<th style="text-align: center;">Last Trading Day</th>
+			<th></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -182,13 +183,22 @@
 			<tr>
 
 				<td>${num}</td>
-				<td>${fundlist.fundId}</td>
 				<td>${fundlist.name}</td>
 				<td>${fundlist.symbol}</td>
 				<td style="text-align: right;">
-					<fmt:formatNumber type="number"  pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+						<c:set var="zero" value="0.00" />
+							<c:set var="ltp" value="${fundlist.lastTradingPrice}" />
+							 <c:choose>
+							  		<c:when test="${ zero eq  ltp}" >
+							  			-
+							  		</c:when>
+							  		<c:otherwise>
+							  				<fmt:formatNumber type="number"  pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+							  		</c:otherwise>
+							</c:choose>
+					
 				</td>
-				<td>${fundlist.lastTradingDate}</td>
+				<td  style="text-align: center;">${fundlist.lastTradingDate}</td>
 				<td>
 					<form method="POST" action="customer-research-fund.do">
 						<input type="hidden" name="fundId" value="${fundlist.fundId}">
@@ -196,7 +206,9 @@
 						<button type="submit" class="btn">See Recent Trends</button>
 					</form>
 				</td>
-
+				<td>
+					<a href="customer-buyfund.do?getFundName=${fundlist.name}" class="btn">Buy Fund</a>
+				</td>
 			</tr>
 			<c:set var="num" value="${num + 1}" />
 		</c:forEach>

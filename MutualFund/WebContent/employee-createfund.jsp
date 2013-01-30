@@ -57,9 +57,27 @@
 							  							   	<tr>
 						  							   			<td>${fundlist.name} </td>
 						  							   			<td>${fundlist.symbol} </td>
-						  							   			<td style="text-align: right">${fundlist.lastTradingDate} </td>
 						  							   			<td style="text-align: right">
-						  							   				<fmt:formatNumber type="number" pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+						  							   					<c:choose>
+														  					<c:when test="${ empty fundlist.lastTradingDate}" >
+														  							-
+														  					</c:when>
+														  					<c:otherwise>
+														  							${fundlist.lastTradingDate} 
+														  					</c:otherwise>
+														  				</c:choose> 
+						  							   			</td>
+						  							   			<td style="text-align: right">
+						  							   				<c:set var="zero" value="0.00" />
+							  							   			<c:set var="ltp" value="${fundlist.lastTradingPrice}" />
+							  							   			<c:choose>
+							  							   					<c:when test="${ zero eq  ltp}" >
+							  							   						-
+							  							   					</c:when>
+							  							   					<c:otherwise>
+							  							   							<fmt:formatNumber type="number" pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
+							  							   					</c:otherwise>
+							  							   			</c:choose>
 						  							   			</td>
 						  							   		</tr>
 						  							   </c:forEach>
