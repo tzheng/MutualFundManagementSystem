@@ -128,14 +128,15 @@
 	</c:when>
 	<c:otherwise>
 	<a href="#chart_div" class="btn"><i class= "icon-th-list" ></i>View Fund List</a>
+	<h4>Performance of ${curFund}</h4>
 	<div id="linechart_div"></div>
-		<table class="table table-striped">
+	<div class="span12">
+		<table class="table table-striped span12">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Fund Id</th>
-					<th>Trading Date</th>
-					<th>Trading Price</th>
+					<th>Last Trading Date</th>
+					<th style="text-align: right;">Last Trading Price</th>
 
 				</tr>
 			</thead>
@@ -144,14 +145,16 @@
 				<c:forEach var="fundHistory" items="${fundPriceList}">
 					<tr>
 						<td>${num}</td>
-						<td>${fundHistory.fund_id}</td>
 						<td>${fundHistory.price_date}</td>
-						<td>${fundHistory.price}</td>
+						<td style="text-align: right;">
+							<fmt:formatNumber type="number"  pattern="#,##0.00" value="${fundHistory.price}" />
+						</td>
 					</tr>
 					<c:set var="num" value="${num + 1}" />
 				</c:forEach>
 			</tbody>
 		</table>
+	</div>	
 	</c:otherwise>
 </c:choose>
 <a href="#chart_div" class="btn"><i class= "icon-th-list" ></i>View Fund List</a>
@@ -168,7 +171,7 @@
 			<th>Fund Id</th>
 			<th>Fund Name</th>
 			<th>Fund Symbol</th>
-			<th  sytle="text-align: right;">Last Trading Price</th>
+			<th  style="text-align: right;">Last Trading Price</th>
 			<th>Last Trading Day</th>
 			<th></th>
 		</tr>
@@ -182,14 +185,17 @@
 				<td>${fundlist.fundId}</td>
 				<td>${fundlist.name}</td>
 				<td>${fundlist.symbol}</td>
-				<td sytle="text-align: right;">
+				<td style="text-align: right;">
 					<fmt:formatNumber type="number"  pattern="#,##0.00" value="${fundlist.lastTradingPrice}" />
 				</td>
 				<td>${fundlist.lastTradingDate}</td>
-				<td><form method="POST" action="customer-research-fund.do">
+				<td>
+					<form method="POST" action="customer-research-fund.do">
 						<input type="hidden" name="fundId" value="${fundlist.fundId}">
+						<input type="hidden" name="fundName" value="${fundlist.name}">
 						<button type="submit" class="btn">See Recent Trends</button>
-					</form></td>
+					</form>
+				</td>
 
 			</tr>
 			<c:set var="num" value="${num + 1}" />
