@@ -29,7 +29,7 @@ public class SessionCheck implements Filter {
         String      servletPath = request.getServletPath();
         String      action = getActionName(servletPath);
         
-        System.out.println(servletPath);
+        //System.out.println(servletPath);
         
         Integer customerId = (Integer) request.getSession().getAttribute("customerId");
         String employeeUserName = (String) request.getSession().getAttribute("employeeUserName");
